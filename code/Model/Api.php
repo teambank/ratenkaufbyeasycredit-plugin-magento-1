@@ -4,6 +4,9 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object {
     protected $_apiBaseUrl = 'https://www.easycredit.de/ratenkauf-ws/rest';
     protected $_apiVersion = 'v0';
 
+    protected $_customerPrefixMalePatterns = array('Herr','Mr','male','männlich');
+    protected $_customerPrefixFemalePatterns = array('Frau','Ms','Miss','Mrs','female','weiblich');
+
     protected function _getRequestContext($method, $postData = null) {
 
         $headers = array(
@@ -171,11 +174,30 @@ Mage::log($result);
         );
     }
 
+
+    protected function _guessCustomerPrefix($prefix) {
+        foreach ($this->_customerPrefixMalePatterns as $pattern) {
+            if (stripos($prefix,$pattern) !== false) {
+                return 'HERR';
+            }
+        }
+        foreach ($this->_customerPrefixFemalePatterns as $pattern) {
+            if (stripos($prefix,$pattern) !== false) {
+                return 'FRAU';
+            }
+        }
+    }
+
     protected function _convertPersonalData($quote) {
-        return array(); // Workaround: Anrede nicht vorhanden
+
+        // Workaround: Anrede nicht vorhanden
+        $prefix = $this->_guessCustomerPrefix($quote->getCustomerPrefix());
+        if (null == $prefix) {
+            return array();
+        }
 
         return array(
-            'anrede' => 'HERR', //null, //$quote->getCustomerPrefix(),
+            'anrede' => $prefix,
             'vorname' => $quote->getCustomerFirstname(),
             'nachname' => $quote->getCustomerLastname(),
             'geburtsdatum' => $quote->getCustomerDob(),
@@ -183,7 +205,7 @@ Mage::log($result);
     }
 
     public function getProcessRequest($quote, $cancelUrl, $returnUrl, $rejectUrl) {
-        return array(
+        return array_filter(array(
            'shopKennung' => $this->_getWebshopId(),
            'bestellwert' => $quote->getGrandTotal(),
            'ruecksprungadressen' => array(
@@ -192,12 +214,12 @@ Mage::log($result);
                'urlAblehnung' => $rejectUrl
            ),
            'laufzeit' => 36,
-//           'personendaten' => $this->_convertPersonalData($quote),
+           'personendaten' => $this->_convertPersonalData($quote),
            'kontakt' => array(
              'email' => $quote->getCustomerEmail(),
            ),
            'rechnungsadresse' => $this->_convertAddress($quote->getBillingAddress()),
            'lieferAdresse' => $this->_convertAddress($quote->getShippingAddress()),
-        );
+        ));
     }
 }
