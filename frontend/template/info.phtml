@@ -1,0 +1,10 @@
+<p>
+    <strong><?php echo $this->getMethod()->getTitle() ?></strong><br />
+
+    <?php echo $this->getInfoAdditionalData('redemption_plan'); ?><br />
+    <a href="<?php echo $this->getInfoAdditionalData('pre_contract_information_url'); ?>" target="_blank">Vorvertragliche Informationen zum Ratenkauf hier abrufen</a>
+
+    <?php /*if ($this->getMethod()->getConfigData('infotext_overview')): ?>
+        <?php echo $this->getMethod()->getConfigData('infotext_overview') ?><br />
+    <?php endif;*/ ?>
+</p>

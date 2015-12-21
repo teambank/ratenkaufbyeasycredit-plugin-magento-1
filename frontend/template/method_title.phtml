@@ -1,0 +1,16 @@
+<div style="display:flex;">
+    <img src="<?php echo $this->getSkinUrl('images/easycredit/rk.png'); ?>" height="35" />
+    <span style="display: inline-block; align-self: flex-end;">
+        by easyCredit
+
+        <?php if ($error = $this->getMethodBlock()->checkAvailability()) : ?>
+
+        (<?php echo $error; ?>)
+        <script>
+        $('p_method_easycredit').disabled = true;
+        $('p_method_easycredit').siblings('label')[0].down('img').setAttribute('style','-webkit-filter:grayscale(100%); filter:grayscale(100%);');
+        </script>
+
+        <?php endif; ?>
+    </span>
+</div>

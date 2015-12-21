@@ -1,0 +1,4 @@
+<?php
+class Netzkollektiv_EasyCredit_Block_Checkout_Payment_Info extends Mage_Checkout_Block_Onepage_Payment_Info {
+
+}

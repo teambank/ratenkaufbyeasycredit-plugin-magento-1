@@ -1,0 +1,10 @@
+<?php $this->setPriceDataObject($this->getSource()) ?>
+
+<?php if ((float) $this->getSource()->getEasycreditAmount()): ?>
+    <tr>
+        <td class="label"><?php echo Mage::helper('easycredit')->__('Interest') ?></td>
+        <td>
+            <?php echo $this->displayPrices($this->getSource()->getBaseEasycreditAmount(), $this->getSource()->getEasycreditAmount()); ?>
+        </td>
+    </tr>
+<?php endif; ?>

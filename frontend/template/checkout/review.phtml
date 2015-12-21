@@ -1,0 +1,98 @@
+<script>
+Review.prototype.save = function(){
+    if (checkout.loadWaiting!=false) return;
+    checkout.setLoadWaiting('review');
+    var params = 'payment%5Bmethod%5D=easycredit';
+    if (this.agreementsForm) {
+        params += '&'+Form.serialize(this.agreementsForm);
+    }
+    params.save = true;
+    var request = new Ajax.Request(
+        this.saveUrl,
+        {
+            method:'post',
+            parameters:params,
+            onComplete: this.onComplete,
+            onSuccess: this.onSave,
+            onFailure: checkout.ajaxFailure.bind(checkout)
+        }
+    );
+}
+var checkout = new Checkout({sections:[]},{});
+
+</script>
+
+<div class="page-title">
+    <h1><?php echo $this->__('Review Order') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+
+<div class="info-set col2-set">
+    <div class="col-1">
+        <div class="box">
+            <div class="box-title">
+                <h3><?php echo $this->__('Billing Address') ?></h3>
+            </div>
+            <div class="box-content">
+                <address><?php echo $this->getBilling()->format('html');?></address>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-2">
+        <div class="box">
+            <div class="box-title">
+                <h3><?php echo $this->__('Shipping Address') ?></h3>
+            </div>
+            <div class="box-content">
+                <address><?php echo $this->getShipping()->format('html');?></address>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="info-set col2-set">
+    <div class="col-1">
+        <div class="box">
+            <div class="box-title">
+                <h3><?php echo $this->__('Payment Method') ?></h3>
+            </div>
+            <div class="box-content">
+                <?php echo $this->getPaymentHtml() ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-2">
+        <div class="box">
+            <div class="box-title">
+                <h3><?php echo $this->__('Shipping Method') ?></h3>
+            </div>
+            <div class="box-content">
+
+                <?php if ($this->getShippingMethod()): ?>
+                <?php echo $this->getShippingDescription() ?>
+
+                <?php $_excl = $this->getShippingPriceExclTax(); ?>
+                <?php $_incl = $this->getShippingPriceInclTax(); ?>
+                <?php if ($this->helper('tax')->displayShippingPriceIncludingTax()): ?>
+                    <?php echo $_incl; ?>
+                    <?php else: ?>
+                    <?php echo $_excl; ?>
+                    <?php endif; ?>
+                <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                    (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                    <?php endif; ?>
+
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="info-set">
+    <h2 class="legend"><?php echo $this->__('Products') ?></h2>
+    <?php echo $this->getChildHtml('details') ?>
+</div>
+

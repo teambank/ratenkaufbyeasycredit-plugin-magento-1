@@ -1,0 +1,8 @@
+code app/code/community/Netzkollektiv/EasyCredit
+frontend/template app/design/frontend/base/default/template/easycredit
+frontend/layout/* app/design/frontend/base/default/layout/
+adminhtml/template app/design/adminhtml/base/default/template/easycredit
+adminhtml/layout/* app/design/adminhtml/base/default/layout/
+skin/images skin/frontend/base/default/images/easycredit
+locale/de_DE.csv app/locale/de_DE/Netzkollektiv_EasyCredit.csv
+module.xml app/etc/modules/Netzkollektiv_Easycredit.xml

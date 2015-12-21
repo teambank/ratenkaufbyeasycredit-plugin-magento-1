@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Netzkollektiv_EasyCredit>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Netzkollektiv_EasyCredit>
+    </modules>
+</config>
