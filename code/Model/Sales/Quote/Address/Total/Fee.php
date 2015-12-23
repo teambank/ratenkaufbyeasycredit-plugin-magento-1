@@ -43,6 +43,9 @@ class Netzkollektiv_EasyCredit_Model_Sales_Quote_Address_Total_Fee extends Mage_
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {
         $amount = $address->getEasycreditAmount();
+        if ($amount <= 0) {
+            return $this;
+        }
         $address->addTotal(array(
             'code' => $this->getCode(),
             'title' => Mage::helper('easycredit')->__('Interest'),
