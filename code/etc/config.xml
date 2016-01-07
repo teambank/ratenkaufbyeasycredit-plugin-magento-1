@@ -131,6 +131,16 @@
                 </Netzkollektiv_EasyCredit>
             </modules>
         </translate>
+        <events>
+            <sales_quote_collect_totals_after>
+                <observers>
+                    <easycredit>
+                        <class>easycredit/observer</class>
+                        <method>expirePayment</method>
+                    </easycredit>
+                </observers>
+            </sales_quote_collect_totals_after>
+        </events>
     </frontend>
 
     <adminhtml>

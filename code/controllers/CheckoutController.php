@@ -7,7 +7,6 @@ class Netzkollektiv_Easycredit_CheckoutController extends Mage_Core_Controller_F
             $this->getResponse()->setHeader('HTTP/1.1','403 Forbidden');
             Mage::throwException(Mage::helper('easycredit')->__('Unable to initialize easyCredit Payment.'));
         }
-
     }
 
     protected function _getCheckoutSession()
@@ -31,33 +30,6 @@ class Netzkollektiv_Easycredit_CheckoutController extends Mage_Core_Controller_F
 
             $this->_validateQuote();
 
-/*
-            if ($this->_getQuote()->getIsMultiShipping()) {
-                $this->_getQuote()->setIsMultiShipping(false);
-                $this->_getQuote()->removeAllAddresses();
-            }
-
-            $customer = Mage::getSingleton('customer/session')->getCustomer();
-            $quoteCheckoutMethod = $this->_getQuote()->getCheckoutMethod();
-            if ($customer && $customer->getId()) {
-                $this->_checkout->setCustomerWithAddressChange(
-                    $customer, $this->_getQuote()->getBillingAddress(), $this->_getQuote()->getShippingAddress()
-                );
-            } elseif ((!$quoteCheckoutMethod
-                || $quoteCheckoutMethod != Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER)
-                && !Mage::helper('checkout')->isAllowedGuestCheckout(
-                $this->_getQuote(),
-                $this->_getQuote()->getStoreId()
-            )) {
-                Mage::getSingleton('core/session')->addNotice(
-                    Mage::helper('paypal')->__('To proceed to Checkout, please log in using your email address.')
-                );
-                $this->redirectLogin();
-                Mage::getSingleton('customer/session')
-                    ->setBeforeAuthUrl(Mage::getUrl('', array('_current' => true)));
-                return;
-            }
-*/
             $checkout = Mage::getSingleton('easycredit/checkout');
             $checkout->setReturnUrl(Mage::getUrl('*/*/return'))
                 ->setCancelUrl(Mage::getUrl('*/*/cancel'))
@@ -107,16 +79,13 @@ class Netzkollektiv_Easycredit_CheckoutController extends Mage_Core_Controller_F
     public function reviewAction() {
         try {
             $this->_validateQuote();
-//            $this->_checkout->prepareOrderReview($this->_initToken());
+
+            $checkout = Mage::getSingleton('easycredit/checkout');
+            if (!$checkout->isInitialized()) {
+                throw new Exception('payment not initialized');
+            }
 
             $this->loadLayout();
-//            $this->_initLayoutMessages('paypal/session');
-//            $reviewBlock = $this->getLayout()->getBlock('paypal.express.review');
-//            $reviewBlock->setQuote($this->_getQuote());
-//            $reviewBlock->getChild('details')->setQuote($this->_getQuote());
-//            if ($reviewBlock->getChild('shipping_method')) {
-//                $reviewBlock->getChild('shipping_method')->setQuote($this->_getQuote());
-//            }
             $this->renderLayout();
             return;
         }
@@ -125,7 +94,7 @@ class Netzkollektiv_Easycredit_CheckoutController extends Mage_Core_Controller_F
         }
         catch (Exception $e) {
             Mage::getSingleton('checkout/session')->addError(
-                $this->__('Unable to initialize Express Checkout review.')
+                $this->__('Unable to initialize Easycredit Checkout review.')
             );
             Mage::logException($e);
         }

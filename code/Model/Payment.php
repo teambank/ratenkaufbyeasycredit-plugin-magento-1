@@ -17,8 +17,9 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
     protected $_formBlockType = 'easycredit/form';
     protected $_infoBlockType = 'easycredit/info';
 
-//    protected $_canOrder                    = false;
-//    protected $_canAuthorize                = false;
+    protected $_canOrder                    = false;
+    protected $_canAuthorize                = false;
+
     protected $_canCapture                  = true;
 
     /**
@@ -44,38 +45,6 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
     }
 
     /**
-     * Order payment abstract method
-     *
-     * @param Varien_Object $payment
-     * @param float $amount
-     *
-     * @return Mage_Payment_Model_Abstract
-     */
-    public function order(Varien_Object $payment, $amount)
-    {
-        if (!$this->canOrder()) {
-            Mage::throwException(Mage::helper('payment')->__('Order action is not available.'));
-        }
-        return $this;
-    }
-
-    /**
-     * Authorize payment abstract method
-     *
-     * @param Varien_Object $payment
-     * @param float $amount
-     *
-     * @return Mage_Payment_Model_Abstract
-     */
-/*     public function authorize(Varien_Object $payment, $amount)
-    {
-        if (!$this->canAuthorize()) {
-            Mage::throwException(Mage::helper('payment')->__('Authorize action is not available.'));
-        }
-        return $this;
-    }
-*/
-    /**
      * Capture payment abstract method
      *
      * @param Varien_Object $payment
@@ -100,19 +69,4 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
     protected function _getCheckout() {
         return Mage::getSingleton('easycredit/checkout');
     }
-
-/*
-    public function getPreContractInformationUrl() {
-Mage::log($this->getAdditionalInformation());
-        return $this->getAdditionalInformation('pre_contract_information_url');
-    }
-
-    public function getRedemptionPlan() {
-        return $this->getAdditionalInformation('redemption_plan');
-    }
-
-    public function getInterestAmount() {
-        return $this->getAdditionalInformation('interest_amount');
-    }
-*/
 }

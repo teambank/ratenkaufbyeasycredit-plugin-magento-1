@@ -21,9 +21,21 @@ class Netzkollektiv_Easycredit_Model_Checkout extends Varien_Object {
         $this->getPayment()->setAdditionalInformation(
             'token',
             $result->tbVorgangskennung
+        )->setAdditionalInformation(
+            'authorized_amount',
+            $quote->getGrandTotal()
         );
 
         $quote->collectTotals()->save();
+    }
+
+    public function isInitialized() {
+        try {
+            $this->_getToken();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     protected function _getToken() {

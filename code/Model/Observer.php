@@ -26,4 +26,23 @@ class Netzkollektiv_EasyCredit_Model_Observer {
 
         return $this;
     }
+
+    public function expirePayment($observer) {
+        $quote = $observer->getEvent()
+            ->getQuote();
+
+        $amount = $quote->getGrandTotal();
+        $authorizedAmount = $quote->getPayment()
+            ->getAdditionalInformation('authorized_amount');
+        $interestAmount = $quote->getPayment()
+            ->getAdditionalInformation('interest_amount');
+
+        if (
+            $authorizedAmount > 0 
+            && $interestAmount > 0 
+            && $amount != $authorizedAmount + $interestAmount
+        ) {
+            $quote->getPayment()->unsAdditionalInformation()->save();
+        }
+    }
 }
