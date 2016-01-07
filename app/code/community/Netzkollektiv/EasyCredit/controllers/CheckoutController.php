@@ -1,5 +1,5 @@
 <?php
-class Netzkollektiv_Easycredit_CheckoutController extends Mage_Core_Controller_Front_Action {
+class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_Front_Action {
 
     protected function _validateQuote() {
         $quote = $this->_getQuote();
@@ -94,7 +94,7 @@ class Netzkollektiv_Easycredit_CheckoutController extends Mage_Core_Controller_F
         }
         catch (Exception $e) {
             Mage::getSingleton('checkout/session')->addError(
-                $this->__('Unable to initialize Easycredit Checkout review.')
+                $this->__('Unable to initialize easyCredit Checkout review.')
             );
             Mage::logException($e);
         }

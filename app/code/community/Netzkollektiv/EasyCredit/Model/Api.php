@@ -238,7 +238,7 @@ $this->_log($result);
 
             $_items[] = array_filter($_item);
         }
-        return array($_items);
+        return $_items;
     }
 
     protected function _getCustomerOrderCount($customer) {

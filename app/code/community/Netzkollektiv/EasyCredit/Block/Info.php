@@ -7,7 +7,6 @@ class Netzkollektiv_EasyCredit_Block_Info extends Mage_Payment_Block_Info {
 
     public function getInfoAdditionalData($field)
     {
-Mage::log($this->getMethod()->getInfoInstance()->getAdditionalInformation());
         return $this->escapeHtml($this->getMethod()->getInfoInstance()->getAdditionalInformation($field));
     }
 }

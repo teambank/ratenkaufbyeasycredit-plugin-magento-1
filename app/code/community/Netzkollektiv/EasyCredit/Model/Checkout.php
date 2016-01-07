@@ -1,5 +1,5 @@
 <?php
-class Netzkollektiv_Easycredit_Model_Checkout extends Varien_Object {
+class Netzkollektiv_EasyCredit_Model_Checkout extends Varien_Object {
 
     public function getRedirectUrl() {
         $token = $this->_getToken();
