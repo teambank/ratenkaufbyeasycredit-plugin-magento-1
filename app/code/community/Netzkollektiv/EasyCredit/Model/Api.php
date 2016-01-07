@@ -190,15 +190,8 @@ $this->_log($result);
     }
 
     protected function _convertPersonalData($quote) {
-
-        // Workaround: Anrede nicht vorhanden
-        $prefix = $this->_guessCustomerPrefix($quote->getCustomerPrefix());
-        if (null == $prefix) {
-            return array();
-        }
-
         return array(
-            'anrede' => $prefix,
+            'anrede' => $quote->getCustomerPrefix(),
             'vorname' => $quote->getCustomerFirstname(),
             'nachname' => $quote->getCustomerLastname(),
             'geburtsdatum' => $quote->getCustomerDob(),
