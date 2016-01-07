@@ -190,8 +190,11 @@ $this->_log($result);
     }
 
     protected function _convertPersonalData($quote) {
+
+        $prefix = $this->_guessCustomerPrefix($quote->getCustomerPrefix());
+
         return array(
-            'anrede' => $quote->getCustomerPrefix(),
+            'anrede' => $prefix,
             'vorname' => $quote->getCustomerFirstname(),
             'nachname' => $quote->getCustomerLastname(),
             'geburtsdatum' => $quote->getCustomerDob(),
