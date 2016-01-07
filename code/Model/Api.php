@@ -218,8 +218,9 @@ $this->_log($result);
     }
 
     public function _convertItems($items) {
+        $_items = array();
+
         foreach ($items as $item) {
-Mage::log($item->getPrice());
             $_item = array(
                 'produktbezeichnung'    => $item->getName(),
                 'menge'                 => $item->getQty(),
@@ -230,14 +231,12 @@ Mage::log($item->getPrice());
             $_item['produktkategorie'] = $this->_getDeepestCategoryName(
                 $item->getProduct()->getCategoryIds()
             );
-            
-
             $_item['artikelnummern'][] = array(
                 'nummerntyp'    => 'magento-sku', 
                 'nummer'        => $item->getSku()
             );
 
-            $_items = array_filter($_item);
+            $_items[] = array_filter($_item);
         }
         return array($_items);
     }
