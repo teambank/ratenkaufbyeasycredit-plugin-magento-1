@@ -22,6 +22,9 @@ class Netzkollektiv_EasyCredit_Model_Checkout extends Varien_Object {
             'token',
             $result->tbVorgangskennung
         )->setAdditionalInformation(
+            'transaction_id',
+            $result->fachlicheVorgangskennung
+        )->setAdditionalInformation(
             'authorized_amount',
             $quote->getGrandTotal()
         );
