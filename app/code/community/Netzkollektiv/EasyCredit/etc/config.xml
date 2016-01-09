@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Netzkollektiv_EasyCredit>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </Netzkollektiv_EasyCredit>
     </modules>
     <global>
@@ -37,6 +37,11 @@
                         <admin_renderer>easycredit/adminhtml_sales_order_create_totals_fee</admin_renderer>
                     </easycredit>
                 </totals>
+                <item>
+                    <product_attributes>
+                        <easycredit_risk />
+                    </product_attributes>
+                </item>
             </quote>
             <order_invoice>
                 <totals>
@@ -97,6 +102,7 @@
             <easycredit_setup>
                 <setup>
                     <module>Netzkollektiv_EasyCredit</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
                 </setup>
                 <connection>
                     <use>core_setup</use>
@@ -171,8 +177,6 @@
                 <order_status>pending</order_status>
                 <allowspecific>1</allowspecific>
                 <specificcountry>DE</specificcountry>
-                <min_order_total>200</min_order_total>
-                <max_order_total>3000</max_order_total>
                 <payment_action>authorize_capture</payment_action>
             </easycredit>
         </payment>

@@ -244,14 +244,34 @@ $this->_log($result);
             ->count();
     }
 
+    protected function _isRiskProductInCart($quote) {
+        foreach ($quote->getAllVisibleItems() as $item) {
+            if ($item->getProduct()->getEasycreditRisk()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected $_customerRisk = array(
+        'KEINE_INFORMATION',
+        'KEINE_ZAHLUNGSSTOERUNGEN',
+        'ZAHLUNGSVERZOEGERUNG',
+        'ZAHLUNGSAUSFALL',
+    );
+    
+    protected function _getCustomerRisk($customer) {
+        $risk = $customer->getEasycreditRisk();
+        return isset($this->_customerRisk[$risk]) ? $this->_customerRisk[$risk] : $this->_customerRisk[0];
+    }
+
     protected function _convertRiskDetails($quote) {
         $session = Mage::getSingleton('customer/session'); 
 
         $details = array(
             //'kundenstatus' => '',
             'bestellungErfolgtUeberLogin'   => $session->isLoggedIn(),
-            //'negativeZahlungsinformation' => '',
-            //'risikoartikelImWarenkorb'    => '',
+            'risikoartikelImWarenkorb'      => $this->_isRiskProductInCart($quote),
             'anzahlProdukteImWarenkorb'     => count($quote->getAllVisibleItems())
         );
 
@@ -260,7 +280,8 @@ $this->_log($result);
 
             $details = array_merge($details, array(
                 'kundeSeit'                     => $customer->getCreatedAt(),
-                'anzahlBestellungen'            => $this->_getCustomerOrderCount($customer)
+                'anzahlBestellungen'            => $this->_getCustomerOrderCount($customer),
+                'negativeZahlungsinformation'   => $this->_getCustomerRisk($customer),
             ));
         }
         return $details;
