@@ -2,10 +2,27 @@
     <ul id="payment_form_<?php echo $this->getMethodCode(); ?>" style="display:none">
         <li>
             <div class="input-box">
-                <p>Datenübermittlung Ratenkauf by easyCredit</p>
-                <p><input type="checkbox" class="required-entry" id="easycredit-agreement"><label for="easycredit-agreement">Ja, ich möchte per Ratenkauf zahlen und willige ein, dass <?php echo $this->getStoreName(); ?> der TeamBank AG (Partner der Genossenschaftlichen FinanzGruppe Volksbanken Raiffeisenbanken), Beuthener Str. 25, 90471 Nürnberg zur Identitäts- und Bonitätsprüfung sowie Betrugsprävention Anrede und Name, Geburtsdatum und -ort, Kontaktdaten (Adresse, Telefon, E-Mail) sowie Angaben zur aktuellen und zu früheren Bestellungen übermittelt und das Prüfungsergebnis zu diesem Zweck erhält.</label></p>
 
-                <?php //echo $this->getInstallmentsSelect(); ?>
+                <?php if ($error = $this->checkAvailability()) : ?>
+
+                <?php echo $error; ?>
+
+                <script>
+                $('p_method_easycredit').disabled = true;
+                $('payment_form_easycredit').show();
+                $('p_method_easycredit').siblings('label')[0].down('img').addClassName('easycredit-disabled');
+                </script>
+
+                <?php else: ?>
+
+                <p>Datenübermittlung Ratenkauf by easyCredit</p>
+                <p>
+                    <label for="easycredit-agreement">
+                            <input type="checkbox" class="required-entry" id="easycredit-agreement" /> Ja, ich möchte per Ratenkauf zahlen und willige ein, dass die <?php echo $this->getStoreName(); ?> der TeamBank AG (Partner der Genossenschaftlichen FinanzGruppe Volksbanken Raiffeisenbanken), Beuthener Str. 25, 90471 Nürnberg zur Identitäts- und Bonitätsprüfung sowie Betrugsprävention Anrede und Name, Geburtsdatum und -ort, Kontaktdaten (Adresse, Telefon, E-Mail) sowie Angaben zur aktuellen und zu früheren Bestellungen übermittelt und das Prüfungsergebnis zu diesem Zweck erhält.
+                    </label>
+                </p>
+
+                <?php endif; ?>
             </div>
         </li>
     </ul>

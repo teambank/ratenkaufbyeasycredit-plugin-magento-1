@@ -1,16 +1,55 @@
-<div style="display:flex;">
+<div class="easycredit-container">
     <img src="<?php echo $this->getSkinUrl('images/easycredit/rk.png'); ?>" height="35" />
-    <span style="display: inline-block; align-self: flex-end;">
-        by easyCredit
+    <span class="easycredit-description">
 
-        <?php if ($error = $this->getMethodBlock()->checkAvailability()) : ?>
+        <a href="#" class="easycredit-tooltip">Was ist Ratenkauf by easyCredit?</a>
 
-        (<?php echo $error; ?>)
-        <script>
-        $('p_method_easycredit').disabled = true;
-        $('p_method_easycredit').siblings('label')[0].down('img').setAttribute('style','-webkit-filter:grayscale(100%); filter:grayscale(100%);');
-        </script>
-
-        <?php endif; ?>
+        <div class="easycredit-tooltip" style="display:none;">
+            Der Ratenkauf by easyCredit bietet Ihnen die Möglichkeit im Online-Shop bequem und einfach per Raten zu zahlen. 
+            Direkt von zu Hause, ohne Post-Ident und ganz ohne Risiko. Denn zuerst erhalten Sie ihre Bestellung und bezahlen später in ihren Wunschraten. 
+            easyCredit ist Partner der Volksbanken Raiffeisenbanken und steht für Verbraucherschutz und Fairness.
+        </div>
     </span>
 </div>
+<script>
+$$('a.easycredit-tooltip, div.easycredit-tooltip').each(function(el){
+    $(el).observe('click',function(e){
+        $$('div.easycredit-tooltip')[0].toggle();
+        Event.stop(e);
+        return false;
+    });
+});
+</script>
+<style>
+div.easycredit-container>img {
+ width: 46px;
+ height: 35px;
+}
+div.easycredit-description a {
+}
+span.easycredit-agreement {
+ display:table;
+}
+span.easycredit-agreement>input, span.easycredit>label {
+ display:table-cell;
+}
+
+a.easycredit-tooltip {
+float: none !important;
+line-height: 35px;
+}
+div.easycredit-tooltip {
+ padding: 10px; 
+}
+img.easycredit-disabled {
+ -webkit-filter:grayscale(100%); 
+ filter:grayscale(100%);
+}
+div.easycredit-description {
+ display: inline-block; 
+ align-self: flex-end; 
+}
+div.easycredit-container {
+ display:flex;
+}
+</style>
