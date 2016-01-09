@@ -41,7 +41,7 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
                 return;
             }
         } catch (Mage_Core_Exception $e) {
-            $this->_getCheckoutSession()->addError($e->getMessage());
+            $this->_getCheckoutSession()->addError($this->__('Unable to start easyCredit Payment:').' '.$e->getMessage());
         } catch (Exception $e) {
             $this->_getCheckoutSession()->addError($this->__('Unable to start easyCredit Payment.'));
             Mage::logException($e);

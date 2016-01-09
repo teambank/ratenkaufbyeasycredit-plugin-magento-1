@@ -65,22 +65,17 @@
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
-                        <min_order_total translate="label">
-                            <label>Minimum Order Total</label>
+                        <store_name translate="label">
+                            <label>Store Name</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>98</sort_order>
+                            <sort_order>51</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </min_order_total>
-                        <max_order_total translate="label">
-                            <label>Maximum Order Total</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>99</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>0</show_in_store>
-                        </max_order_total>
+                            <can_be_empty>1</can_be_empty>
+                            <comment>Name und Rechtsform des Unternehmens. Wenn nicht gesetzt, wird der Wert aus "General -> Store Information -> Store Name" verwendet.</comment>
+                        </store_name>
                         <api_key translate="label">
                             <label>API Key</label>
                             <frontend_type>text</frontend_type>

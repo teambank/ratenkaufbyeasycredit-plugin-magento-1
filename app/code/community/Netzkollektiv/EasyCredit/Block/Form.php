@@ -22,4 +22,13 @@ class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
         }
         return false;
     }
+
+    public function getStoreName() {
+        $name = $this->getMethod()->getConfigData('store_name');
+        if (!empty(trim($name))) {
+            return $name;
+        }
+
+        return Mage::getStoreConfig('general/store_information/name');
+    }
 }
