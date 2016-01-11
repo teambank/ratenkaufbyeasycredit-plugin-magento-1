@@ -20,7 +20,7 @@ $installer->addAttribute('customer', $attributeCode,  array(
     'required' => false,
     'unique'   => false,
     'note'     => 'Die Kundeneinstufung wird für die Zahlungsart easyCredit verwendet und hilft eine genauere Risikoeinstufung abzufragen.',
-    'default'  => 'KEINE_INFORMATION',
+    'default'  => '',
     'position' => 20
 ));
 

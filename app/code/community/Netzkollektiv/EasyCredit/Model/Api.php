@@ -262,7 +262,7 @@ $this->_log($result);
     
     protected function _getCustomerRisk($customer) {
         $risk = $customer->getEasycreditRisk();
-        return isset($this->_customerRisk[$risk]) ? $this->_customerRisk[$risk] : $this->_customerRisk[0];
+        return isset($this->_customerRisk[$risk]) ? $this->_customerRisk[$risk] : null;
     }
 
     protected function _convertRiskDetails($quote) {

@@ -3,6 +3,7 @@ class Netzkollektiv_EasyCredit_Model_Customer_Attribute_Risk extends Mage_Eav_Mo
     public function getAllOptions()
     {
         return array(
+            array('value' => '', 'label' => Mage::helper('easycredit')->__('keine Auswahl')),
             array('value' => 0, 'label' => Mage::helper('easycredit')->__('keine Information')),
             array('value' => 1, 'label' => Mage::helper('easycredit')->__('keine Zahlungsstörungen')),
             array('value' => 2, 'label' => Mage::helper('easycredit')->__('Zahlungsverzögerung')),
