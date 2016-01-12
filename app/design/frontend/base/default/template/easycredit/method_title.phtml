@@ -2,24 +2,9 @@
     <img src="<?php echo $this->getSkinUrl('images/easycredit/rk.png'); ?>" height="35" />
     <span class="easycredit-description">
 
-        <a href="#" class="easycredit-tooltip">Was ist Ratenkauf by easyCredit?</a>
-
-        <div class="easycredit-tooltip" style="display:none;">
-            Der Ratenkauf by easyCredit bietet Ihnen die Möglichkeit im Online-Shop bequem und einfach per Raten zu zahlen. 
-            Direkt von zu Hause, ohne Post-Ident und ganz ohne Risiko. Denn zuerst erhalten Sie ihre Bestellung und bezahlen später in ihren Wunschraten. 
-            easyCredit ist Partner der Volksbanken Raiffeisenbanken und steht für Verbraucherschutz und Fairness.
-        </div>
+        <a href="https://www.easycredit.de/Ratenkauf.htm" target="_blank" class="easycredit-tooltip">Was ist Ratenkauf by easyCredit?</a>
     </span>
 </div>
-<script>
-$$('a.easycredit-tooltip, div.easycredit-tooltip').each(function(el){
-    $(el).observe('click',function(e){
-        $$('div.easycredit-tooltip')[0].toggle();
-        Event.stop(e);
-        return false;
-    });
-});
-</script>
 <style>
 div.easycredit-container>img {
  width: 46px;
