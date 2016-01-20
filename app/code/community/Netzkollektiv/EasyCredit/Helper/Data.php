@@ -12,8 +12,7 @@ class Netzkollektiv_EasyCredit_Helper_Data extends Mage_Core_Helper_Abstract {
 
     public function getInstallmentValues() {
 
-        $amount = Mage::getModel('checkout/session')->getQuote()->getGrandTotal();  
-
+        $amount = Mage::getSingleton('checkout/type_onepage')->getQuote()->getGrandTotal(); 
         if (!isset($this->_installmentValues[$amount])) {
             $this->_installmentValues[$amount] = Mage::getSingleton('easycredit/api')
                 ->callModelCalculation($amount);

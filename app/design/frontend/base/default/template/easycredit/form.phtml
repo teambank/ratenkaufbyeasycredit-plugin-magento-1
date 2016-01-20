@@ -8,9 +8,11 @@
                 <?php echo $error; ?>
 
                 <script>
-                $('p_method_easycredit').disabled = true;
+                var radio = $('p_method_easycredit');
+                radio.disabled = true;
+                radio.checked = false;
+                radio.siblings('label')[0].down('img').addClassName('easycredit-disabled');
                 $('payment_form_easycredit').show();
-                $('p_method_easycredit').siblings('label')[0].down('img').addClassName('easycredit-disabled');
                 </script>
 
                 <?php else: ?>
