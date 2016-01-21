@@ -27,13 +27,13 @@ Zur korrekten Anzeige der rechtlichen Informationen nach Auswahl der Zahlungsmet
 
 Pro Kunde kann unter *Kunden -> Kunden verwalten -> Kunde -> Tab: Benutzerkonto Information* eine Kundeneinstufung vorgenommen werden.
 
-![Kundeneinstufung](var/images/config.png "Kundeneinstufung")
+![Kundeneinstufung](var/images/kundeneinstufung.png "Kundeneinstufung")
 
 ### risikorelevante Artikel
 
 Ein Artikel kann unter *Artikel -> Artikel verwalten -> Artikel -> Tab: Allgemein* als risikorelevant definiert werden.
 
-![risikorelevante Artikel](var/images/config.png "risikorelevante Artikel")
+![risikorelevante Artikel](var/images/risikorelevant.png "risikorelevante Artikel")
 
 ## Kompatibilität
 
