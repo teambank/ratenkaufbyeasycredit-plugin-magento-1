@@ -13,6 +13,8 @@ Die Verzeichnisstruktur entspricht der Magento-Verzeichnisstruktur. Die Installa
 
 Die Zahlungsarten-Konfiguration befindet sich in unter *System -> Konfiguration -> Zahlungsarten -> easyCredit Ratenzahlung*
 
+![Zahlarten-Konfiguration](var/images/config.png "Zahlarten-Konfiguration")
+
 #### API-Zugangsdaten
 
 Hier kann die Zahlungsart aktiviert und deaktviert werden. Nach der Installation müssen hier die **API-Zugangsdaten**, die von der Teambank zur Verfügung gestellt werden, eingetragen werden.
@@ -25,9 +27,13 @@ Zur korrekten Anzeige der rechtlichen Informationen nach Auswahl der Zahlungsmet
 
 Pro Kunde kann unter *Kunden -> Kunden verwalten -> Kunde -> Tab: Benutzerkonto Information* eine Kundeneinstufung vorgenommen werden.
 
+![Kundeneinstufung](var/images/config.png "Kundeneinstufung")
+
 ### risikorelevante Artikel
 
 Ein Artikel kann unter *Artikel -> Artikel verwalten -> Artikel -> Tab: Allgemein* als risikorelevant definiert werden.
+
+![risikorelevante Artikel](var/images/config.png "risikorelevante Artikel")
 
 ## Kompatibilität
 
