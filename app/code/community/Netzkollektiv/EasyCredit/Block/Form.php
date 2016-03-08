@@ -25,7 +25,8 @@ class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
 
     public function getStoreName() {
         $name = $this->getMethod()->getConfigData('store_name');
-        if (!empty(trim($name))) {
+        $name = trim($name);
+        if (!empty($name)) {
             return $name;
         }
 
