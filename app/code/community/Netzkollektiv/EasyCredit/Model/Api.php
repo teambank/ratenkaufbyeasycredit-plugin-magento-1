@@ -197,7 +197,7 @@ $this->_log($result);
             'anrede' => $prefix,
             'vorname' => $quote->getCustomerFirstname(),
             'nachname' => $quote->getCustomerLastname(),
-            'geburtsdatum' => $quote->getCustomerDob(),
+            'geburtsdatum' => (strtotime($quote->getCustomerDob()) !== false) ? date('Y-m-d',strtotime($quote->getCustomerDob())) : null,
         );
     }
 
