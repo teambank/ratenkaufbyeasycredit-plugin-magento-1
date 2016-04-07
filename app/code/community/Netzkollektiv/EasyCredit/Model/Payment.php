@@ -63,6 +63,10 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
         $this->_getCheckout()
             ->capture($token);
 
+        $this->getInfoInstance()->setAdditionalInformation(
+            'is_captured', 1
+        );
+
         return $this;
     }
 
