@@ -3,6 +3,5 @@ app/design/frontend/base/default/template/easycredit app/design/frontend/base/de
 app/design/frontend/base/default/layout/* app/design/frontend/base/default/layout/
 app/design/adminhtml/base/default/template/easycredit app/design/adminhtml/base/default/template/easycredit
 app/design/adminhtml/base/default/layout/* app/design/adminhtml/base/default/layout/
-skin/frontend/base/default/images/easycredit skin/frontend/base/default/images/easycredit
 app/locale/de_DE/Netzkollektiv_EasyCredit.csv app/locale/de_DE/Netzkollektiv_EasyCredit.csv
 app/etc/modules/Netzkollektiv_EasyCredit.xml app/etc/modules/Netzkollektiv_EasyCredit.xml
