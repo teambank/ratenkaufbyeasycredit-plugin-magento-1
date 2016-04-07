@@ -197,7 +197,7 @@ $this->_log($result);
             'anrede' => $prefix,
             'vorname' => $quote->getCustomerFirstname(),
             'nachname' => $quote->getCustomerLastname(),
-            'geburtsdatum' => (strtotime($quote->getCustomerDob()) !== false) ? date('Y-m-d',strtotime($quote->getCustomerDob())) : null,
+            'geburtsdatum' => $this->_getFormattedDate($quote->getCustomerDob())
         );
     }
 
@@ -265,6 +265,10 @@ $this->_log($result);
         return isset($this->_customerRisk[$risk]) ? $this->_customerRisk[$risk] : null;
     }
 
+    protected function _getFormattedDate($date) {
+        return (strtotime($date) !== false) ? date('Y-m-d',strtotime($date)) : null;
+    }
+
     protected function _convertRiskDetails($quote) {
         $session = Mage::getSingleton('customer/session'); 
 
@@ -279,7 +283,7 @@ $this->_log($result);
             $customer = $session->getCustomer();
 
             $details = array_merge($details, array(
-                'kundeSeit'                     => $customer->getCreatedAt(),
+                'kundeSeit'                     => $this->_getFormattedDate($customer->getCreatedAt()),
                 'anzahlBestellungen'            => $this->_getCustomerOrderCount($customer),
                 'negativeZahlungsinformation'   => $this->_getCustomerRisk($customer),
             ));
