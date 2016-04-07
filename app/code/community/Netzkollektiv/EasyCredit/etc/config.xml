@@ -112,6 +112,9 @@
     </global>
 
     <frontend>
+        <secure_url>
+            <easycredit_review>/easycredit</easycredit_review>
+        </secure_url>
         <routers>
             <easycredit>
                 <use>standard</use>
