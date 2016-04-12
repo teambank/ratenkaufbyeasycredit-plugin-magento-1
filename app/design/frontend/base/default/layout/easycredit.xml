@@ -55,4 +55,19 @@
         </reference>
     </sales_email_order_invoice_items>
 
+    <sales_order_view>
+        <reference name="order_totals">
+            <block type="easycredit/sales_order_totals_fee" name="interest">
+                <action method="setFieldName"><f>easycredit_amount</f></action>
+            </block> 
+        </reference>
+    </sales_order_view>
+
+    <sales_order_print>
+        <reference name="order_totals">
+            <block type="easycredit/sales_order_totals_fee" name="interest">
+                <action method="setFieldName"><f>easycredit_amount</f></action>
+            </block> 
+        </reference>
+    </sales_order_print>
 </layout>
