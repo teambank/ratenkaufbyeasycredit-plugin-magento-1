@@ -70,4 +70,12 @@
             </block> 
         </reference>
     </sales_order_print>
+
+    <default>
+
+        <block type="core/template" name="easycredit.pp-plugin" template="easycredit/pp-plugin.phtml"/>
+        <reference name="before_body_end">
+            <action method="append" ifconfig="payment/easycredit/widget_enabled"><block>easycredit.pp-plugin</block></action>        
+        </reference>
+    </default>
 </layout>

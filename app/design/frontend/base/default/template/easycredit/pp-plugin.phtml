@@ -1,0 +1,41 @@
+<script src="https://ratenkauf.easycredit.de/ratenkauf/js/paymentPagePlugin.js" type="text/javascript"></script>
+<script>
+(function($) {
+
+    var guid = function() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+    }
+    var getElementId = function() {
+        return 'easycredit-pp-plugin-placeholder-'+guid();
+    }
+
+    $$('.price-box').each(function(element){
+       var elementId = 'easycredit-pp-plugin-placeholder-'+guid();
+
+       element.insert('<div id="'+elementId+'"></div>');
+
+       rkPlugin.anzeige(elementId,{
+            webshopId : '<?php echo Mage::getStoreConfig('payment/easycredit/api_key'); ?>',
+            finanzierungsbetrag: function() {
+                var priceElement = element.down('.price'); 
+                if (typeof priceElement == 'undefined') {
+                    return false;
+                }
+                return parseFloat(priceElement
+                    .innerHTML
+                    .stripTags()
+                    .replace(/[^\d.,-]/g,'')
+                    .replace(',','.')
+                );
+            }(),
+            textVariante: 'KURZ'
+        });
+    }); 
+}());
+</script>

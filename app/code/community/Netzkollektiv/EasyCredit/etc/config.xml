@@ -181,6 +181,7 @@
                 <allowspecific>1</allowspecific>
                 <specificcountry>DE</specificcountry>
                 <payment_action>authorize_capture</payment_action>
+                <widget_enabled>1</widget_enabled>
             </easycredit>
         </payment>
         <sales>
