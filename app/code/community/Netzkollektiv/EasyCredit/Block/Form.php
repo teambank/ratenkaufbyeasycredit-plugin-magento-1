@@ -14,7 +14,28 @@ class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
             ->setMethodLabelAfterHtml($methodTitle->toHtml());
     }
 
+    protected function _checkCustomerSameAsBilling() {
+        $quote = Mage::getSingleton('checkout/type_onepage')->getQuote();
+        if (!$quote->getCustomer()->getId()) {
+            return true;
+        }
+
+        foreach (array('firstname','lastname') as $attribute) {
+            $billingValue = strtolower($quote->getBillingAddress()->getData($attribute));
+            $customerValue = strtolower($quote->getCustomer()->getData($attribute));
+            if (trim($billingValue) != trim($customerValue)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public function checkAvailability() {
+        if (!$this->_checkCustomerSameAsBilling()) {
+            return 'Um Ihren Warenkorb mit Ratenkauf by easyCredit bestellen zu können, müssen der Rechnungsempfänger und der Inhaber des Kundenkontos identisch sein. 
+                Bitte ändern Sie den Namen des Rechnungsempfängers entsprechend ab.';
+        }
+
         try {
             Mage::helper('easycredit')->getInstallmentValues();
         } catch (Exception $e) {
