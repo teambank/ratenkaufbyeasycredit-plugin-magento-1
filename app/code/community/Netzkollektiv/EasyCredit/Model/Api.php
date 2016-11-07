@@ -1,8 +1,15 @@
 <?php
 class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object {
 
-    protected $_apiBaseUrl = 'https://www.easycredit.de/ratenkauf-ws/rest';
-    protected $_apiVersion = 'v0';
+    const API_BASE_URL = 'https://www.easycredit.de/ratenkauf-ws/rest';
+    const API_VERSION = 'v0.3';
+
+    const API_SHOP_ID_PLACEHOLDER = '%shopId%';
+    const API_VERIFY_CREDENTIALS = 'webshop/%shopId%/restbetragankaufobergrenze';
+    const API_VERIFY_CREDENTIALS_METHOD = 'GET';
+
+    protected $_apiBaseUrl = self::API_BASE_URL;
+    protected $_apiVersion = self::API_VERSION;
 
     protected $_customerPrefixMalePatterns = array('Herr','Mr','male','männlich');
     protected $_customerPrefixFemalePatterns = array('Frau','Ms','Miss','Mrs','female','weiblich');
@@ -91,19 +98,27 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object {
         Mage::log($data, null, 'easycredit.log');
     }
 
-    public function call($method, $resource, $data = array()) { 
+    public function call($method, $resource, $data = array(), $webShopId = null, $webShopToken = null) {
+
+        if ($webShopId === null) {
+            $webShopId = $this->_getWebshopId();
+        }
+        if ($webShopToken === null) {
+            $webShopToken = $this->getToken();
+        }
 
         $url = $this->_buildUrl($method, $resource);
         $method = strtoupper($method);
 
-$this->_log($data);
+        $this->_log($data);
+
         $client = new Zend_Http_Client($url,array(
             'keepalive' => true
         ));
         $client->setHeaders(array(
             'Accept' => 'application/json, text/plain, */*',
-            'tbk-rk-shop' => $this->_getWebshopId(),
-            'tbk-rk-token' => $this->getToken()
+            'tbk-rk-shop' => $webShopId,
+            'tbk-rk-token' => $webShopToken
         ));
 
         if ($method == 'POST') { 
@@ -310,5 +325,17 @@ $this->_log($result);
            'lieferadresse' => $this->_convertAddress($quote->getShippingAddress(), true),
            'warenkorbinfos' => $this->_convertItems($quote->getAllVisibleItems()),
         ));
+    }
+
+    public function verifyCredentials($apiKey, $apiToken) {
+        $resource = str_replace(self::API_SHOP_ID_PLACEHOLDER, $apiKey, self::API_VERIFY_CREDENTIALS);
+
+        try {
+            $this->call(self::API_VERIFY_CREDENTIALS_METHOD, $resource, [], $apiKey, $apiToken);
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }
