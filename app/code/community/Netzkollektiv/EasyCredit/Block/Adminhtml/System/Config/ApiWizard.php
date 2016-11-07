@@ -44,7 +44,7 @@ class Netzkollektiv_EasyCredit_Block_Adminhtml_System_Config_ApiWizard extends M
         $originalData = $element->getOriginalData();
         $elementHtmlId = $element->getHtmlId();
         $this->addData(array_merge(
-            $this->_getButtonData($elementHtmlId, $originalData),
+            $this->_getButtonData($elementHtmlId, $originalData)
         ));
         return $this->_toHtml();
     }
