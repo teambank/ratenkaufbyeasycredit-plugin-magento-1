@@ -1,13 +1,16 @@
 <?php
+
 class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_Abstract
 {
+
+    CONST CODE = 'easycredit';
 
     /**
      * Payment method code
      *
      * @var string
      */
-    protected $_code  = 'easycredit';
+    protected $_code  = self::CODE;
 
     /**
      * Cash On Delivery payment block paths
@@ -50,7 +53,7 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
      * @param Varien_Object $payment
      * @param float $amount
      *
-     * @return Mage_Payment_Model_Abstract
+     * @return Netzkollektiv_EasyCredit_Model_Payment
      */
     public function capture(Varien_Object $payment, $amount)
     {
@@ -70,6 +73,9 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
         return $this;
     }
 
+    /**
+     * @return Netzkollektiv_EasyCredit_Model_Checkout
+     */
     protected function _getCheckout() {
         return Mage::getSingleton('easycredit/checkout');
     }

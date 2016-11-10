@@ -9,6 +9,9 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
         }
     }
 
+    /**
+     * @return Mage_Checkout_Model_Session
+     */
     protected function _getCheckoutSession()
     {
         return Mage::getSingleton('checkout/session');
@@ -16,6 +19,9 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
 
     protected $_quote = null;
 
+    /**
+     * @return Mage_Sales_Model_Quote|null
+     */
     protected function _getQuote()
     {
         if (!$this->_quote) {
@@ -30,7 +36,11 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
 
             $this->_validateQuote();
 
+            /**
+             * @var Netzkollektiv_EasyCredit_Model_Checkout $checkout
+             */
             $checkout = Mage::getSingleton('easycredit/checkout');
+
             $checkout->setReturnUrl(Mage::getUrl('*/*/return'))
                 ->setCancelUrl(Mage::getUrl('*/*/cancel'))
                 ->setRejectUrl(Mage::getUrl('*/*/reject'));
@@ -54,10 +64,15 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
         try {
             $this->_validateQuote();
 
+            /**
+             * @var Netzkollektiv_EasyCredit_Model_Checkout $checkout
+             */
             $checkout = Mage::getSingleton('easycredit/checkout');
+
             if (!$checkout->isApproved()) {
                 throw new Exception('transaction not approved'); 
             }
+
             $checkout->loadFinancingInformation();
 
             $quote = $this->_getQuote();
@@ -77,10 +92,19 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
     }
 
     public function reviewAction() {
+        /**
+         * @var Mage_Checkout_Model_Session $checkoutSession
+         */
+        $checkoutSession = Mage::getSingleton('checkout/session');
+
         try {
             $this->_validateQuote();
 
+            /**
+             * @var Netzkollektiv_EasyCredit_Model_Checkout $checkout
+             */
             $checkout = Mage::getSingleton('easycredit/checkout');
+
             if (!$checkout->isInitialized()) {
                 throw new Exception('payment not initialized');
             }
@@ -90,10 +114,10 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
             return;
         }
         catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
+            $checkoutSession->addError($e->getMessage());
         }
         catch (Exception $e) {
-            Mage::getSingleton('checkout/session')->addError(
+            $checkoutSession->addError(
                 $this->__('Unable to initialize easyCredit Checkout review.')
             );
             Mage::logException($e);
@@ -114,5 +138,38 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
         $this->_getCheckoutSession()
             ->addSuccess($this->__('Unfortunately, easyCredit payment cannot be offered.'));
         $this->_redirect('checkout/cart');
+    }
+
+    /**
+     * JSON controller, returns consent text for shop
+     */
+    public function consentAction() {
+        /**
+         * @var Netzkollektiv_EasyCredit_Model_Api $easyCreditApi
+         */
+        $easyCreditApi = Mage::getSingleton('easycredit/api');
+
+
+        $status = false;
+        $errorMessage = "";
+        $text = '';
+
+
+
+        try {
+            $text = $easyCreditApi->getTextConsent();
+            $status = true;
+        } catch (Exception $e) {
+            $errorMessage = $e->getMessage();
+        }
+
+        $result = [
+            'status' => $status,
+            'text' => $text,
+            'errorMessage' => $errorMessage
+        ];
+
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+        $this->getResponse()->setBody(json_encode($result));
     }
 }

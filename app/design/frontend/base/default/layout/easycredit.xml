@@ -16,7 +16,7 @@
         <reference name="content">
             <block type="checkout/onepage_progress" name="easycredit.checkout.review" template="easycredit/checkout/review.phtml">
                 <block type="checkout/onepage_payment_info" name="payment_info">
-                    <action method="setInfoTemplate"><method></method><template></template></action>
+                    <action method="setInfoTemplate"><method /><template/></action>
                 </block>
 
                 <block type="checkout/onepage_review_info" name="details" template="checkout/onepage/review/info.phtml">

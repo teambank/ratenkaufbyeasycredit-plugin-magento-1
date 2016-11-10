@@ -75,6 +75,14 @@
                     </sales_order_creditmemo_save_after>
                 </observers>
             </sales_order_creditmemo_save_after>
+            <sales_order_place_before>
+                <observers>
+                    <sales_order_place_before>
+                        <class>easycredit/observer</class>
+                        <method>setNewOrderState</method>
+                    </sales_order_place_before>
+                </observers>
+            </sales_order_place_before>
         </events>
         <fieldsets>
             <sales_convert_quote_address>
@@ -181,6 +189,8 @@
                 <allowspecific>1</allowspecific>
                 <specificcountry>DE</specificcountry>
                 <payment_action>authorize_capture</payment_action>
+                <debug_logging>0</debug_logging>
+                <order_status>pending</order_status>
             </easycredit>
         </payment>
         <sales>

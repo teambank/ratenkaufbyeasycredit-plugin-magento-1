@@ -1,14 +1,22 @@
 <?php
 class Netzkollektiv_EasyCredit_Model_Checkout extends Varien_Object {
 
+    /**
+     * @return string
+     */
     public function getRedirectUrl() {
         $token = $this->_getToken();
         return 'https://ratenkauf.easycredit.de/ratenkauf/content/intern/einstieg.jsf?vorgangskennung='.$token;
     }
 
+    /**
+     * @returns void
+     */
     public function start() {
-        $quote = Mage::getSingleton('checkout/session')
-            ->getQuote();
+        /**
+         * @var Mage_Sales_Model_Quote $quote
+         */
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
 
         $result = $this->getApi()
             ->callProcessInit(
@@ -32,6 +40,9 @@ class Netzkollektiv_EasyCredit_Model_Checkout extends Varien_Object {
         $quote->collectTotals()->save();
     }
 
+    /**
+     * @return bool
+     */
     public function isInitialized() {
         try {
             $this->_getToken();
@@ -41,6 +52,10 @@ class Netzkollektiv_EasyCredit_Model_Checkout extends Varien_Object {
         }
     }
 
+    /**
+     * @return array|mixed|null
+     * @throws Exception
+     */
     protected function _getToken() {
         $token = $this->getPayment()
             ->getAdditionalInformation('token');
@@ -51,12 +66,18 @@ class Netzkollektiv_EasyCredit_Model_Checkout extends Varien_Object {
         return $token;
     }
 
+    /**
+     * @return Mage_Sales_Model_Quote_Payment
+     */
     public function getPayment() {
         return Mage::getSingleton('checkout/session')
             ->getQuote()
             ->getPayment();
     }
 
+    /**
+     * @return bool
+     */
     public function isApproved() {
         $token = $this->_getToken();
         $result = $this->getApi()->callDecision($token);
@@ -71,6 +92,7 @@ class Netzkollektiv_EasyCredit_Model_Checkout extends Varien_Object {
 
     public function loadFinancingInformation() {
         $token = $this->_getToken();
+
         $payment = $this->getPayment();
 
         /* get transaction status from api */
@@ -94,6 +116,10 @@ class Netzkollektiv_EasyCredit_Model_Checkout extends Varien_Object {
         );
     }
 
+    /**
+     * @param null|string $token
+     * @return mixed|string
+     */
     public function capture($token = null) {
         if (is_null($token)) {
             $token = $this->_getToken();
@@ -103,10 +129,16 @@ class Netzkollektiv_EasyCredit_Model_Checkout extends Varien_Object {
             ->callConfirm($token);
     }
 
+    /**
+     * @return Mage_Checkout_Model_Session
+     */
     protected function _getSession() {
         return Mage::getSingleton('checkout/session');
     }
 
+    /**
+     * @return Netzkollektiv_EasyCredit_Model_Api
+     */
     public function getApi() {
         return Mage::getSingleton('easycredit/api');
     }

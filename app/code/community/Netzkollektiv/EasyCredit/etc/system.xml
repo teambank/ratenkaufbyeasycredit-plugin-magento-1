@@ -20,15 +20,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </active>
-                        <!-- order_status translate="label">
+                        <order_status translate="label">
                             <label>New Order Status</label>
                             <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_order_status_new</source_model>
+                            <source_model>easycredit/config::getOrderStates</source_model>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </order_status -->
+                        </order_status>
                         <sort_order translate="label">
                             <label>Sort Order</label>
                             <frontend_type>text</frontend_type>
@@ -65,17 +65,16 @@
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
-                        <store_name translate="label">
-                            <label>Store Name</label>
-                            <frontend_type>text</frontend_type>
-                            <sort_order>51</sort_order>
-                            <source_model>adminhtml/system_config_source_country</source_model>
+                        <debug_logging translate="label">
+                            <label>Debug Logging</label>
+                            <comment><![CDATA[If activated, API call details will be saved to var/log/easycredit.log]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <can_be_empty>1</can_be_empty>
-                            <comment>Name und Rechtsform des Unternehmens. Wenn nicht gesetzt, wird der Wert aus "General -> Store Information -> Store Name" verwendet.</comment>
-                        </store_name>
+                        </debug_logging>
                         <api_key translate="label">
                             <label>API Key</label>
                             <frontend_type>text</frontend_type>
@@ -93,7 +92,6 @@
                             <show_in_store>0</show_in_store>
                         </api_token>
                         <api_wizard translate="button_label sandbox_button_label">
-                            <label></label>
                             <button_label>Verify Credentials with easyCredit</button_label>
                             <button_url><![CDATA[/easycredit/credentials/verify]]></button_url>
                             <frontend_model>easycredit/adminhtml_system_config_apiWizard</frontend_model>

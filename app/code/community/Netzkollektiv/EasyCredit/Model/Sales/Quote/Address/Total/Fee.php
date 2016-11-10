@@ -1,4 +1,6 @@
 <?php
+
+
 class Netzkollektiv_EasyCredit_Model_Sales_Quote_Address_Total_Fee extends Mage_Sales_Model_Quote_Address_Total_Abstract
 {
 
@@ -18,9 +20,12 @@ class Netzkollektiv_EasyCredit_Model_Sales_Quote_Address_Total_Fee extends Mage_
 
         $quote = $address->getQuote();
 
-        $amount = Mage::getModel('easycredit/checkout')
-            ->getPayment()
-            ->getAdditionalInformation('interest_amount');
+        /**
+         * @var Mage_Sales_Model_Quote_Payment $payment
+         */
+        $payment = Mage::getModel('easycredit/checkout')->getPayment();
+
+        $amount = $payment->getAdditionalInformation('interest_amount');
 
         if ($amount == null || $amount <= 0) {
             return $this;

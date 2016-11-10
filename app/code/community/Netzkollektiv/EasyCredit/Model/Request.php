@@ -17,7 +17,7 @@ class Netzkollektiv_EasyCredit_Model_Request {
         );
     }
 
-    protected function _convertPersonalData($quote) {
+    protected function _convertPersonalData(Mage_Sales_Model_Quote $quote) {
         return array(
             'anrede' => $quote->getCustomerPrefix(),
             'vorname' => $quote->getCustomerFirstname(),
@@ -26,7 +26,7 @@ class Netzkollektiv_EasyCredit_Model_Request {
         );
     }
 
-    public function getProcessRequest($quote) {
+    public function getProcessRequest(Mage_Sales_Model_Quote $quote) {
         return array_merge($this->_getBaseData(), array(
            'bestellwert' => $quote->getGrandTotal(),
            'ruecksprungadressen' => array(

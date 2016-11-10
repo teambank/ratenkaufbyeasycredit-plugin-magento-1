@@ -15,7 +15,11 @@ class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
     }
 
     protected function _checkCustomerSameAsBilling() {
+        /**
+         * @var Mage_Sales_Model_Quote $quote
+         */
         $quote = Mage::getSingleton('checkout/type_onepage')->getQuote();
+
         if (!$quote->getCustomer()->getId()) {
             return true;
         }
@@ -37,6 +41,9 @@ class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
         }
 
         try {
+            /**
+             * @see Netzkollektiv_EasyCredit_Helper_Data
+             */
             Mage::helper('easycredit')->getInstallmentValues();
         } catch (Exception $e) {
             return $e->getMessage();
@@ -52,5 +59,34 @@ class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
         }
 
         return Mage::getStoreConfig('general/store_information/name');
+    }
+
+    /**
+     * @return string
+     */
+    public function getTextConsent() {
+        /**
+         * @var Netzkollektiv_EasyCredit_Model_Api $easyCreditApi
+         */
+        $easyCreditApi = Mage::getSingleton('easycredit/api');
+
+        $error = false;
+
+        try {
+            $text = $this->__($easyCreditApi->getTextConsent());
+        } catch (Exception $e) {
+            $text = $this->__($e->getMessage());
+            $error = true;
+        }
+
+        return ["text" => $text, "error" => $error];
+    }
+
+    public function getTextConsentConnectionErrorMessage() {
+        return $this->__("Could not connect to easyCredit Server. Please try again later.");
+    }
+
+    public function getTextConsentLoadingMessage() {
+        return $this->__("Loading transfer agreement from easyCredit servers...");
     }
 }

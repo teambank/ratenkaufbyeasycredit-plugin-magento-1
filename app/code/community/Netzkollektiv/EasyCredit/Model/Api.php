@@ -8,12 +8,19 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object {
     const API_VERIFY_CREDENTIALS = 'webshop/%shopId%/restbetragankaufobergrenze';
     const API_VERIFY_CREDENTIALS_METHOD = 'GET';
 
+    const API_TEXT_CONSENT = 'texte/zustimmung';
+
     protected $_apiBaseUrl = self::API_BASE_URL;
     protected $_apiVersion = self::API_VERSION;
 
     protected $_customerPrefixMalePatterns = array('Herr','Mr','male','männlich');
     protected $_customerPrefixFemalePatterns = array('Frau','Ms','Miss','Mrs','female','weiblich');
 
+    /**
+     * @param string $method
+     * @param null|mixed $postData
+     * @return resource
+     */
     protected function _getRequestContext($method, $postData = null) {
 
         $headers = array(
@@ -42,14 +49,23 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object {
         return stream_context_create($ctx);
     }
 
+    /**
+     * @return string
+     */
     protected function _getWebshopId() {
         return Mage::getStoreConfig('payment/easycredit/api_key');
     }
 
+    /**
+     * @return string
+     */
     public function getToken() {
         return Mage::getStoreConfig('payment/easycredit/api_token');
     }
 
+    /**
+     * @return Mage_Customer_Model_Session
+     */
     protected function _getSession() {
         return Mage::getSingleton('customer/session');
     }
@@ -60,6 +76,10 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object {
         return $this->call('POST','vorgang', $data);
     }
 
+    /**
+     * @param mixed $amount
+     * @return mixed|string
+     */
     public function callModelCalculation($amount) {
         $data = array(
             'webshopId' => $this->_getWebshopId(),
@@ -69,18 +89,34 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object {
         return $this->call('GET','modellrechnung/durchfuehren', $data);
     }
 
+    /**
+     * @param string $token
+     * @return mixed|string
+     */
     public function callDecision($token) {
         return $this->call('GET','vorgang/'.$token.'/entscheidung');
     }
 
+    /**
+     * @param string $token
+     * @return mixed|string
+     */
     public function callStatus($token) {
         return $this->call('GET','vorgang/'.$token);
     }
 
+    /**
+     * @param string $token
+     * @return mixed|string
+     */
     public function callFinancing($token) {
         return $this->call('GET','vorgang/'.$token.'/finanzierung');
     }
 
+    /**
+     * @param string $token
+     * @return mixed|string
+     */
     public function callConfirm($token) {
         return $this->call('POST','vorgang/'.$token.'/bestaetigen');
     }
@@ -95,9 +131,22 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object {
     }
 
     protected function _log($data) {
-        Mage::log($data, null, 'easycredit.log');
+        $store = Mage::app()->getStore()->getStoreId();
+        $debug = Mage::getStoreConfig('payment/easycredit/debug_logging', $store);
+        if ($debug) {
+            Mage::log($data, null, 'easycredit.log');
+        }
     }
 
+    /**
+     * @param $method
+     * @param $resource
+     * @param array $data
+     * @param null $webShopId
+     * @param null $webShopToken
+     * @return mixed|string
+     * @throws Mage_Core_Exception
+     */
     public function call($method, $resource, $data = array(), $webShopId = null, $webShopToken = null) {
 
         if ($webShopId === null) {
@@ -134,19 +183,28 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object {
         $response = $client->request($method);
 
         if ($response->isError()) {
-            throw new Exception(print_r($response,true));
+            $e = [
+                "method" => $method,
+                "resource" => $resource,
+                "data" => $data,
+                "url" => $url,
+                "responseCode" => $response->getStatus()
+            ];
+
+            $this->_log($e);
+            Mage::throwException('connection problem');
         }
 
         $result = $response->getBody();
 
         if (empty($result)) {
-            throw new Exception('result is empty');
+            Mage::throwException('result is empty');
         }
         $result = json_decode($result);
-$this->_log($result);
+        $this->_log($result);
 
         if ($result == null) {
-            throw new Exception('result is null');
+            Mage::throwException('result is null');
         }
 
         if (isset($result->wsMessages)) {
@@ -155,25 +213,43 @@ $this->_log($result);
         return $result;
     }
 
+    /**
+     * @param mixed $result
+     * @throws Mage_Core_Exception
+     * @return void
+     */
     protected function _handleMessages($result) {
         if (!isset($result->wsMessages->messages)) {
             unset($result->wsMessages);
             return;
         }
-        $messages = $result->wsMessages->messages;
 
         foreach ($result->wsMessages->messages as $message) {
             switch (trim($message->severity)) {
+                /** @noinspection PhpMissingBreakStatementInspection */
                 case 'ERROR':
                     Mage::throwException($message->renderedMessage);
                 case 'INFO':
-                    Mage::log($message->renderedMessage);
+                    $this->_log($message->renderedMessage);
                     break;
             }
         }
         unset($result->wsMessages);
     }
 
+    /**
+     * @param $date
+     * @return false|null|string
+     */
+    protected function _getFormattedDate($date) {
+        return (strtotime($date) !== false) ? date('Y-m-d',strtotime($date)) : null;
+    }
+
+    /**
+     * @param Mage_Sales_Model_Quote_Address $address
+     * @param bool $isShipping
+     * @return array
+     */
     protected function _convertAddress(Mage_Sales_Model_Quote_Address $address, $isShipping = false) {
         $_address = array(
              'strasseHausNr' => $address->getStreet(1),
@@ -191,6 +267,10 @@ $this->_log($result);
     }
 
 
+    /**
+     * @param string $prefix
+     * @return string
+     */
     protected function _guessCustomerPrefix($prefix) {
         foreach ($this->_customerPrefixMalePatterns as $pattern) {
             if (stripos($prefix,$pattern) !== false) {
@@ -202,9 +282,14 @@ $this->_log($result);
                 return 'FRAU';
             }
         }
+        return '';
     }
 
-    protected function _convertPersonalData($quote) {
+    /**
+     * @param Mage_Sales_Model_Quote $quote
+     * @return array
+     */
+    protected function _convertPersonalData(Mage_Sales_Model_Quote $quote) {
 
         $prefix = $this->_guessCustomerPrefix($quote->getCustomerPrefix());
 
@@ -224,11 +309,16 @@ $this->_log($result);
                 'name', 
                 Mage::app()->getStore()->getId()
             );
-        } 
+        }
 
+        return null;
     }
 
-    public function _convertItems($items) {
+    /**
+     * @param array $items
+     * @return array
+     */
+    public function _convertItems(array $items) {
         $_items = array();
 
         foreach ($items as $item) {
@@ -252,60 +342,13 @@ $this->_log($result);
         return $_items;
     }
 
-    protected function _getCustomerOrderCount($customer) {
-        return Mage::getResourceModel('sales/order_collection')
-            ->addFieldToSelect('*')
-            ->addFieldToFilter('customer_id',$customer->getId())
-            ->count();
-    }
-
-    protected function _isRiskProductInCart($quote) {
-        foreach ($quote->getAllVisibleItems() as $item) {
-            if ($item->getProduct()->getEasycreditRisk()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    protected $_customerRisk = array(
-        'KEINE_INFORMATION',
-        'KEINE_ZAHLUNGSSTOERUNGEN',
-        'ZAHLUNGSVERZOEGERUNG',
-        'ZAHLUNGSAUSFALL',
-    );
-    
-    protected function _getCustomerRisk($customer) {
-        $risk = $customer->getEasycreditRisk();
-        return isset($this->_customerRisk[$risk]) ? $this->_customerRisk[$risk] : null;
-    }
-
-    protected function _getFormattedDate($date) {
-        return (strtotime($date) !== false) ? date('Y-m-d',strtotime($date)) : null;
-    }
-
-    protected function _convertRiskDetails($quote) {
-        $session = Mage::getSingleton('customer/session'); 
-
-        $details = array(
-            //'kundenstatus' => '',
-            'bestellungErfolgtUeberLogin'   => $session->isLoggedIn(),
-            'risikoartikelImWarenkorb'      => $this->_isRiskProductInCart($quote),
-            'anzahlProdukteImWarenkorb'     => count($quote->getAllVisibleItems())
-        );
-
-        if ($session->isLoggedIn()) {
-            $customer = $session->getCustomer();
-
-            $details = array_merge($details, array(
-                'kundeSeit'                     => $this->_getFormattedDate($customer->getCreatedAt()),
-                'anzahlBestellungen'            => $this->_getCustomerOrderCount($customer),
-                'negativeZahlungsinformation'   => $this->_getCustomerRisk($customer),
-            ));
-        }
-        return $details;
-    }
-
+    /**
+     * @param Mage_Sales_Model_Quote $quote
+     * @param string $cancelUrl
+     * @param string $returnUrl
+     * @param string $rejectUrl
+     * @return array
+     */
     public function getProcessInitRequest($quote, $cancelUrl, $returnUrl, $rejectUrl) {
         return array_filter(array(
            'shopKennung' => $this->_getWebshopId(),
@@ -320,13 +363,17 @@ $this->_log($result);
            'kontakt' => array(
              'email' => $quote->getCustomerEmail(),
            ),
-           'risikorelevanteAngaben' => $this->_convertRiskDetails($quote),
            'rechnungsadresse' => $this->_convertAddress($quote->getBillingAddress()),
            'lieferadresse' => $this->_convertAddress($quote->getShippingAddress(), true),
            'warenkorbinfos' => $this->_convertItems($quote->getAllVisibleItems()),
         ));
     }
 
+    /**
+     * @param string $apiKey
+     * @param string $apiToken
+     * @return bool
+     */
     public function verifyCredentials($apiKey, $apiToken) {
         $resource = str_replace(self::API_SHOP_ID_PLACEHOLDER, $apiKey, self::API_VERIFY_CREDENTIALS);
 
@@ -337,5 +384,24 @@ $this->_log($result);
         }
 
         return true;
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    public function getTextConsent()
+    {
+
+        if (empty($this->_getWebshopId())) {
+            $this->_log("easyCredit apiKey not configured, but extension activated.");
+            Mage::throwException("easyCredit apiKey not configured, but extension activated.");
+        }
+
+        $resource = self::API_TEXT_CONSENT . '/' . $this->_getWebshopId();
+
+        $result = $this->call('GET', $resource);
+
+        return $result->zustimmungDatenuebertragungServiceIntegration;
     }
 }
