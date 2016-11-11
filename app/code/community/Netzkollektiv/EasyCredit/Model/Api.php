@@ -183,13 +183,13 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object {
         $response = $client->request($method);
 
         if ($response->isError()) {
-            $e = [
+            $e = array(
                 "method" => $method,
                 "resource" => $resource,
                 "data" => $data,
                 "url" => $url,
                 "responseCode" => $response->getStatus()
-            ];
+            );
 
             $this->_log($e);
             Mage::throwException('connection problem');
