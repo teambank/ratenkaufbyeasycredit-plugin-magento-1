@@ -83,6 +83,14 @@
                     </sales_order_place_before>
                 </observers>
             </sales_order_place_before>
+            <sales_order_shipment_save_after>
+                <observers>
+                    <sales_order_shipment_save_after>
+                        <class>easycredit/observer</class>
+                        <method>reportShipment</method>
+                    </sales_order_shipment_save_after>
+                </observers>
+            </sales_order_shipment_save_after>
         </events>
         <fieldsets>
             <sales_convert_quote_address>
@@ -191,6 +199,7 @@
                 <payment_action>authorize_capture</payment_action>
                 <debug_logging>0</debug_logging>
                 <order_status>pending</order_status>
+                <report_shipment>0</report_shipment>
             </easycredit>
         </payment>
         <sales>

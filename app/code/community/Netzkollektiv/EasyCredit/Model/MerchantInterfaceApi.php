@@ -1,7 +1,12 @@
 <?php
 
-
-class MerchantInterfaceApi
+/**
+ * Class Netzkollektiv_EasyCredit_Model_MerchantInterfaceApi
+ *
+ * requires Zend_Http_Client
+ * @see Zend_Http_Client
+ */
+class Netzkollektiv_EasyCredit_Model_MerchantInterfaceApi
 {
     const LOG_ID = 'EasyCredit MerchantInterface';
 
@@ -44,6 +49,76 @@ class MerchantInterfaceApi
      */
     protected $exceptionFunction;
 
+    /**
+     * @return string
+     */
+    public function getWebShopId()
+    {
+        return $this->webShopId;
+    }
+
+    /**
+     * @param string $webShopId
+     */
+    public function setWebShopId($webShopId)
+    {
+        $this->webShopId = $webShopId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWebShopToken()
+    {
+        return $this->webShopToken;
+    }
+
+    /**
+     * @param string $webShopToken
+     */
+    public function setWebShopToken($webShopToken)
+    {
+        $this->webShopToken = $webShopToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLoggingFunction()
+    {
+        return $this->loggingFunction;
+    }
+
+    /**
+     * @param string $loggingFunction
+     */
+    public function setLoggingFunction($loggingFunction)
+    {
+        $this->loggingFunction = $loggingFunction;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExceptionFunction()
+    {
+        return $this->exceptionFunction;
+    }
+
+    /**
+     * @param string $exceptionFunction
+     */
+    public function setExceptionFunction($exceptionFunction)
+    {
+        $this->exceptionFunction = $exceptionFunction;
+    }
+
+    public function setAuthentication($webShopId, $webShopToken) {
+        $this->setWebShopId($webShopId);
+        $this->setWebShopToken($webShopToken);
+    }
+
+
     private $cancelReasons = array(
         self::API_CANCEL_REASON_COMPLETE,
         self::API_CANCEL_REASON_PARTIAL,
@@ -53,18 +128,20 @@ class MerchantInterfaceApi
 
     /**
      * MerchantInterfaceApi constructor.
-     * @param string $webShopId
-     * @param string $webShopToken
+     * @param string|null $webShopId
+     * @param string|null $webShopToken
      * @param string|null $loggingFunction
      * @param string|null $exceptionFunction
      */
-    public function __construct($webShopId, $webShopToken, $loggingFunction=null, $exceptionFunction=null)
+    public function __construct($webShopId=null, $webShopToken=null, $loggingFunction=null, $exceptionFunction=null)
     {
         $this->webShopId = $webShopId;
         $this->webShopToken = $webShopToken;
         $this->loggingFunction = $loggingFunction;
         $this->exceptionFunction = $exceptionFunction;
     }
+
+
 
     /**
      * @param mixed $data
@@ -257,10 +334,10 @@ class MerchantInterfaceApi
     }
 
     /**
-     * @param $transactionId
-     * @param $reason
-     * @param $amount
-     * @param $date
+     * @param string $transactionId
+     * @param string $reason
+     * @param float $amount
+     * @param string $date
      * @return bool
      */
     public function cancelOrder($transactionId, $reason, $amount, $date) {
