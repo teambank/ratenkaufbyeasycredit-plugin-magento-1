@@ -39,7 +39,7 @@
                 </totals>
                 <item>
                     <product_attributes>
-                        <easycredit_risk />
+                        <easycredit_risk/>
                     </product_attributes>
                 </item>
             </quote>
@@ -200,11 +200,12 @@
                 <debug_logging>0</debug_logging>
                 <order_status>pending</order_status>
                 <report_shipment>0</report_shipment>
+                <widget_enabled>1</widget_enabled>
             </easycredit>
         </payment>
         <sales>
             <totals_sort>
-                 <easycredit>45</easycredit>
+                <easycredit>45</easycredit>
             </totals_sort>
         </sales>
     </default>
