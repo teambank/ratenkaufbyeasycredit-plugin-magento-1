@@ -15,26 +15,18 @@ Die Zahlungsarten-Konfiguration befindet sich in unter *System -> Konfiguration 
 
 ![Zahlarten-Konfiguration](var/images/config.png "Zahlarten-Konfiguration")
 
-#### API-Zugangsdaten
-
-Hier kann die Zahlungsart aktiviert und deaktviert werden. Nach der Installation müssen hier die **API-Zugangsdaten**, die von der Teambank zur Verfügung gestellt werden, eingetragen werden.
-
-#### Händlername
-
-Zur korrekten Anzeige der rechtlichen Informationen nach Auswahl der Zahlungsmethode (Vereinbarung zur Datenübermittlung), ist es notwendig, dass der Händlername korrekt konfiguriert ist. Notwendig ist der Firmenname mit entsprechender Rechtsform.
-
-### Kundeneinstufung
-
-Pro Kunde kann unter *Kunden -> Kunden verwalten -> Kunde -> Tab: Benutzerkonto Information* eine Kundeneinstufung vorgenommen werden.
-
-![Kundeneinstufung](var/images/kundeneinstufung.png "Kundeneinstufung")
-
-### risikorelevante Artikel
-
-Ein Artikel kann unter *Artikel -> Artikel verwalten -> Artikel -> Tab: Allgemein* als risikorelevant definiert werden.
-
-![risikorelevante Artikel](var/images/risikorelevant.png "risikorelevante Artikel")
+| Option                                        | Erklärung                                                                                                                                                                                                                                                                       |
+|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Title                                         | Unter dem Titel wird die Zahlungsmethode im Checkout angezeigt.                                                                                                                                                                                                                 |
+| Status neuer Bestellungen                     | Ermöglicht es Ihnen den Status festzulegen den Bestellungen die mit Ratenkauf by easyCredit bezahlt wurden, nach dem Eingang im System aufweisen.                                                                                                                               |
+| Zeige Modellrechner-Widget neben Produktpreis | Aktivieren Sie diese Option wenn Sie auf Produkt-Detail-Seiten ein monatliches Raten Angebot anzeigen möchten. Bitte beachten Sie das ein monaterlicher Ratenpreis nur angezeigt wird wenn der Preis des Produkts sich in der festgelegten Preisspanne für Ratenkäufe befindet. |
+| Zahlung aus zutreffenden Ländern              | Stellen Sie diese Option bitte auf Bestimmte Länder (Specific Countries)                                                                                                                                                                                                       |
+| Zahlung aus bestimmmten Ländern               | Wählen Sie hier als einziges Land Deutschland aus.                                                                                                                                                                                                                              |
+| Debug Logging                                 | Erlaubt Ihnen festzulegen ob der Inhalt aller easyCredit API-Zugriffe in var/log/debug.log gespeichert werden soll. Fehlermitteillungen werden immer gespeichert.                                                                                                               |
+| API Key                                       | Der API-Key wird Ihnen von der Teambank AG zur Verfügung gestellt.                                                                                                                                                                                                              |
+| API Token                                     | Der nicht öffentliche API Token wird Ihnen von der Teambank AG zur Verfügung gestellt und sollte nicht mit Dritten geteilt werden.                                                                                                                                              |
+| easyCredit Zugangsdaten überprüfen            | Ein Klick auf diesen Button überprüft die Kombination von API-Key und -Token auf Gültigkeit. Bitte vergessen Sie nicht nach einem erfolgreichen Test noch auf Speichern zu klicken.                                                                                             |
 
 ## Kompatibilität
 
-Die Extension wurde unter Magento 1.8 und Magento 1.9.2.2 getestet. Weitere Systemvoraussetzungen sind mit den von Magento in der jeweiligen Vesion genannten abgedeckt.
+Die Extension wurde unter Magento 1.8, Magento 1.9.2.2 & Magento 1.9.2.4 getestet. Weitere Systemvoraussetzungen sind mit den von Magento in der jeweiligen Vesion genannten abgedeckt.
