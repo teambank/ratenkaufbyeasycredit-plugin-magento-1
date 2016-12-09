@@ -33,6 +33,8 @@
                 <totals>
                     <easycredit>
                         <class>easycredit/sales_quote_address_total_fee</class>
+                        <after>subtotal,discount,shipping</after>
+                        <before>tax,grand_total</before>
                         <renderer>easycredit/checkout_totals_fee</renderer>
                         <admin_renderer>easycredit/adminhtml_sales_order_create_totals_fee</admin_renderer>
                     </easycredit>
