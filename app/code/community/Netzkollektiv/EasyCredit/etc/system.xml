@@ -103,7 +103,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </api_token>
-                        <api_wizard translate="button_label sandbox_button_label">
+                        <api_wizard translate="button_label">
                             <button_label>Verify Credentials with easyCredit</button_label>
                             <button_url><![CDATA[/easycredit/credentials/verify]]></button_url>
                             <frontend_model>easycredit/adminhtml_system_config_apiWizard</frontend_model>
@@ -111,7 +111,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                         </api_wizard>
-
                     </fields>
                 </easycredit>
             </groups>
