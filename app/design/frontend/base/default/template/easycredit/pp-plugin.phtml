@@ -10,10 +10,39 @@
       }
       return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
         s4() + '-' + s4() + s4() + s4();
-    }
+    };
+    
     var getElementId = function() {
         return 'easycredit-pp-plugin-placeholder-'+guid();
-    }
+    };
+
+    /**
+     *
+     * @param {string} price
+     * @returns {Number}
+     */
+    var getPriceAsFloat = function (price) {
+        var separatorComa,
+            separatorDot;
+
+        price = price.replace(/[^\d.,-]/g,'');
+
+        separatorComa = price.indexOf(',');
+        separatorDot = price.indexOf('.');
+
+        if (separatorComa > -1 && separatorDot > -1) {
+            if (separatorComa > separatorDot) {
+                price = price.replace(/\./g, '');
+                price = price.replace(',', '.');
+            } else {
+                price = price.replace(/,/g, '');
+            }
+        }  else if (separatorComa > -1) {
+            price = price.replace(',', '.');
+        }
+
+        return parseFloat(price);
+    };
 
     $$('.price-box').each(function(element){
        var elementId = 'easycredit-pp-plugin-placeholder-'+guid();
@@ -27,12 +56,7 @@
                 if (typeof priceElement == 'undefined') {
                     return false;
                 }
-                return parseFloat(priceElement
-                    .innerHTML
-                    .stripTags()
-                    .replace(/[^\d.,-]/g,'')
-                    .replace(',','.')
-                );
+                return getPriceAsFloat(priceElement.innerHTML.stripTags());
             }(),
             textVariante: 'KURZ'
         });
