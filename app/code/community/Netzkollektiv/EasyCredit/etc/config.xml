@@ -61,6 +61,15 @@
             </order_creditmemo>
         </sales>
         <events>
+            <sales_quote_payment_import_data_before>
+                <observers>
+                    <easycredit_sales_quote_payment_import_data_before>
+                        <type>singleton</type>
+                        <class>easycredit/observer</class>
+                        <method>importCustomerPrefix</method>
+                    </easycredit_sales_quote_payment_import_data_before>
+                </observers>
+            </sales_quote_payment_import_data_before>
             <sales_order_invoice_save_after>
                 <observers>
                     <sales_order_invoice_save_after>

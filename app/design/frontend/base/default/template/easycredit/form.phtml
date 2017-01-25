@@ -1,4 +1,10 @@
 <?php
+/**
+ * Checkout Form
+ *
+ * @see Netzkollektiv_EasyCredit_Block_Form
+ */
+
 $t = $this->getTextConsent();
 $textConsent = $t['text'];
 $textConsentError = $t['error'];
@@ -34,6 +40,17 @@ $textConsentError = $t['error'];
                                 <span id="easycredit-agreement-text"><?php echo $this->escapeHtml($textConsent); ?></span>
                             </label>
                         </p>
+                        <?php if (!$this->hasCustomerPrefix()) : ?>
+                            <p>
+                                <label for="easycredit-customer-prefix">Bitte wählen Sie Ihre Anrede:</label>
+                                <select name="easycredit-customer-prefix" id="easycredit-customer-prefix" class="select required-entry">
+                                    <option disabled selected value>&nbsp;</option>
+                                    <?php foreach ($this->getAllowedCustomerPrefixes() as $prefix): ?>
+                                        <option value="<?php echo $this->escapeHtml($prefix) ?>"><?php echo $this->escapeHtml($prefix) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </p>
+                        <?php endif; ?>
                     </div>
                 <?php endif; ?>
             </div>

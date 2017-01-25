@@ -94,6 +94,19 @@ class Netzkollektiv_EasyCredit_Model_Observer {
     }
 
     /**
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
+    public function importCustomerPrefix(Varien_Event_Observer $observer)
+    {
+        $prefix = Mage::app()->getRequest()->getParam('easycredit-customer-prefix');
+
+        Mage::getSingleton('checkout/session')->setData('customer_prefix', $prefix);
+
+        return $this;
+    }
+
+    /**
      * @param int $severity
      * @param string $message
      */

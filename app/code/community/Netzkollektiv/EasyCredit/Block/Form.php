@@ -79,7 +79,7 @@ class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
             $error = true;
         }
 
-        return ["text" => $text, "error" => $error];
+        return array("text" => $text, "error" => $error);
     }
 
     public function getTextConsentConnectionErrorMessage() {
@@ -88,5 +88,32 @@ class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
 
     public function getTextConsentLoadingMessage() {
         return $this->__("Loading transfer agreement from easyCredit servers...");
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCustomerPrefix() {
+        /**
+         * @var Mage_Checkout_Model_Session $checkoutSession
+         */
+        $checkoutSession = Mage::getSingleton('checkout/session');
+
+        /**
+         * @var Mage_Sales_Model_Quote $quote
+         */
+        $quote = $checkoutSession->getQuote();
+
+        $prefix = $quote->getCustomerPrefix();
+
+        if (!empty($prefix) && in_array($prefix, \Netzkollektiv_EasyCredit_Model_Api::getAllowedCustomerPrefixes())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getAllowedCustomerPrefixes() {
+        return \Netzkollektiv_EasyCredit_Model_Api::getAllowedCustomerPrefixes();
     }
 }

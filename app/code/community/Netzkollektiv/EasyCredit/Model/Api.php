@@ -18,6 +18,10 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object
     protected $_customerPrefixMalePatterns = array('Herr', 'Mr', 'male', 'männlich');
     protected $_customerPrefixFemalePatterns = array('Frau', 'Ms', 'Miss', 'Mrs', 'female', 'weiblich');
 
+    public static function getAllowedCustomerPrefixes() {
+        return array("Herr", "Frau");
+    }
+
     /**
      * @param string $method
      * @param null|mixed $postData
@@ -79,6 +83,11 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object
     public function callProcessInit($quote, $cancelUrl, $returnUrl, $rejectUrl)
     {
         $data = $this->getProcessInitRequest($quote, $cancelUrl, $returnUrl, $rejectUrl);
+
+        file_put_contents(
+            '/tmp/data.json',
+            json_encode($data)
+        );
 
         return $this->call('POST', 'vorgang', $data);
     }
@@ -190,7 +199,6 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object
                 json_encode($data),
                 'application/json;charset=UTF-8'
             );
-            $data = null;
         } else {
             $client->setParameterGet($data);
         }
@@ -311,14 +319,38 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object
     protected function _convertPersonalData(Mage_Sales_Model_Quote $quote)
     {
 
+        /**
+         * @var Mage_Checkout_Model_Session $checkoutSession
+         */
+        $checkoutSession = Mage::getSingleton('checkout/session');
+
         $prefix = $this->_guessCustomerPrefix($quote->getCustomerPrefix());
 
-        return array(
+        $prefixOrg = $this->_guessCustomerPrefix($quote->getCustomerPrefix());
+        $prefixTmp = '';
+
+        if (empty($prefix)) {
+            $prefixTmp = $checkoutSession->getData('customer_prefix');
+
+            if (!empty($prefixTmp)) {
+                $prefix = $prefixTmp;
+            }
+        }
+
+        $customerData = array(
             'anrede' => $prefix,
             'vorname' => $quote->getCustomerFirstname(),
             'nachname' => $quote->getCustomerLastname(),
-            'geburtsdatum' => $this->_getFormattedDate($quote->getCustomerDob())
         );
+
+        $dob = $this->_getFormattedDate($quote->getCustomerDob());
+
+        if (!empty($dob)) {
+            $customerData['geburtsdatum'] = $dob;
+        }
+
+        return $customerData;
+        
     }
 
     protected function _getDeepestCategoryName($categoryIds)
