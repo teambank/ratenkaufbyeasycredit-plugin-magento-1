@@ -106,7 +106,7 @@ class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
 
         $prefix = $quote->getCustomerPrefix();
 
-        if (!empty($prefix) && in_array($prefix, \Netzkollektiv_EasyCredit_Model_Api::getAllowedCustomerPrefixes())) {
+        if (!empty($prefix) && array_key_exists(strtoupper($prefix), \Netzkollektiv_EasyCredit_Model_Api::getAllowedCustomerPrefixes())) {
             return true;
         } else {
             return false;

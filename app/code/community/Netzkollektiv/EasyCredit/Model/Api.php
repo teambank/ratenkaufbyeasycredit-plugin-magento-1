@@ -84,11 +84,6 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object
     {
         $data = $this->getProcessInitRequest($quote, $cancelUrl, $returnUrl, $rejectUrl);
 
-        file_put_contents(
-            '/tmp/data.json',
-            json_encode($data)
-        );
-
         return $this->call('POST', 'vorgang', $data);
     }
 
@@ -325,9 +320,6 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object
         $checkoutSession = Mage::getSingleton('checkout/session');
 
         $prefix = $this->_guessCustomerPrefix($quote->getCustomerPrefix());
-
-        $prefixOrg = $this->_guessCustomerPrefix($quote->getCustomerPrefix());
-        $prefixTmp = '';
 
         if (empty($prefix)) {
             $prefixTmp = $checkoutSession->getData('customer_prefix');

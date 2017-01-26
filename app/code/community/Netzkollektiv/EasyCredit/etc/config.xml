@@ -212,6 +212,7 @@
                 <order_status>pending</order_status>
                 <report_shipment>0</report_shipment>
                 <widget_enabled>1</widget_enabled>
+                <save_customer_prefix>0</save_customer_prefix>
             </easycredit>
         </payment>
         <sales>

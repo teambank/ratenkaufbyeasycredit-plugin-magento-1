@@ -45,8 +45,8 @@ $textConsentError = $t['error'];
                                 <label for="easycredit-customer-prefix">Bitte wählen Sie Ihre Anrede:</label>
                                 <select name="easycredit-customer-prefix" id="easycredit-customer-prefix" class="select required-entry">
                                     <option disabled selected value>&nbsp;</option>
-                                    <?php foreach ($this->getAllowedCustomerPrefixes() as $prefix): ?>
-                                        <option value="<?php echo $this->escapeHtml($prefix) ?>"><?php echo $this->escapeHtml($prefix) ?></option>
+                                    <?php foreach ($this->getAllowedCustomerPrefixes() as $prefixKey => $prefixValue): ?>
+                                        <option value="<?php echo $this->escapeHtml($prefixKey) ?>"><?php echo $this->escapeHtml($prefixValue) ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </p>

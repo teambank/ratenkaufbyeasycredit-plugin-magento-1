@@ -101,7 +101,26 @@ class Netzkollektiv_EasyCredit_Model_Observer {
     {
         $prefix = Mage::app()->getRequest()->getParam('easycredit-customer-prefix');
 
-        Mage::getSingleton('checkout/session')->setData('customer_prefix', $prefix);
+        /**
+         * @var Mage_Checkout_Model_Session $checkoutSession
+         */
+        $checkoutSession = Mage::getSingleton('checkout/session');
+
+        /**
+         * @var Mage_Customer_Model_Session $customerSession
+         */
+        $customerSession = Mage::getSingleton('customer/session');
+
+        $checkoutSession->setData('customer_prefix', $prefix);
+
+        if (Mage::getStoreConfig('payment/easycredit/save_customer_prefix') && $customerSession->isLoggedIn()) {
+            $quote = $checkoutSession->getQuote();
+            $customer = $quote->getCustomer();
+
+            $customer->setPrefix(ucfirst(strtolower($prefix)));
+
+            $customer->save();
+        }
 
         return $this;
     }
