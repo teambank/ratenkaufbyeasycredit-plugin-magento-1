@@ -19,7 +19,7 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object
     protected $_customerPrefixFemalePatterns = array('Frau', 'Ms', 'Miss', 'Mrs', 'female', 'weiblich');
 
     public static function getAllowedCustomerPrefixes() {
-        return array("Herr", "Frau");
+        return array("HERR" => "Herr", "FRAU" => "Frau");
     }
 
     /**
@@ -350,7 +350,7 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object
         }
 
         return $customerData;
-        
+
     }
 
     protected function _getDeepestCategoryName($categoryIds)
@@ -418,7 +418,7 @@ class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object
         $session = Mage::getSingleton('customer/session');
 
         $details = array(
-            'bestellungErfolgtUeberLogin'   => $session->isLoggedIn(),
+            'bestellungErfolgtUeberLogin'   => (int) $session->isLoggedIn(),
             'anzahlProdukteImWarenkorb'     => count($quote->getAllVisibleItems())
         );
         if ($session->isLoggedIn()) {
