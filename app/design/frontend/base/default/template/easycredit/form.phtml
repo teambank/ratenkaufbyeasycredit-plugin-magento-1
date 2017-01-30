@@ -8,6 +8,7 @@
 $t = $this->getTextConsent();
 $textConsent = $t['text'];
 $textConsentError = $t['error'];
+$error = $this->checkAvailability();
 ?>
 
 
@@ -15,12 +16,11 @@ $textConsentError = $t['error'];
     <ul id="payment_form_<?php echo $this->getMethodCode(); ?>" style="display:none">
         <li>
             <div class="input-box">
-                <?php if ($error = $this->checkAvailability() || $textConsentError) : ?>
-
+                <?php if ($error || $textConsentError) : ?>
 
                     <?php echo $error; ?>
 
-                    <?php echo $textConsent; ?>
+                    <?php echo $textConsentError; ?>
 
                     <script>
                         var radio = $('p_method_easycredit');
