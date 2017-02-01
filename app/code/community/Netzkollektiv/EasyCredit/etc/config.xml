@@ -61,6 +61,15 @@
             </order_creditmemo>
         </sales>
         <events>
+            <customer_save_before>
+                <observers>
+                    <easycredit_customer_save_before>
+                        <type>singleton</type>
+                        <class>easycredit/observer</class>
+                        <method>saveCustomerBefore</method>
+                    </easycredit_customer_save_before>
+                </observers>
+            </customer_save_before>
             <sales_quote_payment_import_data_before>
                 <observers>
                     <easycredit_sales_quote_payment_import_data_before>

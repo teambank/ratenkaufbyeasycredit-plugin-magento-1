@@ -129,6 +129,29 @@ class Netzkollektiv_EasyCredit_Model_Observer {
         return $this;
     }
 
+    public function saveCustomerBefore(Varien_Event_Observer $observer) {
+        /**
+         * @var Mage_Checkout_Model_Session $checkoutSession
+         */
+        $checkoutSession = Mage::getSingleton('checkout/session');
+
+        $prefix = $checkoutSession->getData('customer_prefix');
+
+        if (empty($prefix) || !array_key_exists(strtoupper($prefix), \Netzkollektiv_EasyCredit_Model_Api::getAllowedCustomerPrefixes())) {
+            return $this;
+        }
+
+        $event = $observer->getEvent();
+        /**
+         * @var Mage_Customer_Model_Customer $customer
+         */
+        $customer = $event->getCustomer();
+
+        $customer->setPrefix(ucfirst(strtolower($prefix)));
+
+        return $this;
+    }
+
     /**
      * @param int $severity
      * @param string $message
