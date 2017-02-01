@@ -110,44 +110,40 @@ class Netzkollektiv_EasyCredit_Model_Observer {
          */
         $checkoutSession = Mage::getSingleton('checkout/session');
 
-        /**
-         * @var Mage_Customer_Model_Session $customerSession
-         */
-        $customerSession = Mage::getSingleton('customer/session');
-
         $checkoutSession->setData('customer_prefix', $prefix);
-
-        if (Mage::getStoreConfig('payment/easycredit/save_customer_prefix') && $customerSession->isLoggedIn()) {
-            $quote = $checkoutSession->getQuote();
-            $customer = $quote->getCustomer();
-
-            $customer->setPrefix(ucfirst(strtolower($prefix)));
-
-            $customer->save();
-        }
 
         return $this;
     }
 
-    public function saveCustomerBefore(Varien_Event_Observer $observer) {
+    public function saveCustomerPrefix(Varien_Event_Observer $observer) {
         /**
          * @var Mage_Checkout_Model_Session $checkoutSession
          */
         $checkoutSession = Mage::getSingleton('checkout/session');
 
+        $event = $observer->getEvent();
+
+        /**
+         * @var Mage_Sales_Model_Order $order
+         */
+        $order = $event->getOrder();
+        $payment = $order->getPayment();
+        $paymentCode = $payment->getMethodInstance()->getCode();
+        $customerId = $order->getCustomerId();
+
         $prefix = $checkoutSession->getData('customer_prefix');
 
-        if (empty($prefix) || !array_key_exists(strtoupper($prefix), \Netzkollektiv_EasyCredit_Model_Api::getAllowedCustomerPrefixes())) {
-            return $this;
+
+        if (
+            $order->getCustomerId()
+            && $paymentCode == Netzkollektiv_EasyCredit_Model_Payment::CODE
+            && Mage::getStoreConfig('payment/easycredit/save_customer_prefix')
+            && !empty($prefix)
+        ) {
+            $customer = Mage::getModel('customer/customer')->load($customerId);
+            $customer->setPrefix(ucfirst(strtolower($prefix)));
+            $customer->save();
         }
-
-        $event = $observer->getEvent();
-        /**
-         * @var Mage_Customer_Model_Customer $customer
-         */
-        $customer = $event->getCustomer();
-
-        $customer->setPrefix(ucfirst(strtolower($prefix)));
 
         return $this;
     }
