@@ -101,7 +101,7 @@ class Netzkollektiv_EasyCredit_Model_Observer {
     {
         $prefix = Mage::app()->getRequest()->getParam('easycredit-customer-prefix');
 
-        if (empty($prefix || !array_key_exists(strtoupper($prefix), \Netzkollektiv_EasyCredit_Model_Api::getAllowedCustomerPrefixes()))) {
+        if (empty($prefix) || !array_key_exists(strtoupper($prefix), \Netzkollektiv_EasyCredit_Model_Api::getAllowedCustomerPrefixes())) {
             return $this;
         }
 
