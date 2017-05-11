@@ -3,8 +3,8 @@
 class Netzkollektiv_EasyCredit_Model_Api extends Varien_Object
 {
 
-    const API_BASE_URL = 'https://www.easycredit.de/ratenkauf-ws/rest';
-    const API_VERSION = 'v0.3';
+    const API_BASE_URL = 'https://ratenkauf.easycredit.de/ratenkauf-ws/rest';
+    const API_VERSION = 'v0.4';
 
     const API_SHOP_ID_PLACEHOLDER = '%shopId%';
     const API_VERIFY_CREDENTIALS = 'webshop/%shopId%/restbetragankaufobergrenze';
