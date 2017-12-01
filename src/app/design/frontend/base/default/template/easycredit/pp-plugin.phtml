@@ -1,0 +1,76 @@
+<script>
+(function($) {
+
+    /**
+     *
+     * @param {string} price
+     * @returns {Number}
+     */
+    var getPriceAsFloat = function (price) {
+        var separatorComa,
+            separatorDot;
+
+        price = price.replace(/[^\d.,-]/g,'');
+
+        separatorComa = price.indexOf(',');
+        separatorDot = price.indexOf('.');
+
+        if (separatorComa > -1 && separatorDot > -1) {
+            if (separatorComa > separatorDot) {
+                price = price.replace(/\./g, '');
+                price = price.replace(',', '.');
+            } else {
+                price = price.replace(/,/g, '');
+            }
+        }  else if (separatorComa > -1) {
+            price = price.replace(',', '.');
+        }
+
+        return parseFloat(price);
+    };
+
+    var getSelector = function() {
+        selectors = [
+            '#product_addtocart_form .price-box .special-price .price-including-tax .price',
+            '#product_addtocart_form .price-box .price-including-tax .price',
+            '#product_addtocart_form .price-box .special-price .price',
+            '#product_addtocart_form .price-box .regular-price .price'
+        ];
+
+        var _selector = null;
+        $.each(selectors,function(index,selector){
+            if ($(selector).length > 0) {
+                _selector = selector;
+                return false;
+            }
+        });
+        return _selector;
+    }
+    selector = getSelector();
+
+    var applyWidget = function() {
+        var me = this;
+        var priceBox = $(this).closest('.price-box');
+
+        var amount = function() {
+            return getPriceAsFloat($(me).html().stripTags());
+        }();
+
+        if (!priceBox.find('.easycredit-widget-container').empty().length) {
+            priceBox.append('<div class="easycredit-widget-container">');
+        }
+
+        var container = priceBox.find('.easycredit-widget-container');
+        container.rkPaymentPage({
+            webshopId : '<?php echo Mage::getStoreConfig('payment/easycredit/api_key'); ?>',
+            amount: amount
+        });
+    }; 
+
+    $(selector)
+        .each(applyWidget)
+        .on('DOMSubtreeModified propertychange', applyWidget)
+        ;
+
+}(jQuery));
+</script>
