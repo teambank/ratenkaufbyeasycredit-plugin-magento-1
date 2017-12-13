@@ -3,7 +3,7 @@ return array(
 
 //The base_dir and archive_file path are combined to point to your tar archive
 //The basic idea is a seperate process builds the tar file, then this finds it
-'base_dir'               => getcwd(),
+'base_dir'               => dirname(__FILE__).'/build',
 'archive_files'          => 'ext.tar',
 
 //The Magento Connect extension name.  Must be unique on Magento Connect
@@ -22,7 +22,7 @@ return array(
 'auto_detect_version'   => false,
 
 //Where on your local system you'd like to build the files to
-'path_output'            => getcwd(),
+'path_output'            => dirname(__FILE__).'/dist/',
 
 //Magento Connect license value. 
 'stability'              => 'stable',
