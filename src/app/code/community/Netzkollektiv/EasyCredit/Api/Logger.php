@@ -39,6 +39,15 @@ class Logger implements \Netzkollektiv\EasyCreditApi\LoggerInterface {
         return $this;
     }
 
+    public function logWarn($msg) {
+        if (!$this->debug) {
+            return;
+        }
+
+        \Mage::log($msg, \Zend_Log::WARN);
+        return $this;
+    }
+
     public function logError($msg) {
         \Mage::log($msg, \Zend_Log::ERR);
         return $this;
