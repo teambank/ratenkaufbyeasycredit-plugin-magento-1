@@ -224,6 +224,7 @@
         <payment>
             <easycredit>
                 <active>1</active>
+                <active_when_unavailable>1</active_when_unavailable>
                 <title>ratenkauf by easyCredit</title>
                 <model>easycredit/payment</model>
                 <order_status>pending</order_status>

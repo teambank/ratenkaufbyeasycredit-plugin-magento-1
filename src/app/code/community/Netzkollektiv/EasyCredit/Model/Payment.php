@@ -47,6 +47,20 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
         return Mage::getUrl('easycredit/checkout/start');
     }
 
+    public function isAvailable($quote = null) {
+        $active = parent::isAvailable($quote);
+        if ($active && !$this->getConfigData('active_when_unavailable')) {
+            try {
+                Mage::helper('easycredit')->getCheckout()->isAvailable(
+                    new \Netzkollektiv\EasyCredit\Api\Quote()
+                );
+            } catch (Exception $e) {
+                $active = false;
+            }
+        }
+        return $active;
+    }
+
     /**
      * Capture payment abstract method
      *
