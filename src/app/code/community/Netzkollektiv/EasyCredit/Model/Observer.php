@@ -49,7 +49,9 @@ class Netzkollektiv_EasyCredit_Model_Observer {
         $quote = $observer->getEvent()
             ->getQuote();
 
-        if (!$quote->getId()) {
+        if (!$quote->getId()
+            || Netzkollektiv_EasyCredit_Model_Payment::CODE != $quote->getPayment()->getMethod()
+        ) {
             return;
         }
 

@@ -60,7 +60,7 @@
             priceBox.append('<div class="easycredit-widget-container">');
         }
 
-        var container = priceBox.find('.easycredit-widget-container');
+        var container = priceBox.find('.easycredit-widget-container').empty();
         container.rkPaymentPage({
             webshopId : '<?php echo Mage::getStoreConfig('payment/easycredit/api_key'); ?>',
             amount: amount
