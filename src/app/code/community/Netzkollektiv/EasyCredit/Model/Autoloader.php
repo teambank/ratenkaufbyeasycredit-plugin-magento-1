@@ -15,7 +15,6 @@ class Netzkollektiv_EasyCredit_Model_Autoloader extends Varien_Event_Observer {
         if ( preg_match( '#^(Netzkollektiv\\\\EasyCredit\\\\Api\\\\)\b#', $class ) ) {
             $class = str_replace('Netzkollektiv\\EasyCredit\\','',$class);
             $phpFile = dirname(__FILE__) . '/../' . str_replace( '\\', '/', $class ) . '.php';
-file_put_contents('/tmp/bla',$class.' => '.$phpFile.PHP_EOL,FILE_APPEND);
             require_once( $phpFile );
             return;
         }
