@@ -6,10 +6,10 @@ class Netzkollektiv_EasyCredit_CredentialsController extends Mage_Core_Controlle
         $this->getResponse()->setHeader('Content-type', 'application/json');
 
         if (!isset($params['apiKey']) || !isset($params['apiToken'])) {
-            $this->getResponse()->setBody(json_encode([
+            $this->getResponse()->setBody(json_encode(array(
                 "status" => false, 
                 "errorMessage" => 'values missing'
-            ]));
+            )));
             return;
         }
 
@@ -17,12 +17,12 @@ class Netzkollektiv_EasyCredit_CredentialsController extends Mage_Core_Controlle
         $apiToken = $params['apiToken'];
 
         if (Mage::helper('easycredit')->getCheckout()->verifyCredentials($apiKey, $apiToken)) {
-            $this->getResponse()->setBody(json_encode(["status" => true, "errorMessage" => '']));
+            $this->getResponse()->setBody(json_encode(array("status" => true, "errorMessage" => '')));
         } else {
-            $this->getResponse()->setBody(json_encode([
+            $this->getResponse()->setBody(json_encode(array(
                 "status" => false, 
                 "errorMessage" => Mage::helper('easycredit')->__('Credentials invalid. Please check your input!')
-            ]));
+            )));
         }
     }
 }
