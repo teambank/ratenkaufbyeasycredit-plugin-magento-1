@@ -30,8 +30,12 @@ if (typeof define === 'function' && define.amd) {
     }
 
     window.easycreditBootstrapLoaded = false;
+    var version = $.fn.jquery.split(' ')[0].split('.');
+    var legacyBootstrap = ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1)); // see jQuery
+    var bootstrapVersion = (legacyBootstrap) ? '3.2.0' : '3.3.7';
+
     var bootstrapModal = {
-        bootstrapJs: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js',
+        bootstrapJs: 'https://maxcdn.bootstrapcdn.com/bootstrap/'+bootstrapVersion+'/js/bootstrap.min.js',
         template: ['<div class="modal fade" tabindex="-1" role="dialog">',
               '<div class="modal-dialog" role="document">',
                 '<div class="modal-content">',
@@ -64,7 +68,7 @@ if (typeof define === 'function' && define.amd) {
                 var link = document.createElement('link');
                 link.setAttribute("rel", "stylesheet");
                 link.setAttribute("type", "text/css");
-                link.setAttribute("href", 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
+                link.setAttribute("href", 'https://maxcdn.bootstrapcdn.com/bootstrap/'+bootstrapVersion+'/css/bootstrap.min.css');
                 document.getElementsByTagName("head")[0].appendChild(link);
             }
         },
