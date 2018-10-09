@@ -33,13 +33,10 @@ class Netzkollektiv_EasyCredit_Model_Sales_Quote_Address_Total_Fee extends Mage_
             return $this;
         }
 
-        $exist_amount = $quote->getEasycreditAmount();
-        $balance = $amount - $exist_amount;
+        $address->setEasycreditAmount($amount);
+        $address->setBaseEasycreditAmount($amount);
 
-        $address->setEasycreditAmount($balance);
-        $address->setBaseEasycreditAmount($balance);
-
-        $quote->setEasycreditAmount($balance);
+        $quote->setEasycreditAmount($amount);
 
         $address->setGrandTotal($address->getGrandTotal() + $address->getEasycreditAmount());
         $address->setBaseGrandTotal($address->getBaseGrandTotal() + $address->getBaseEasycreditAmount());
