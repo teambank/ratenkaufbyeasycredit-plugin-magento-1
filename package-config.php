@@ -14,7 +14,7 @@ return array(
 //single Magento module, the tar-to-connect script will look to make sure this
 //matches the module version.  You can skip this check by setting the 
 //skip_version_compare value to true
-'extension_version'      => '1.2.1',
+'extension_version'      => '1.2.2',
 'skip_version_compare'   => true,
 
 //You can also have the package script use the version in the module you 
@@ -35,8 +35,8 @@ return array(
 
 //Magento Connect information fields.
 'summary'                => 'Der ratenkauf by easyCredit bietet Ihnen die Möglichkeit, in den Shops unserer Partner bequem und einfach per Raten zu zahlen.',
-'description'            => '',
-'notes'                  => '',
+'description'            => 'Der ratenkauf by easyCredit bietet Ihnen die Möglichkeit, in den Shops unserer Partner bequem und einfach per Raten zu zahlen.',
+'notes'                  => 'Der ratenkauf by easyCredit bietet Ihnen die Möglichkeit, in den Shops unserer Partner bequem und einfach per Raten zu zahlen.',
 
 //Magento Connect author information. If author_email is foo@example.com, script will
 //prompt you for the correct name.  Should match your http://www.magentocommerce.com/
