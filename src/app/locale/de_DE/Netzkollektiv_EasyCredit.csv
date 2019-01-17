@@ -7,8 +7,8 @@
 "Unable to initialize easyCredit Checkout review.","ratenkauf by EasyCredit Bestellübersicht kann nicht initialisiert werden."
 "Unable to validate easyCredit Payment.","ratenkauf by easyCredit Zahlung kann nicht validiert werden."
 "Unable to start easyCredit Payment.","ratenkauf by easyCredit Zahlung kann nicht gestartet werden."
-"Please insert your apiKey and apiToken!","Bitte geben Sie API Key und API Token an."
-"Credentials invalid. Please check your input!","Die Zugangsdaten sind nicht korrekt. Bitte überprüfen Sie API Key und API Token."
+"Please insert your apiKey and apiToken!","Bitte geben Sie Webshop-ID und API Passwort an."
+"Credentials invalid. Please check your input!","Die Zugangsdaten sind nicht korrekt. Bitte überprüfen Sie Webshop-ID und API Passwort."
 "Credentials correct!","Die Zugangsdaten sind korrekt. Nach Speichern der Einstellungen, können Sie die Zahlungsart nun verwenden."
 "Redemption Plan","Tilgungsplan"
 "Show reason, if not available","Zeige Grund, wenn nich verfügbar"
@@ -19,4 +19,5 @@
 "Debug Logging","Debug Logging"
 "If active, API call details will be saved to var/log/easycredit.log","Falls aktiv, werden die API Aufrufe in var/log/easycredit.log gespeichert."
 "Specifies if ratenkauf by easyCredit will be advertised in product detail view","Bestimmt, ob Ratenkauf in der Detailansicht beworben wird (""oder mtl. ab x EUR"")"
-
+"API Key","Webshop-ID"
+"API Token","API-Passwort"
