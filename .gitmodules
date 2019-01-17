@@ -1,3 +1,6 @@
 [submodule "module-api"]
 	path = module-api
 	url = git@git.netzkollektiv.com:netzkollektiv-projects/easycredit-api.git
+[submodule "docs/sphinx_rtd_theme"]
+	path = docs/sphinx_rtd_theme
+	url = https://github.com/rtfd/sphinx_rtd_theme.git

@@ -22,7 +22,7 @@ And upload the provided tgz file in the Magento Connect Manager:
 The module is now available successfully installed. Continue with :ref:`configuration` now.
 
 Manual Installation / FTP
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------
 
 * Download the extension package from our website
 * Extract the extension to a temporary directory

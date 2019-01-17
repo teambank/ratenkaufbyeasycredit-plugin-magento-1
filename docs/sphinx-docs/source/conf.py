@@ -19,8 +19,8 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'ratenkauf by easyCredit for Magento 1.x'
-copyright = u'2018, Teambank AG'
+project = u'ratenkauf by easyCredit für Magento 1.x'
+copyright = u'2019, Teambank AG'
 author = u'Teambank AG'
 
 # The short X.Y version
@@ -74,7 +74,8 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
+html_theme_path = ["_themes", ]
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -101,7 +102,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'm1-easycredit-endoc'
+htmlhelp_basename = 'm1-easycreditdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -151,7 +152,7 @@ latex_logo = '_static/50_ratenkauf_Logo_1240x824_easyCredit.png'
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'm1-easycredit-en.tex', u'ratenkauf by easyCredit for Magento 1',
+    (master_doc, 'm1-easycredit.tex', u'ratenkauf by easyCredit für Magento 1',
      u'Teambank AG', 'manual'),
 ]
 
@@ -161,7 +162,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'm1-easycredit-en', u'ratenkauf by easyCredit for Magento 1',
+    (master_doc, 'm1-easycredit', u'ratenkauf by easyCredit für Magento 1',
      [author], 1)
 ]
 
@@ -172,7 +173,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'm1-easycredit-en', u'ratenkauf by easyCredit for Magento 1',
-     author, 'm1-easycredit-en', 'One line description of project.',
+    (master_doc, 'm1-easycredit', u'ratenkauf by easyCredit für Magento 1',
+     author, 'm1-easycredit', 'One line description of project.',
      'Miscellaneous'),
 ]

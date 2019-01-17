@@ -22,7 +22,7 @@ Laden Sie das zur Verfügung gestellte tgz-Archiv im Manager hoch.
 Das Modul steht Ihnen nun zur Verfügung. Fahren Sie nun mit der :ref:`configuration` fort.
 
 manuelle Installation / FTP
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------
 
 * Laden Sie die Extension von unserer Website herunter
 * Entpacken Sie die Extension in ein temporäres Verzeichnis
