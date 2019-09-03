@@ -57,7 +57,6 @@ class Quote implements \Netzkollektiv\EasyCreditApi\Rest\QuoteInterface {
             }
             $_items[] = new Quote\Item(
                 $item,
-                $this->_storeManager,
                 $this->_categoryResource
             );
         }

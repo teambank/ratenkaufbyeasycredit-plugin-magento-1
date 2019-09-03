@@ -94,7 +94,7 @@ class Netzkollektiv_EasyCredit_Model_Observer {
 
         $newOrderState = Mage::getStoreConfig('payment/easycredit/order_status');
 
-        if ($paymentCodeCode == Netzkollektiv_EasyCredit_Model_Payment::CODE && !empty($newOrderState)) {
+        if ($payment == Netzkollektiv_EasyCredit_Model_Payment::CODE && !empty($newOrderState)) {
             $order->setState($newOrderState);
         }
 

@@ -7,12 +7,10 @@ class Item implements \Netzkollektiv\EasyCreditApi\Rest\ItemInterface {
 
     public function __construct(
         $item,
-        $storeManager,
         $categoryResource
     ) {
         $this->_item = $item;
         $this->_categoryResource = $categoryResource;
-        $this->_storeManager = $storeManager;
     }
 
     public function getSku() {
