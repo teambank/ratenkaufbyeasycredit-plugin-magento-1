@@ -91,20 +91,6 @@ var checkout = new Checkout({sections:[]},{});
     </div>
 </div>
 
-<div class="info-set col2-set">
-    <div class="col-1">
-        <div class="box">
-            <div class="box-title">
-                <h3><?php echo $this->__('Redemption Plan') ?></h3>
-            </div>
-            <div class="box-content">
-                <p><?php echo $this->getRedemptionPlan(); ?></p>
-                <a href="<?php echo $this->getPreContractInformationUrl(); ?>" target="_blank">Vorvertragliche Informationen zum Ratenkauf hier abrufen</a>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="info-set">
     <h2 class="legend"><?php echo $this->__('Products') ?></h2>
     <?php echo $this->getChildHtml('details') ?>

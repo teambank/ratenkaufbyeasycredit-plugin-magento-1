@@ -10,7 +10,6 @@
 "Please insert your apiKey and apiToken!","Bitte geben Sie Webshop-ID und API Passwort an."
 "Credentials invalid. Please check your input!","Die Zugangsdaten sind nicht korrekt. Bitte überprüfen Sie Webshop-ID und API Passwort."
 "Credentials correct!","Die Zugangsdaten sind korrekt. Nach Speichern der Einstellungen, können Sie die Zahlungsart nun verwenden."
-"Redemption Plan","Tilgungsplan"
 "Show reason, if not available","Zeige Grund, wenn nich verfügbar"
 "Show customers the reason if ratenkauf by easyCredit is unavailable","Zeige dem Kunden, warum ratenkauf by easyCredit für seine Bestellung nicht verfügbar ist"
 "Save customer prefix","Anrede speichern"
