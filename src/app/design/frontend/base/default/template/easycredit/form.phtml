@@ -5,10 +5,11 @@
  * @see Netzkollektiv_EasyCredit_Block_Form
  */
 
-$t = $this->getAgreement();
-$textAgreeement = $t['text'];
-$textAgreeementError = $t['error'];
+$agreement = $this->getAgreement();
 $error = $this->checkAvailability();
+if (!$error && (isset($agreement['error']) && $agreement['error'])) {
+  $error = $agreement['text'];
+}
 ?>
 
 
@@ -16,11 +17,10 @@ $error = $this->checkAvailability();
     <ul id="payment_form_<?php echo $this->getMethodCode(); ?>" style="display:none">
         <li>
             <div class="input-box">
-                <?php if ($error || $textAgreeementError) : ?>
+                <?php if ($error) : ?>
 
                     <p>
-                        <?php echo $error; ?>
-                        <?php echo $textAgreeementError; ?>
+                        <?php echo $error;  ?>
                     </p>
                     <script>
                         var radio = $('p_method_easycredit');
@@ -38,7 +38,7 @@ $error = $this->checkAvailability();
                         <p>
                             <label for="easycredit-agreement">
                                 <input type="checkbox" class="required-entry" id="easycredit-agreement"/>
-                                <span id="easycredit-agreement-text"><?php echo $this->escapeHtml($textAgreeement); ?></span>
+                                <span id="easycredit-agreement-text"><?php echo $this->escapeHtml($agreement['text']); ?></span>
                             </label>
                         </p>
                         <?php if (!$this->hasCustomerPrefix()) : ?>
