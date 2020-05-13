@@ -18,7 +18,7 @@ class Netzkollektiv_EasyCredit_Model_Sales_Order_Total_Invoice_Fee extends Mage_
             $invoice->setGrandTotal(0);
             $invoice->setBaseGrandTotal(0);
         }
-
+        
         $invoice->setEasycreditAmount($feeAmountLeft);
         $invoice->setBaseEasycreditAmount($baseFeeAmountLeft);
 

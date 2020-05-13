@@ -220,6 +220,19 @@
         </events>
     </adminhtml>
 
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <easycredit before="adminhtml">Netzkollektiv_EasyCredit_Adminhtml</easycredit>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+
     <default>
         <payment>
             <easycredit>
@@ -236,6 +249,7 @@
                 <report_shipment>0</report_shipment>
                 <widget_enabled>1</widget_enabled>
                 <save_customer_prefix>0</save_customer_prefix>
+                <payment_action>authorize</payment_action>
             </easycredit>
         </payment>
         <sales>

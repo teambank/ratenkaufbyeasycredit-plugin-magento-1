@@ -1,5 +1,17 @@
 <p>
-    <strong><?php echo $this->getMethod()->getTitle() ?></strong><br />
-
-    <strong>Transaktions-Nr:</strong> <?php echo $this->getInfoAdditionalData('transaction_id'); ?><br />
+    <script>
+    window.ratenkaufbyeasycreditOrderManagementConfig = <?php echo json_encode(array(
+        'endpoints' => array(
+            'get' => Mage::helper('adminhtml')->getUrl('*/easycredit_merchant/transaction'),
+            'list' => Mage::helper('adminhtml')->getUrl('*/easycredit_merchant/transactions'),
+            'post' => Mage::helper('adminhtml')->getUrl('*/easycredit_merchant/postTransaction')
+        )
+    ));
+    ?>;
+    window.ratenkaufbyeasycreditOrderManagementConfig.endpoints.post += '?form_key='+FORM_KEY;
+    </script>
+    <easycredit-tx-manager 
+        id="<?php echo $this->getInfoAdditionalData('transaction_id'); ?>"
+        date="<?php echo Mage::getModel('core/date')->date('Y-m-d', $this->getInfo()->getOrder()->getCreatedAt()); ?>"    
+    />
 </p>

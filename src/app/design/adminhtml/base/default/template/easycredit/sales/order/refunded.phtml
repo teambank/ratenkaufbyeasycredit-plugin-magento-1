@@ -1,20 +1,13 @@
-<?php if($this->getSource() instanceof Mage_Sales_Model_Order): ?>
+<?php 
+$code = 'easycredit_amount';
+if ($this->getSource() instanceof Mage_Sales_Model_Order) {
+    $code = 'easycredit_amount_refunded';
+}
+?>
 
-    <?php if ((float)$this->getSource()->getEasycreditAmountRefunded() > 0): ?>
-        <tr>
-            <td class="label"><strong><?php echo Mage::helper('fee')->__('Interest Refunded') ?></strong></td>
-            <td><strong><?php echo $this->getSource()->getEasycreditAmountRefunded(); ?></strong></td>
-        </tr>
-    <?php endif; ?>
-
-<?php else: ?>
-
-    <?php if ((float)$this->getSource()->getEasycreditAmount()): ?>
-        <tr>
-            <td class="label"><strong><?php echo Mage::helper('fee')->__('Interest Refunded') ?></strong></td>
-            <td><strong><?php echo $this->getSource()->getEasycreditAmount(); ?></strong></td>
-        </tr>
-    <?php endif;  ?>
-
+<?php if ((float)$this->getSource()->getData($code) > 0): ?>
+    <tr>
+        <td class="label"><strong><?php echo Mage::helper('easycredit')->__('Interest Refunded') ?></strong></td>
+        <td><strong><?php echo Mage::helper('adminhtml/sales')->displayPriceAttribute($this->getSource(), $code); ?></strong></td>
+    </tr>
 <?php endif; ?>
-

@@ -11,11 +11,10 @@ class Netzkollektiv_EasyCredit_Model_Observer {
          * @var Mage_Sales_Model_Order_Invoice $invoice
          */
         $invoice = $observer->getEvent()->getInvoice();
-
-        if ($invoice->getBaseFeeAmount()) {
+        if ($invoice->getBaseEasycreditAmount()) {
             $order = $invoice->getOrder();
-            $order->setFeeAmountInvoiced($order->getFeeAmountInvoiced() + $invoice->getFeeAmount());
-            $order->setBaseFeeAmountInvoiced($order->getBaseFeeAmountInvoiced() + $invoice->getBaseFeeAmount());
+            $order->setEasycreditAmountInvoiced($order->getEasycreditAmountInvoiced() + $invoice->getEasycreditAmount());
+            $order->setBaseEasycreditAmountInvoiced($order->getBaseEasycreditAmountInvoiced() + $invoice->getBaseEasycreditAmount());
         }
 
         return $this;
@@ -32,10 +31,11 @@ class Netzkollektiv_EasyCredit_Model_Observer {
          */
         $creditmemo = $observer->getEvent()->getCreditmemo();
 
-        if ($creditmemo->getFeeAmount()) {
+        if ($creditmemo->getEasycreditAmount()) {
             $order = $creditmemo->getOrder();
-            $order->setFeeAmountRefunded($order->getFeeAmountRefunded() + $creditmemo->getFeeAmount());
-            $order->setBaseFeeAmountRefunded($order->getBaseFeeAmountRefunded() + $creditmemo->getBaseFeeAmount());
+            $order->setEasycreditAmountRefunded($order->getEasycreditAmountRefunded() + $creditmemo->getEasycreditAmount());
+            $order->setBaseEasycreditAmountRefunded($order->getBaseEasycreditAmountRefunded() + $creditmemo->getBaseEasycreditAmount());
+            $order->save();
         }
 
         return $this;

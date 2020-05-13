@@ -28,4 +28,17 @@ class Netzkollektiv_EasyCredit_Helper_Data extends Mage_Core_Helper_Abstract {
             $storage
         );
     }
+
+    public function getMerchant() {
+        $logger = new \Netzkollektiv\EasyCredit\Api\Logger();
+        $config = new \Netzkollektiv\EasyCredit\Api\Config();
+
+        $clientFactory = new \Netzkollektiv\EasyCreditApi\Client\HttpClientFactory();
+
+        return new \Netzkollektiv\EasyCreditApi\Merchant(
+            $config,
+            $clientFactory,
+            $logger
+        );
+    }
 }
