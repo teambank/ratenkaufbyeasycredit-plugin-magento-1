@@ -2,7 +2,7 @@
 Review.prototype.save = function(){
     if (checkout.loadWaiting!=false) return;
     checkout.setLoadWaiting('review');
-    var params = 'payment%5Bmethod%5D=easycredit';
+    var params = encodeURI('payment[method]=easycredit&form_key=<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>');
     if (this.agreementsForm) {
         params += '&'+Form.serialize(this.agreementsForm);
     }
