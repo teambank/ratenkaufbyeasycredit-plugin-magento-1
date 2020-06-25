@@ -15,6 +15,7 @@
 
         <reference name="head">
             <action method="addItem"><type>skin_js</type><name>js/opcheckout.js</name></action> 
+            <action method="setTitle"><title>Checkout Review</title></action>
         </reference>
 
         <reference name="root">
