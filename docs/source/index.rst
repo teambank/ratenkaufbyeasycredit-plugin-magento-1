@@ -13,4 +13,6 @@ ratenkauf by easyCredit für Magento 1.x
    requirements.rst 
    installation.rst
    configuration.rst
-..   changelog.rst
+   usage-customer.rst
+   usage-merchant.rst
+   changelog.rst

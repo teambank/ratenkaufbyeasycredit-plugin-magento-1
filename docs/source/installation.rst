@@ -24,7 +24,7 @@ Das Modul steht Ihnen nun zur Verfügung. Fahren Sie nun mit der :ref:`configura
 manuelle Installation / FTP
 ------------------------------------------
 
-* Laden Sie die Extension von unserer Website herunter
+* Laden Sie die Extension von https://www.easycredit-ratenkauf.de/system/magento/ herunter
 * Entpacken Sie die Extension in ein temporäres Verzeichnis
 * Laden Sie die Extension in die Struktur Ihrer Magento Installation
 * Aktualisieren Sie den Cache

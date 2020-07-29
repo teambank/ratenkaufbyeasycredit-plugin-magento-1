@@ -13,7 +13,7 @@ API-Zugangsdaten konfigurieren
            :scale: 50%
 
 * Aktivieren Sie die Zahlungsart.
-* Tragen Sie die API-Zugangsdaten in die dafür vorgesehenen Felder API-Key und API-Token ein.
+* Tragen Sie die API-Zugangsdaten in die dafür vorgesehenen Felder Webshop-ID und API-Passwort ein.
 * Testen Sie die Zugangsdaten mit Klick auf **Zugangsdaten testen**.
 * Nach dem erfolgreichen Test klicken Sie auf **Speichern**
 
@@ -31,4 +31,12 @@ Stellen Sie hierzu unter :menuselection:`System -> Konfiguration -> Kunden Konfi
 Zusätzlich stellen Sie die Option **Präfix Dropdown-Optionen** auf den Wert *Herr;Frau;*.
 
 .. image:: ./_static/config-prefix.png
+           :scale: 50%
+
+Widget konfigurieren
+------------------------------
+
+Um ratenkauf by easyCredit bei Ihren Kunden zu bewerben, blendet die Extension ein Widget auf der Produktdetailseite ein. Dies kann über die Option „Zeige Modellrechner-Widget neben Produktpreis“ gesteuert werden. Ist die Option aktiviert, wird das Widget unterhalb des Preises angezeigt. Ein Beispiel sehen Sie im folgenden Screenshot:
+
+.. image:: ./_static/m1-widget.png
            :scale: 50%

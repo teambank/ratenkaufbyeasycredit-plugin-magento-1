@@ -19,14 +19,14 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'ratenkauf by easyCredit for Magento 1.x'
-copyright = u'2018, Teambank AG'
+project = u'ratenkauf by easyCredit für Magento 1.x'
+copyright = u'2020, NETZKOLLEKTIV GmbH'
 author = u'Teambank AG'
 
 # The short X.Y version
 version = u''
 # The full version, including alpha/beta/rc tags
-release = u'1.2.2'
+release = u'1.3.2'
 
 
 # -- General configuration ---------------------------------------------------
@@ -39,6 +39,7 @@ release = u'1.2.2'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autosectionlabel'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -77,6 +78,8 @@ pygments_style = 'sphinx'
 html_theme = 'sphinx_rtd_theme'
 html_theme_path = ["_themes", ]
 
+html_show_sphinx = False
+
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -88,6 +91,10 @@ html_theme_path = ["_themes", ]
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+html_css_files = [
+    'custom.css',
+]
+
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
 #
@@ -98,11 +105,14 @@ html_static_path = ['_static']
 #
 # html_sidebars = {}
 
+html_show_sourcelink = False
+html_logo = '_static/50_ratenkauf_Logo_1240x824_easyCredit.png'
+html_favicon = '_static/favicon.ico'
 
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'm1-easycredit-endoc'
+htmlhelp_basename = 'm1-easycreditdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -131,9 +141,9 @@ latex_elements = {
     'babel' : '\\usepackage[ngerman]{babel}',
     'papersize' : 'a4paper',
     'fontpkg': r'''
-\setmainfont{DejaVu Serif}
-\setsansfont{DejaVu Sans}
-\setmonofont{DejaVu Sans Mono}
+\setmainfont{DejaVuSerif}
+\setsansfont{DejaVuSans}
+\setmonofont{DejaVuSansMono}
 ''',
     'preamble': r'''
 \usepackage[titles]{tocloft}
@@ -152,7 +162,7 @@ latex_logo = '_static/50_ratenkauf_Logo_1240x824_easyCredit.png'
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'm1-easycredit-en.tex', u'ratenkauf by easyCredit for Magento 1',
+    (master_doc, 'm1-easycredit.tex', u'ratenkauf by easyCredit für Magento 1',
      u'Teambank AG', 'manual'),
 ]
 
@@ -162,7 +172,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'm1-easycredit-en', u'ratenkauf by easyCredit for Magento 1',
+    (master_doc, 'm1-easycredit', u'ratenkauf by easyCredit für Magento 1',
      [author], 1)
 ]
 
@@ -173,7 +183,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'm1-easycredit-en', u'ratenkauf by easyCredit for Magento 1',
-     author, 'm1-easycredit-en', 'One line description of project.',
+    (master_doc, 'm1-easycredit', u'ratenkauf by easyCredit für Magento 1',
+     author, 'm1-easycredit', 'One line description of project.',
      'Miscellaneous'),
 ]
