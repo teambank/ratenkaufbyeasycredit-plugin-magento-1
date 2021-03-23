@@ -20,3 +20,5 @@
 "Specifies if ratenkauf by easyCredit will be advertised in product detail view","Bestimmt, ob Ratenkauf in der Detailansicht beworben wird (""oder mtl. ab x EUR"")"
 "API Key","Webshop-ID"
 "API Token","API-Passwort"
+"If activated, easyCredit Ratenkauf interest rates will be not be included in order and order documents after order.","Wenn aktiviert, werden die Zinsen nach Abschluss der Bestellung entfernt und in der Bestellung und den Bestelldokumenten nicht mehr angezeigt."
+"Remove interest after order","Zinsen nach Bestellabschluss entfernen"

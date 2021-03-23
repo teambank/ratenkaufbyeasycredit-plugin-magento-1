@@ -114,6 +114,14 @@
                     </sales_order_shipment_save_after>
                 </observers>
             </controller_front_init_before>
+            <sales_convert_quote_address_to_order>
+                <observers>
+                    <remove_interest>
+                        <class>easycredit/observer</class>
+                        <method>removeInterest</method>
+                    </remove_interest>
+                </observers>
+            </sales_convert_quote_address_to_order>
         </events>
         <fieldsets>
             <sales_convert_quote_address>
@@ -245,6 +253,7 @@
                 <specificcountry>DE</specificcountry>
                 <payment_action>authorize_capture</payment_action>
                 <debug_logging>0</debug_logging>
+                <remove_interest>1</remove_interest>
                 <order_status>pending</order_status>
                 <report_shipment>0</report_shipment>
                 <widget_enabled>1</widget_enabled>

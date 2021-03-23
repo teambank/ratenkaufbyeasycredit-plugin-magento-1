@@ -45,6 +45,29 @@ class Netzkollektiv_EasyCredit_Model_Observer {
      * @param Varien_Event_Observer $observer
      * @return $this
      */
+    public function removeInterest(Varien_Event_Observer $observer)
+    {
+        $address = $observer->getEvent()->getAddress();
+        $order = $observer->getEvent()->getOrder();
+
+        $removeInterest = Mage::getStoreConfig('payment/easycredit/remove_interest');
+        if ($order->getEasycreditAmount() > 0
+            && $removeInterest
+        ) {
+            $order->setGrandTotal($order->getGrandTotal() - $order->getEasycreditAmount());
+            $order->setBaseGrandTotal($order->getBaseGrandTotal() - $order->getBaseEasycreditAmount());
+
+            $order->setEasycreditAmount(0);
+            $order->setBaseEasycreditAmount(0);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Varien_Event_Observer $observer
+     * @return $this
+     */
     public function expirePayment(Varien_Event_Observer $observer) {
         $quote = $observer->getEvent()
             ->getQuote();
