@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.3.3
+------
+
+* die Zinsen können nun nach Bestellabschluss automatisch entfernt werden, Option standardmäßig aktiv
+
 v1.3.2
 ------
 
