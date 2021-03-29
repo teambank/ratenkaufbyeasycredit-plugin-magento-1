@@ -14,7 +14,7 @@ return array(
 //single Magento module, the tar-to-connect script will look to make sure this
 //matches the module version.  You can skip this check by setting the 
 //skip_version_compare value to true
-'extension_version'      => '1.3.0',
+'extension_version'      => current(simplexml_load_file(dirname(__FILE__).'/src/app/code/community/Netzkollektiv/EasyCredit/etc/config.xml')->modules)->version,
 'skip_version_compare'   => true,
 
 //You can also have the package script use the version in the module you 
@@ -52,7 +52,7 @@ return array(
 //PHP min/max fields for Connect.  I don't know if anyone uses these, but you should
 //probably check that they're accurate
 'php_min'                => '5.2.0',
-'php_max'                => '6.0.0',
+'php_max'                => '7.4.0',
 
 //PHP extension dependencies. An array containing one or more of either:
 //  - a single string (the name of the extension dependency); use this if the
