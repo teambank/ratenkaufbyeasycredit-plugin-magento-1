@@ -40,3 +40,11 @@ Um ratenkauf by easyCredit bei Ihren Kunden zu bewerben, blendet die Extension e
 
 .. image:: ./_static/m1-widget.png
            :scale: 50%
+
+Click & Collect konfigurieren
+------------------------------
+
+Um *Click & Collect* für eine Versandart zu aktivieren, kann diese als *Click & Collect*-Versandart ausgewählt werden. Wählt der Kunde diese Versandart im Bezahlvorgang aus, wird dies bei der Finanzierungsanfrage entsprechend übertragen. Weitere Informationen finden Sie unter `Click & Collect <https://www.easycredit-ratenkauf.de/click-und-collect/>`_
+
+.. image:: ./_static/config-clickandcollect.png
+           :scale: 50%

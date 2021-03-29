@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = u'ratenkauf by easyCredit für Magento 1.x'
-copyright = u'2020, NETZKOLLEKTIV GmbH'
+copyright = u'2021, NETZKOLLEKTIV GmbH'
 author = u'Teambank AG'
 
 # The short X.Y version
