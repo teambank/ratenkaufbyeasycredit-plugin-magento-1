@@ -22,3 +22,6 @@
 "API Token","API-Passwort"
 "If activated, easyCredit Ratenkauf interest rates will be not be included in order and order documents after order.","Wenn aktiviert, werden die Zinsen nach Abschluss der Bestellung entfernt und in der Bestellung und den Bestelldokumenten nicht mehr angezeigt."
 "Remove interest after order","Zinsen nach Bestellabschluss entfernen"
+"Shipping Method","Versandart"
+"Credentials","Zugangsdaten"
+"Behavior","Verhalten"

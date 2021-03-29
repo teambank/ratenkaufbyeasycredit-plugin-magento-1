@@ -1,27 +1,52 @@
-web:
-  image: alexcheng/magento
-  ports:
-    - "8004:80"
-  links:
-    - mysql
-    - redis
-  env_file:
-    - env
-  volumes:
-    - ./app/etc/modules/Netzkollektiv_EasyCredit.xml:/var/www/htdocs/app/etc/modules/Netzkollektiv_EasyCredit.xml
-    - ./app/code/community/Netzkollektiv/EasyCredit:/var/www/htdocs/app/code/community/Netzkollektiv/EasyCredit
-    - ./app/design/adminhtml/base/default/template/easycredit:/var/www/htdocs/app/design/adminhtml/base/default/template/easycredit
-    - ./app/design/adminhtml/base/default/layout/easycredit.xml:/var/www/htdocs/app/design/adminhtml/base/default/layout/easycredit.xml
-    - ./app/design/frontend/base/default/layout/easycredit.xml:/var/www/htdocs/app/design/frontend/base/default/layout/easycredit.xml
-    - ./app/design/frontend/base/default/template/easycredit:/var/www/htdocs/app/design/frontend/base/default/template/easycredit
-    - ./app/locale/de_DE/Netzkollektiv_EasyCredit.csv:/var/www/htdocs/app/locale/de_DE/Netzkollektiv_EasyCredit.csv
-    
-mysql:
-  image: mysql:5.6.23
-  env_file:
-    - env
+version: '2'
 
-redis:
-  image: redis
-  ports:
-    - 6379
+networks:
+  web:
+    external: true
+
+services:
+
+  web:
+    image: alexcheng/magento:1.9.3.8
+    links:
+      - mysql
+      - redis
+    env_file:
+      - env
+    volumes:
+      - ./src/app/etc/modules/Netzkollektiv_EasyCredit.xml:/var/www/html/app/etc/modules/Netzkollektiv_EasyCredit.xml
+      - ./src/app/code/community/Netzkollektiv/EasyCredit:/var/www/html/app/code/community/Netzkollektiv/EasyCredit
+      - ./src/app/design/adminhtml/base/default/template/easycredit:/var/www/html/app/design/adminhtml/base/default/template/easycredit
+      - ./src/app/design/adminhtml/base/default/layout/easycredit.xml:/var/www/html/app/design/adminhtml/base/default/layout/easycredit.xml
+      - ./src/app/design/frontend/base/default/layout/easycredit.xml:/var/www/html/app/design/frontend/base/default/layout/easycredit.xml
+      - ./src/app/design/frontend/base/default/template/easycredit:/var/www/html/app/design/frontend/base/default/template/easycredit
+      - ./src/skin/frontend/base/default/css/easycredit:/var/www/html/skin/frontend/base/default/css/easycredit
+      - ./src/skin/frontend/base/default/js/easycredit:/var/www/html/skin/frontend/base/default/js/easycredit
+      - ./src/app/locale/de_DE/Netzkollektiv_EasyCredit.csv:/var/www/html/app/locale/de_DE/Netzkollektiv_EasyCredit.csv
+      - ./vendor:/var/www/html/app/code/community/Netzkollektiv/EasyCredit/vendor
+      - ./merchant-interface/dist:/var/www/html/skin/adminhtml/base/default/easycredit
+    networks:
+      - web
+      - default
+
+  mysql:
+    image: mysql:5.6
+    env_file:
+      - env
+    networks:
+      - web
+      - default
+
+  docs:
+    image: nginx
+    volumes:
+      - ./docs/build/html:/usr/share/nginx/html
+    networks:
+      - web
+      - default
+
+  redis:
+    image: redis
+    networks:
+      - web
+      - default

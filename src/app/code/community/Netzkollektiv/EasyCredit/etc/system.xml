@@ -10,6 +10,36 @@
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
+                    <comment><![CDATA[
+<div class="easycredit-intro">
+  <img src="https://www.easycredit-ratenkauf.de/download/200x43_Ratenkauf_Logo_mitSubline.png" />
+  <div>
+    Bieten Sie Ihren Kunden die Möglichkeit der Ratenzahlung mit ratenkauf by easyCredit.<br />
+    <strong>Einfach. Fair. In Raten zahlen.</strong>
+    <br /><br />
+    <a href="https://www.easycredit-ratenkauf.de/anmeldung.htm" target="_blank">zum Händler-Interface</a>
+     - <a href="https://www.easycredit-ratenkauf.de/shopsysteme.htm" target="_blank">zum Integration-Center</a>
+     - <a href="https://netzkollektiv.com/docs/ratenkaufbyeasycredit-magento1/" target="_blank">zur Dokumentation</a> 
+  </div>
+</div>
+<style>
+#payment_easycredit {
+  background:#fff;
+}
+.easycredit-intro {
+  padding: 15px 0;
+}
+.easycredit-intro img {
+  display:inline-block; 
+  padding:15px; 
+  width:170px;
+}
+.easycredit-intro div {
+  display:inline-block;
+}
+</style>
+
+                    ]]></comment>
                     <fields>
                         <active translate="label">
                             <label>Enabled</label>
@@ -46,16 +76,6 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </order_status>
-                        <widget_enabled translate="label comment">
-                            <label>Show widget next to product price</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>30</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Specifies if ratenkauf by easyCredit will be advertised in product detail view]]></comment>
-                        </widget_enabled>
                         <active_when_unavailable translate="label comment">
                             <label>Show reason, if not available</label>
                             <frontend_type>select</frontend_type>
@@ -69,7 +89,7 @@
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
                             <frontend_type>allowspecific</frontend_type>
-                            <sort_order>50</sort_order>
+                            <sort_order>49</sort_order>
                             <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -78,13 +98,20 @@
                         <specificcountry translate="label">
                             <label>Payment from Specific Countries</label>
                             <frontend_type>multiselect</frontend_type>
-                            <sort_order>51</sort_order>
+                            <sort_order>50</sort_order>
                             <source_model>adminhtml/system_config_source_country</source_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <can_be_empty>1</can_be_empty>
                         </specificcountry>
+                        <heading_behavior translate="label">
+                            <label>Behavior</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>51</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_behavior>
                         <save_customer_prefix translate="label comment">
                             <label>Save customer prefix</label>
                             <frontend_type>select</frontend_type>
@@ -115,6 +142,13 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </debug_logging>
+                        <heading_credentials translate="label">
+                            <label>Credentials</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>105</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_credentials>
                         <api_key translate="label">
                             <label>API Key</label>
                             <frontend_type>text</frontend_type>
@@ -139,6 +173,46 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                         </api_wizard>
+                        <heading_marketing translate="label">
+                            <label>Marketing</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_marketing>
+                        <widget_enabled translate="label comment">
+                            <label>Show widget next to product price</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>131</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Specifies if ratenkauf by easyCredit will be advertised in product detail view]]></comment>
+                        </widget_enabled>
+                        <heading_clickandcollect translate="label">
+                            <label><![CDATA[Click & Collect]]></label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>140</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_clickandcollect>
+                        <clickandcollect_intro translate="button_label">
+                            <label>cncintro</label>
+                            <frontend_model>easycredit/adminhtml_system_config_clickAndCollectIntro</frontend_model>
+                            <sort_order>141</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </clickandcollect_intro>
+                        <clickandcollect_shipping_method translate="label">
+                            <label>Shipping Method</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_shipping_allmethods</source_model>
+                            <sort_order>142</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </clickandcollect_shipping_method>
                     </fields>
                 </easycredit>
             </groups>
