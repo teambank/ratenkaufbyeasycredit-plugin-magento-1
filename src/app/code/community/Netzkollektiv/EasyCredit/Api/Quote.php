@@ -23,6 +23,11 @@ class Quote implements \Netzkollektiv\EasyCreditApi\Rest\QuoteInterface {
         }
     }
 
+    public function getIsClickAndCollect() {
+        return $this->_quote->getShippingAddress()->getShippingMethod()
+            == \Mage::getStoreConfig('payment/easycredit/clickandcollect_shipping_method');
+    }
+
     public function getGrandTotal() {
         return $this->_quote->getGrandTotal();
     }

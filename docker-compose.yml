@@ -23,7 +23,7 @@ services:
       - ./src/skin/frontend/base/default/css/easycredit:/var/www/html/skin/frontend/base/default/css/easycredit
       - ./src/skin/frontend/base/default/js/easycredit:/var/www/html/skin/frontend/base/default/js/easycredit
       - ./src/app/locale/de_DE/Netzkollektiv_EasyCredit.csv:/var/www/html/app/locale/de_DE/Netzkollektiv_EasyCredit.csv
-      - ./module-api/EasyCreditApi:/var/www/html/lib/Netzkollektiv/EasyCreditApi
+      - ./vendor:/var/www/html/app/code/community/Netzkollektiv/EasyCredit/vendor
       - ./merchant-interface/dist:/var/www/html/skin/adminhtml/base/default/easycredit
     networks:
       - web
