@@ -3,9 +3,9 @@
         <span><?php echo $this->getMethod()->getTitle() ?></span>
     </div>
     <strong>Einfach. Fair. In Raten zahlen.</strong><br />
-    <?php echo $this->getInfoAdditionalData('payment_plan'); ?>
+    <?php echo $this->getPaymentPlan(); ?>
 
     <?php if ($this->getInfoAdditionalData('is_captured')) : ?>
-    <p><strong>Transaktions-Nr:</strong> <?php echo $this->getInfoAdditionalData('transaction_id'); ?></p>
+    <p><strong>Transaktions-Nr:</strong> <?php echo $this->escapeHtml($this->getInfoAdditionalData('transaction_id')); ?></p>
     <?php endif; ?>
 </p>

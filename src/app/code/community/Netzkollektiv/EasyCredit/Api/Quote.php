@@ -32,6 +32,10 @@ class Quote implements \Netzkollektiv\EasyCreditApi\Rest\QuoteInterface {
         return $this->_quote->getGrandTotal();
     }
 
+    public function getDuration() {
+        return null;
+    }
+
     public function getBillingAddress() {
         return new Quote\Address($this->_quote->getBillingAddress());
     }

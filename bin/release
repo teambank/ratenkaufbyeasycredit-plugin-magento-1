@@ -18,21 +18,3 @@ php ../MagentoTarToConnect/magento-tar-to-connect.php package-config.php
 gzip build/ext.tar;
 mv build/ext.tar.gz dist/m1-easycredit-$version.tar.gz
 echo "created: m1-easycredit-$version.tar.gz"
-
-exit;
-
-# German docs
-cd docs/sphinx-docs
-rm build/latex/*.pdf
-make latexpdf
-make html
-cd $base
-cp docs/sphinx-docs/build/latex/m1-easycredit.pdf dist/
-
-# English docs
-cd docs/sphinx-docs-en
-rm build/latex/*.pdf
-make latexpdf
-make html
-cd $base
-cp docs/sphinx-docs-en/build/latex/m1-easycredit-en.pdf dist/

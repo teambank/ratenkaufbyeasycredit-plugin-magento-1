@@ -83,6 +83,7 @@ class Netzkollektiv_EasyCredit_Model_Observer {
 
         if (!$checkout->isAmountValid($ecQuote)
             || !$checkout->verifyAddressNotChanged($ecQuote)
+            || !$checkout->sameAddresses($ecQuote)
         ) {
             $checkout->clear();
         }
