@@ -4,10 +4,16 @@ namespace Netzkollektiv\EasyCredit\Api;
 class System implements \Netzkollektiv\EasyCreditApi\SystemInterface {
 
     public function getSystemVendor() {
+        if (method_exists('\Mage','getOpenMageVersion')) {
+            return 'OpenMage';
+        }
         return 'Magento';
     }
 
     public function getSystemVersion() {
+        if (method_exists('\Mage','getOpenMageVersion')) {
+            return \Mage::getOpenMageVersion();
+        }
         return \Mage::getVersion();
     }
 
