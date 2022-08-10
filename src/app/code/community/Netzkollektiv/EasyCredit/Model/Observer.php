@@ -78,6 +78,11 @@ class Netzkollektiv_EasyCredit_Model_Observer {
             return;
         }
 
+        $storage = new \Netzkollektiv\EasyCredit\Api\Storage();
+        if ($storage->get('interest_amount') === null) {
+            return;
+        }
+
         $checkout = Mage::helper('easycredit')->getCheckout();
         $ecQuote = new \Netzkollektiv\EasyCredit\Api\Quote(); 
 
