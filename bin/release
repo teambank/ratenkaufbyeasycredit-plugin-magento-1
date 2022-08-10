@@ -2,13 +2,12 @@ base="$(cd "$(dirname "$0")/.."; pwd)";
 
 rm -r build/*
 
-mkdir -p build/skin/adminhtml/base/default/easycredit
-
 version=$(php -r "echo current(simplexml_load_file('src/app/code/community/Netzkollektiv/EasyCredit/etc/config.xml')->modules)->version;")
 echo "building v$version"
 
+composer install
+
 cp -r src/* build/
-rsync -r --exclude index.html merchant-interface/dist/* build/skin/adminhtml/base/default/easycredit/
 cp *.md build/ 
 (cd build; tar cvf ext.tar *)
 

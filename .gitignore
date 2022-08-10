@@ -3,3 +3,4 @@
 /node_modules
 .vscode
 /docker-compose.override.yml
+/src/app/code/community/Netzkollektiv/EasyCredit/vendor
