@@ -2,11 +2,11 @@
 Voraussetzungen
 ================
 
-Zu Nutzung von **ratenkauf by easyCredit für Magento 1.x** benötigen Sie:
+Zu Nutzung von **easyCredit-Ratenkauf für Magento 1.x** benötigen Sie:
 
 * eine funktionierende **Magento 1.x** Installation 
-* valide API-Zugangsdaten zu *ratenkauf by easyCredit*
-* die aktuelle Version der Magento 2 Extension für ratenkauf by easyCredit (siehe https://www.easycredit-ratenkauf.de/system/magento/)
+* valide API-Zugangsdaten zu *easyCredit-Ratenkauf*
+* die aktuelle Version der Magento 2 Extension für easyCredit-Ratenkauf (siehe https://www.easycredit-ratenkauf.de/system/magento/)
 
 Versionskompatibilität
 ----------------------
@@ -21,10 +21,10 @@ Das Plugin hat neben Magento 1.x keine weiteren Abhängigkeiten. Es wurde für d
 * 1.8.x
 * 1.9.x
 
-Zugangsdaten für "ratenkauf by easyCredit"
+Zugangsdaten für "easyCredit-Ratenkauf"
 ------------------------------------------
 
-Um ratenkauf by easyCredit nutzen zu können, benötigen Sie gültige API-Zugangsdaten.
+Um easyCredit-Ratenkauf nutzen zu können, benötigen Sie gültige API-Zugangsdaten.
 
 Die Zugangsdaten bestehen aus einer Webshop-Id und einem API-Kennwort. Sie erhalten eine Produktivkennung und eine Testkennung:
 
@@ -38,7 +38,7 @@ Die Produktivkennung ist erst nach Überprüfung und Freischaltung nutzbar. Die 
 Sie haben noch keine Zugangsdaten?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Um ratenkauf by easycredit nutzen zu können, benötigen Sie gültige API-Zugangsdaten.
+Um easyCredit-Ratenkauf nutzen zu können, benötigen Sie gültige API-Zugangsdaten.
 
 Nehmen Sie einfach Kontakt mit uns auf unter:
 

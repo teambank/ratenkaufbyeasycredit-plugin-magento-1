@@ -19,8 +19,8 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'ratenkauf by easyCredit für Magento 1.x'
-copyright = u'2021, NETZKOLLEKTIV GmbH'
+project = u'easyCredit-Ratenkauf für Magento 1.x'
+copyright = u'2022, NETZKOLLEKTIV GmbH'
 author = u'Teambank AG'
 
 # The short X.Y version
@@ -85,6 +85,11 @@ html_show_sphinx = False
 # documentation.
 #
 # html_theme_options = {}
+
+html_theme_options = {
+  'display_version': True,
+  'style_nav_header_background': '#0066B3'
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -162,7 +167,7 @@ latex_logo = '_static/50_ratenkauf_Logo_1240x824_easyCredit.png'
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'm1-easycredit.tex', u'ratenkauf by easyCredit für Magento 1',
+    (master_doc, 'm1-easycredit.tex', u'easyCredit-Ratenkauf für Magento 1',
      u'Teambank AG', 'manual'),
 ]
 
@@ -172,7 +177,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'm1-easycredit', u'ratenkauf by easyCredit für Magento 1',
+    (master_doc, 'm1-easycredit', u'easyCredit-Ratenkauf für Magento 1',
      [author], 1)
 ]
 
@@ -183,7 +188,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'm1-easycredit', u'ratenkauf by easyCredit für Magento 1',
+    (master_doc, 'm1-easycredit', u'easyCredit-Ratenkauf für Magento 1',
      author, 'm1-easycredit', 'One line description of project.',
      'Miscellaneous'),
 ]

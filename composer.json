@@ -2,7 +2,7 @@
     "name": "ratenkaufbyeasycredit/magento1",
     "type": "magento-module",
     "license": "MIT",
-    "description": "ratenkauf by easyCredit Magento Extension",
+    "description": "easyCredit-Ratenkauf Magento Extension",
     "keywords": ["ratenkauf", "Magento"],
     "homepage": "https://www.easycredit-ratenkauf.de/",
     "authors": [
