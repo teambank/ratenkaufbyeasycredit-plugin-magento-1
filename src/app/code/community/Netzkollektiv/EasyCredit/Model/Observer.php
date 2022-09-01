@@ -102,7 +102,7 @@ class Netzkollektiv_EasyCredit_Model_Observer {
             && Netzkollektiv_EasyCredit_Model_Payment::CODE == $address->getOrder()->getPayment()->getMethod() 
         ) {
             throw new Mage_Core_Exception(implode("\n",array(
-                'Die Lieferadresse kann bei mit ratenkauf by easyCredit bezahlten Bestellungen nicht im Nachhinein geändert werden.',
+                'Die Lieferadresse kann bei mit easyCredit-Ratenkauf bezahlten Bestellungen nicht im Nachhinein geändert werden.',
                 'Bitte stornieren Sie die Bestellung und Zahlung hierfür und legen Sie eine neue Bestellung an.'
             )));
         }

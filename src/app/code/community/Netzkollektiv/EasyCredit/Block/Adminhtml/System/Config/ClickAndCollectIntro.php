@@ -1,6 +1,6 @@
 <?php
 /**
- * Custom renderer for ratenkauf by easyCredit - Click and collect
+ * Custom renderer for easyCredit-Ratenkauf - Click and collect
  */
 class Netzkollektiv_EasyCredit_Block_Adminhtml_System_Config_ClickAndCollectIntro extends Mage_Adminhtml_Block_System_Config_Form_Field
 {

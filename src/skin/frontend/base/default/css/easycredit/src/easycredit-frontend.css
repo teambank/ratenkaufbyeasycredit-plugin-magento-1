@@ -2,11 +2,11 @@
  background-color:#fff;
 }
 div.easycredit-method-title span {
- background-image:url(https://www.easycredit-ratenkauf.de/download/200x43_Ratenkauf_Logo_mitSubline.png);
+ background-image:url(../../images/easycredit/ratenkauf-logo.svg);
  display:inline-block;
  overflow:hidden;
  text-indent:-1000px;
- width:140px;
+ width:52px;
  height:24px;
  background-position-x:center;
  background-repeat:no-repeat;

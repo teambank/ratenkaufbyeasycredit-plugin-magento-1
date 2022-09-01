@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Netzkollektiv_EasyCredit>
-            <version>1.4.2</version>
+            <version>1.4.3</version>
         </Netzkollektiv_EasyCredit>
     </modules>
     <global>
@@ -246,7 +246,7 @@
             <easycredit>
                 <active>1</active>
                 <active_when_unavailable>1</active_when_unavailable>
-                <title>ratenkauf by easyCredit</title>
+                <title>easyCredit-Ratenkauf</title>
                 <model>easycredit/payment</model>
                 <order_status>pending</order_status>
                 <allowspecific>1</allowspecific>

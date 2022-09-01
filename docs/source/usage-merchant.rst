@@ -2,14 +2,14 @@
 Verwendung für Händler
 ======================
 
-Eine neue Bestellung eines Kunden ist nach ihrem Eingang im Magento gegenüber ratenkauf by easyCredit genehmigt ("Authorized" [#f1]_). Das heisst, die Zahlung und Bestellung wurde von ratenkauf by easyCredit gegenüber dem Kunden bestätigt. Eine Auszahlung durch ratenkauf by easyCredit an den Händler erfolgt erst, wenn der Händler die Lieferung der bestellten Artikel gemeldet hat. Dies erfolgt in Magento 2 entweder durch eine Bestätigung über die Transaktionsverwaltung oder durch Erstellung der Rechnung und Einziehen der Zahlung ("Capture" [#f1]_).
+Eine neue Bestellung eines Kunden ist nach ihrem Eingang im Magento gegenüber easyCredit-Ratenkauf genehmigt ("Authorized" [#f1]_). Das heisst, die Zahlung und Bestellung wurde von easyCredit-Ratenkauf gegenüber dem Kunden bestätigt. Eine Auszahlung durch easyCredit-Ratenkauf an den Händler erfolgt erst, wenn der Händler die Lieferung der bestellten Artikel gemeldet hat. Dies erfolgt in Magento 2 entweder durch eine Bestätigung über die Transaktionsverwaltung oder durch Erstellung der Rechnung und Einziehen der Zahlung ("Capture" [#f1]_).
 
 Alternativ ist die weitere Verwaltung des Transaktionsstatus über das `Händler-Interface <https://app.easycredit.de>`_ möglich.
 
 Transaktionsmanager
 -------------------
 
-Der Transaktionsmanager in der Detailansicht einer mit ratenkauf by easyCredit bezahlten Bestellung zeigt eine Übersicht über die zur Bestellung gehörende Zahlungstransaktion und deren Historie. Über den Transaktionsmanager kann der Transaktionsstatus aus dem Magento Backend heraus direkt an ratenkauf by easyCredit gemeldet werden.
+Der Transaktionsmanager in der Detailansicht einer mit easyCredit-Ratenkauf bezahlten Bestellung zeigt eine Übersicht über die zur Bestellung gehörende Zahlungstransaktion und deren Historie. Über den Transaktionsmanager kann der Transaktionsstatus aus dem Magento Backend heraus direkt an easyCredit-Ratenkauf gemeldet werden.
 
 .. image:: ./_static/merchant-tx-manager.png
            :scale: 50%
@@ -38,9 +38,9 @@ Rechnungserstellung
 Gutschrifterstellung
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wird eine Rechnung über Magento gutgeschrieben, wird die Transaktion widerrufen bzw. rückgängig gemacht und an ratenkauf by easyCredit gemeldet ("Refund" [#f1]_). Die Änderung ist im Transaktionsmanager ersichtlich.
+Wird eine Rechnung über Magento gutgeschrieben, wird die Transaktion widerrufen bzw. rückgängig gemacht und an easyCredit-Ratenkauf gemeldet ("Refund" [#f1]_). Die Änderung ist im Transaktionsmanager ersichtlich.
 
-Die Erstattung muss über den Button "Erstatten" erfolgen. Bei einer "Erstattung (offline)" wird der Transaktionsstatus bei ratenkauf by easyCredit nicht aktualisiert. Dies kann aber über den :ref:`Transaktionsmanager` nachgeholt werden.
+Die Erstattung muss über den Button "Erstatten" erfolgen. Bei einer "Erstattung (offline)" wird der Transaktionsstatus bei easyCredit-Ratenkauf nicht aktualisiert. Dies kann aber über den :ref:`Transaktionsmanager` nachgeholt werden.
 
 .. note:: Die Meldung entspricht dem Status "Widerruf vollständig" über den Transaktionsmanager.
 

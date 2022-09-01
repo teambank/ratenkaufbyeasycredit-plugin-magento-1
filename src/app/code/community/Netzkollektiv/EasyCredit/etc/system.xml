@@ -4,7 +4,7 @@
         <payment translate="label" module="easycredit">
             <groups>
                 <easycredit translate="label">
-                    <label>ratenkauf by easyCredit</label>
+                    <label>easyCredit-Ratenkauf</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>27</sort_order>
                     <show_in_default>1</show_in_default>
@@ -12,9 +12,9 @@
                     <show_in_store>1</show_in_store>
                     <comment><![CDATA[
 <div class="easycredit-intro">
-  <img src="https://www.easycredit-ratenkauf.de/download/200x43_Ratenkauf_Logo_mitSubline.png" />
+  <img src="/skin/adminhtml/base/default/easycredit/img/ratenkauf-logo.svg" />
   <div>
-    Bieten Sie Ihren Kunden die Möglichkeit der Ratenzahlung mit ratenkauf by easyCredit.<br />
+    Bieten Sie Ihren Kunden die Möglichkeit der Ratenzahlung mit easyCredit-Ratenkauf.<br />
     <strong>Einfach. Fair. In Raten zahlen.</strong>
     <br /><br />
     <a href="https://partner.easycredit-ratenkauf.de/portal/" target="_blank">zum Parterportal</a>
@@ -32,7 +32,7 @@
 .easycredit-intro img {
   display:inline-block; 
   padding:15px; 
-  width:170px;
+  width:78px;
 }
 .easycredit-intro div {
   display:inline-block;
@@ -84,7 +84,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Show customers the reason if ratenkauf by easyCredit is unavailable</comment>
+                            <comment>Show customers the reason if easyCredit-Ratenkauf is unavailable</comment>
                         </active_when_unavailable>
                         <allowspecific translate="label">
                             <label>Payment from Applicable Countries</label>
@@ -120,7 +120,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[ratenkauf by easyCredit asks the user to select a prefix, if not already entered. Should this prefix be saved in the customer account?]]></comment>
+                            <comment><![CDATA[easyCredit-Ratenkauf asks the user to select a prefix, if not already entered. Should this prefix be saved in the customer account?]]></comment>
                         </save_customer_prefix>
                         <remove_interest translate="label comment">
                             <label>Remove interest after order</label>
@@ -188,7 +188,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Specifies if ratenkauf by easyCredit will be advertised in product detail view]]></comment>
+                            <comment><![CDATA[Specifies if easyCredit-Ratenkauf will be advertised in product detail view]]></comment>
                         </widget_enabled>
                         <heading_clickandcollect translate="label">
                             <label><![CDATA[Click & Collect]]></label>
