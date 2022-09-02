@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "ratenkaufbyeasycredit/php-sdk",
-            "version": "1.6.2",
+            "version": "1.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/teambank/ratenkaufbyeasycredit-lib-php.git",
-                "reference": "65c4940886d2ed3669e5ae64f75165b15c9ff6f1"
+                "reference": "9715e472471fd7ed9dd8089f88f0e118109f57b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/teambank/ratenkaufbyeasycredit-lib-php/zipball/65c4940886d2ed3669e5ae64f75165b15c9ff6f1",
-                "reference": "65c4940886d2ed3669e5ae64f75165b15c9ff6f1",
+                "url": "https://api.github.com/repos/teambank/ratenkaufbyeasycredit-lib-php/zipball/9715e472471fd7ed9dd8089f88f0e118109f57b7",
+                "reference": "9715e472471fd7ed9dd8089f88f0e118109f57b7",
                 "shasum": ""
             },
             "require": {
@@ -39,21 +39,21 @@
                     "email": "kontakt@netzkollektiv.com"
                 }
             ],
-            "description": "ratenkauf by easyCredit SDK (PHP)",
+            "description": "easyCredit-Ratenkauf SDK (PHP)",
             "keywords": [
                 "easycredit",
+                "easycredit-ratenkauf",
                 "payment",
                 "payments",
                 "ratenkauf",
-                "ratenkauf by easycredit",
                 "ratenzahlung",
                 "teambank"
             ],
             "support": {
                 "issues": "https://github.com/teambank/ratenkaufbyeasycredit-lib-php/issues",
-                "source": "https://github.com/teambank/ratenkaufbyeasycredit-lib-php/tree/1.6.2"
+                "source": "https://github.com/teambank/ratenkaufbyeasycredit-lib-php/tree/1.6.3"
             },
-            "time": "2022-08-10T11:30:36+00:00"
+            "time": "2022-09-01T14:49:19+00:00"
         }
     ],
     "packages-dev": [],
@@ -64,5 +64,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }

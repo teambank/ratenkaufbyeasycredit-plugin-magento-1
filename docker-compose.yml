@@ -7,13 +7,11 @@ networks:
 services:
 
   web:
-    image: alexcheng/magento:1.9.3.8
-    links:
-      - mysql
-      - redis
+    image: netzkollektivgmbh/docker-shopware:php-7.4
     env_file:
       - env
     volumes:
+      - ./bin:/root/bin
       - ./src/app/etc/modules/Netzkollektiv_EasyCredit.xml:/var/www/html/app/etc/modules/Netzkollektiv_EasyCredit.xml
       - ./src/app/code/community/Netzkollektiv/EasyCredit:/var/www/html/app/code/community/Netzkollektiv/EasyCredit
       - ./src/app/design/adminhtml/base/default/template/easycredit:/var/www/html/app/design/adminhtml/base/default/template/easycredit
@@ -22,8 +20,9 @@ services:
       - ./src/app/design/frontend/base/default/template/easycredit:/var/www/html/app/design/frontend/base/default/template/easycredit
       - ./src/skin/frontend/base/default/css/easycredit:/var/www/html/skin/frontend/base/default/css/easycredit
       - ./src/skin/frontend/base/default/js/easycredit:/var/www/html/skin/frontend/base/default/js/easycredit
+      - ./src/skin/frontend/base/default/images/easycredit:/var/www/html/skin/frontend/base/default/images/easycredit
       - ./src/app/locale/de_DE/Netzkollektiv_EasyCredit.csv:/var/www/html/app/locale/de_DE/Netzkollektiv_EasyCredit.csv
-      - ./merchant-interface/dist:/var/www/html/skin/adminhtml/base/default/easycredit
+      - ./src/skin/adminhtml/base/default/easycredit:/var/www/html/skin/adminhtml/base/default/easycredit
     networks:
       - web
       - default

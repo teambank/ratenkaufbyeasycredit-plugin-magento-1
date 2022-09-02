@@ -1,6 +1,26 @@
 Changelog
 =========
 
+v1.4.3
+------
+
+* Änderungen zum Markenrelaunch von easyCredit-Ratenkauf
+
+v1.4.2
+------
+
+* bei Verwendung von OpenMage wird nun als System "OpenMage" zusammen mit der OpenMage Version gesendet
+* die Finanzierung ist nun auch ohne Zinsen möglich
+* kleinere textliche Änderungen
+* die PHP-SDK wurde auf v1.6.2 aktualisiert (Änderungen zu PHP 8-Kompatiblität & 0% Finanzierung)
+
+v1.4.1
+------
+
+* Vor- und Nachname werden nun in die Adressüberprüfung einbezogen
+* die Ratenanzahl wird nun nicht mehr statisch übergeben
+* die API-Library wurde auf v1.6 aktualisiert
+
 v1.4.0
 ------
 

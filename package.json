@@ -1,7 +1,7 @@
 {
   "name": "m1-easycredit",
-  "version": "1.0.0",
-  "description": "Das easyCredit Zahlungsmodul für Magento ermöglicht es Ihnen durch einfache Installation Ratenkauf by easyCredit in Ihrem Magento-Store anbieten zu können. Weitere Informationen zu easyCredit finden Sie unter  [Ratenkauf by easyCredit](https://www.easycredit.de/Ratenkauf.htm)",
+  "version": "1.4.3",
+  "description": "Das easyCredit Zahlungsmodul für Magento ermöglicht es Ihnen durch einfache Installation easyCredit-Ratenkauf in Ihrem Magento-Store anbieten zu können. Weitere Informationen zu easyCredit finden Sie unter  [easyCredit-Ratenkauf](https://www.easycredit-ratenkauf.de/)",
   "main": "Gruntfile.js",
   "dependencies": {
     "grunt": "^1.0.3",
@@ -10,16 +10,12 @@
   },
   "devDependencies": {},
   "scripts": {
-    "docs:build:html" : "sudo docker run --rm -v ${PWD}/docs:/docs -v /opt/sphinx_rtd_theme/sphinx_rtd_theme:/docs/source/_themes/sphinx_rtd_theme sphinxdoc/sphinx make html",
-    "docs:build:pdf" : "sudo docker run --rm -v ${PWD}/docs:/docs -v /opt/sphinx_rtd_theme/sphinx_rtd_theme:/docs/source/_themes/sphinx_rtd_theme sphinxdoc/sphinx-latexpdf make latexpdf",
-    "docs:deploy" : "rsync -rvz --delete ${PWD}/docs/build/html/ nk:html/corporate-2019/web/docs/ratenkaufbyeasycredit-magento1/",
+    "docs:build:html": "sudo docker run --rm -v ${PWD}/docs:/docs -v /opt/sphinx_rtd_theme/sphinx_rtd_theme:/docs/source/_themes/sphinx_rtd_theme sphinxdoc/sphinx make html",
+    "docs:build:pdf": "sudo docker run --rm -v ${PWD}/docs:/docs -v /opt/sphinx_rtd_theme/sphinx_rtd_theme:/docs/source/_themes/sphinx_rtd_theme sphinxdoc/sphinx-latexpdf make latexpdf",
+    "docs:deploy": "export $(cat .env | xargs) && rsync -rvz --delete ${PWD}/docs/build/html/ ${DOCS_DEPLOY_DST}",
     "docs": "yarn docs:build:html; yarn docs:deploy",
     "release": "./bin/release"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@git.netzkollektiv.com:netzkollektiv-projects/easycredit-magento.git"
-  },
-  "author": "",
-  "license": "ISC"
+  "author": "NETZKOLLEKTIV",
+  "license": "MIT"
 }
