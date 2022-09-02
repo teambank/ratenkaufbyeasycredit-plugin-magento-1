@@ -22,7 +22,7 @@ return array(
 'auto_detect_version'   => false,
 
 //Where on your local system you'd like to build the files to
-'path_output'            => dirname(__FILE__).'/dist/',
+'path_output'            => dirname(__FILE__),
 
 //Magento Connect license value. 
 'stability'              => 'stable',
@@ -34,9 +34,9 @@ return array(
 'channel'                => 'community',
 
 //Magento Connect information fields.
-'summary'                => 'Der ratenkauf by easyCredit bietet Ihnen die Möglichkeit, in den Shops unserer Partner bequem und einfach per Raten zu zahlen.',
-'description'            => 'Der ratenkauf by easyCredit bietet Ihnen die Möglichkeit, in den Shops unserer Partner bequem und einfach per Raten zu zahlen.',
-'notes'                  => 'Der ratenkauf by easyCredit bietet Ihnen die Möglichkeit, in den Shops unserer Partner bequem und einfach per Raten zu zahlen.',
+'summary'                => 'Der easyCredit-Ratenkauf bietet Ihnen die Möglichkeit, in den Shops unserer Partner bequem und einfach per Raten zu zahlen.',
+'description'            => 'Der easyCredit-Ratenkauf bietet Ihnen die Möglichkeit, in den Shops unserer Partner bequem und einfach per Raten zu zahlen.',
+'notes'                  => 'Der easyCredit-Ratenkauf bietet Ihnen die Möglichkeit, in den Shops unserer Partner bequem und einfach per Raten zu zahlen.',
 
 //Magento Connect author information. If author_email is foo@example.com, script will
 //prompt you for the correct name.  Should match your http://www.magentocommerce.com/
@@ -52,7 +52,7 @@ return array(
 //PHP min/max fields for Connect.  I don't know if anyone uses these, but you should
 //probably check that they're accurate
 'php_min'                => '5.2.0',
-'php_max'                => '7.4.0',
+'php_max'                => '8.1.0',
 
 //PHP extension dependencies. An array containing one or more of either:
 //  - a single string (the name of the extension dependency); use this if the

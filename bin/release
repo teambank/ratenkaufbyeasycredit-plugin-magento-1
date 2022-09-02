@@ -1,17 +1,19 @@
 base="$(cd "$(dirname "$0")/.."; pwd)";
 
-rm -r build/*
+[ -d build ] || mkdir build
+[ -f build/* ] && rm -r build/*
 
 version=$(php -r "echo current(simplexml_load_file('src/app/code/community/Netzkollektiv/EasyCredit/etc/config.xml')->modules)->version;")
-echo "building v$version"
 
-composer install
+echo "building v$version"
+composer install --no-dev
 
 cp -r src/* build/
 cp *.md build/ 
 (cd build; tar cvf ext.tar *)
 
-php ../MagentoTarToConnect/magento-tar-to-connect.php package-config.php 
+[ -d /tmp/MagentoTarToConnect ] || git clone https://github.com/astorm/MagentoTarToConnect.git /tmp/MagentoTarToConnect
+php  /tmp/MagentoTarToConnect/magento-tar-to-connect.php package-config.php 
 # (cd build/ && zip -r - *) > dist/m1-easycredit-$version.zip
 
 gzip build/ext.tar;
