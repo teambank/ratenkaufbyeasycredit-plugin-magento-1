@@ -10,7 +10,7 @@ API-Zugangsdaten konfigurieren
 ------------------------------
 
 .. image:: ./_static/config-open.png
-           :scale: 50%
+           :scale: 75%
 
 * Aktivieren Sie die Zahlungsart.
 * Tragen Sie die API-Zugangsdaten in die dafür vorgesehenen Felder Webshop-ID und API-Passwort ein.
@@ -39,7 +39,7 @@ Widget konfigurieren
 Um easyCredit-Ratenkauf bei Ihren Kunden zu bewerben, blendet die Extension ein Widget auf der Produktdetailseite ein. Dies kann über die Option „Zeige Modellrechner-Widget neben Produktpreis“ gesteuert werden. Ist die Option aktiviert, wird das Widget unterhalb des Preises angezeigt. Ein Beispiel sehen Sie im folgenden Screenshot:
 
 .. image:: ./_static/m1-widget.png
-           :scale: 50%
+           :scale: 75%
 
 Click & Collect konfigurieren
 ------------------------------

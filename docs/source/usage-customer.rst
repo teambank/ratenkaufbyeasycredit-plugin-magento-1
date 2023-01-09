@@ -18,7 +18,7 @@ Bestellvorgang
 easyCredit-Ratenkauf wird als Zahlungsmethode im Bezahlvorgang angezeigt. Nach Bestätigung der Zustimmungserklärung und Auswahl der Anrede wird der Nutzer auf das Zahlungsterminal von easyCredit-Ratenkauf weitergeleitet. Die Anrede muss nur ausgewählt werden, wenn diese nicht bereits bei der Adresseingabe abgefragt wurde und somit zur Verfügung steht.
 
 .. image:: ./_static/usage-customer-payment-methods.png
-           :scale: 25%
+           :scale: 75%
 
 .. note:: Vor Bestätigung der Zustimmungserklärung und Weiterleitung auf das Zahlungsterminal werden keine persönlichen Daten des Kunden an easyCredit-Ratenkauf weitergegeben.
 
