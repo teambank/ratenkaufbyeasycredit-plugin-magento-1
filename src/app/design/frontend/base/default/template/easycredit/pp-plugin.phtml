@@ -1,3 +1,6 @@
+<?php
+$apiKey = Mage::getStoreConfig('payment/easycredit/api_key');
+?>
 <script>
 (function($) {
 
@@ -56,15 +59,15 @@
             return getPriceAsFloat($(me).html().stripTags());
         }();
 
-        if (!priceBox.find('.easycredit-widget-container').empty().length) {
-            priceBox.append('<div class="easycredit-widget-container">');
+        if (isNaN(amount)) {
+            return;
         }
 
-        var container = priceBox.find('.easycredit-widget-container').empty();
-        container.rkPaymentPage({
-            webshopId : '<?php echo Mage::getStoreConfig('payment/easycredit/api_key'); ?>',
-            amount: amount
-        });
+        if (priceBox.find('easycredit-widget').length === 0) {
+            priceBox.append('<easycredit-widget webshop-id="<?php echo $apiKey; ?>" amount="' + amount + '" />');
+            return;
+        }
+        priceBox.find('easycredit-widget').attr('amount', amount);
     }; 
 
     $(selector)

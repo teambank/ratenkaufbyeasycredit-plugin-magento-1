@@ -1,12 +1,27 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-
     <default>
         <reference name="head">
             <action method="addItem"><type>skin_css</type><name>css/easycredit/easycredit.min.css</name></action>
             <action method="addItem"><type>skin_js</type><name>js/easycredit/easycredit.min.js</name></action>
+
+            <block type="core/text" name="easycredit_script" as="easycredit_script">
+                <action method="setText">
+                    <text><![CDATA[
+                        <script type="module" src="https://ratenkauf.easycredit.de/api/resource/webcomponents/v3/easycredit-components/easycredit-components.esm.js"></script>
+                        <script nomodule src="https://ratenkauf.easycredit.de/api/resource/webcomponents/v3/easycredit-components/easycredit-components.js"></script>
+                    ]]></text>
+                </action>
+            </block>
         </reference>
     </default>
+
+    <checkout_cart_index>
+        <block type="core/template" name="easycredit.pp-plugin-cart" template="easycredit/pp-plugin-cart.phtml"/>
+        <reference name="checkout.cart.methods">
+            <action method="append" ifconfig="payment/easycredit/widget_cart_enabled"><block>easycredit.pp-plugin-cart</block></action>
+        </reference>
+    </checkout_cart_index>
 
     <easycredit_checkout_review translate="label">
         <label>EasyCredit Order Review Form</label>

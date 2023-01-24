@@ -5,56 +5,24 @@
  * @see Netzkollektiv_EasyCredit_Block_Form
  */
 
-$agreement = $this->getAgreement();
 $error = $this->checkAvailability();
-if (!$error && (isset($agreement['error']) && $agreement['error'])) {
-  $error = $agreement['text'];
-}
 ?>
-
-
 <fieldset class="form-list">
     <ul id="payment_form_<?php echo $this->getMethodCode(); ?>" style="display:none">
         <li>
-            <div class="input-box">
-                <?php if ($error) : ?>
+            <input type="hidden" name="easycredit[submit]" id="easycredit-submit" class="required-entry absolute-advice" />
+            <input type="hidden" name="easycredit[number-of-installments]" id="easycredit-number-of-installments" value="" />
 
-                    <p>
-                        <?php echo $error;  ?>
-                    </p>
-                    <script>
-                        var radio = $('p_method_easycredit');
-                        radio.disabled = true;
-                        radio.checked = false;
-                        radio.siblings('label')[0].down('span').addClassName('easycredit-disabled');
-                        $('payment_form_easycredit').show();
-                    </script>
-
-                <?php else: ?>
-
-                    <p><strong>Einfach. Fair. In Raten zahlen.</strong></p>
-
-                    <div id="easycredit-agreement-block">
-                        <p>
-                            <label for="easycredit-agreement">
-                                <input type="checkbox" class="required-entry" id="easycredit-agreement"/>
-                                <span id="easycredit-agreement-text"><?php echo $this->escapeHtml($agreement['text']); ?></span>
-                            </label>
-                        </p>
-                        <?php if (!$this->hasCustomerPrefix()) : ?>
-                            <p>
-                                <label for="easycredit-customer-prefix">Bitte wählen Sie Ihre Anrede:</label>
-                                <select name="easycredit-customer-prefix" id="easycredit-customer-prefix" class="select required-entry">
-                                    <option disabled selected value>&nbsp;</option>
-                                    <?php foreach ($this->getAllowedCustomerPrefixes() as $prefix): ?>
-                                        <option value="<?php echo $this->escapeHtml($prefix) ?>"><?php echo $this->escapeHtml($prefix) ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </p>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
+            <script>
+            if (typeof appylEasyCreditCheckoutBehavior === 'function') {
+                appylEasyCreditCheckoutBehavior();
+            }
+            </script>
+            <easycredit-checkout
+                webshop-id="<?php echo $this->getWebshopId(); ?>"
+                amount="<?php echo $this->getGrandTotal(); ?>"
+                alert="<?php echo $error; ?>"
+            ></easycredit-checkout>
         </li>
     </ul>
 </fieldset>

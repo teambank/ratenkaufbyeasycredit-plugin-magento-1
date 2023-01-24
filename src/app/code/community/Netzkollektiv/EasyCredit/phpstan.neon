@@ -1,0 +1,10 @@
+includes:
+    - vendor/macopedia/phpstan-magento1/extension.neon
+parameters:
+    magentoRootPath: %currentWorkingDirectory%/../../../../../
+    paths:
+        - %currentWorkingDirectory%
+    level: 4
+    excludePaths:
+        - ./vendor
+        - ./sql

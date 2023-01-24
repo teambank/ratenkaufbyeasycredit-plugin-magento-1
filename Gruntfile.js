@@ -12,12 +12,13 @@ module.exports = function(grunt) {
         easycredit: {
           options: {
             sourceMap: true,
-            sourceMapName: baseDir+'/js/easycredit.min.js.map'
+            sourceMapName: baseDir+'/js/easycredit.min.js.map',
+            beautify: false,
+            mangle: true,
+            compress: true
           },
           files: {
             [baseDirJs+'/easycredit.min.js']: [
-                baseDirJs+'/src/easycredit-modal.js',
-                baseDirJs+'/src/easycredit-widget.js',
                 baseDirJs+'/src/easycredit-frontend.js'
             ]
           }

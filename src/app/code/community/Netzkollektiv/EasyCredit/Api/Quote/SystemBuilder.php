@@ -1,7 +1,7 @@
 <?php
-namespace Netzkollektiv\EasyCredit\Api;
+namespace Netzkollektiv\EasyCredit\Api\Quote;
 
-class System implements \Netzkollektiv\EasyCreditApi\SystemInterface {
+class SystemBuilder {
 
     public function getSystemVendor() {
         if (method_exists('\Mage','getOpenMageVersion')) {
@@ -12,7 +12,7 @@ class System implements \Netzkollektiv\EasyCreditApi\SystemInterface {
 
     public function getSystemVersion() {
         if (method_exists('\Mage','getOpenMageVersion')) {
-            return \Mage::getOpenMageVersion();
+            return \Mage::getOpenMageVersion(); // @phpstan-ignore-line
         }
         return \Mage::getVersion();
     }
@@ -21,7 +21,13 @@ class System implements \Netzkollektiv\EasyCreditApi\SystemInterface {
         return (string) \Mage::getConfig()->getNode()->modules->Netzkollektiv_EasyCredit->version;
     }
 
-    public function getIntegration() {
-        return 'PAYMENT_PAGE';
+    public function build()
+    {
+        return new \Teambank\RatenkaufByEasyCreditApiV3\Model\Shopsystem(
+            [
+            'shopSystemManufacturer' => implode(' ', [$this->getSystemVendor(),$this->getSystemVersion()]),
+            'shopSystemModuleVersion' => $this->getModuleVersion()
+            ]
+        );
     }
 }

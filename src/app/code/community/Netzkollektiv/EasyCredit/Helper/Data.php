@@ -8,37 +8,67 @@
  * @license    This work is free software, you can redistribute it and/or modify it
  */
 
+use Teambank\RatenkaufByEasyCreditApiV3 as ApiV3;
+use Netzkollektiv\EasyCredit\Api as Api;
+
 class Netzkollektiv_EasyCredit_Helper_Data extends Mage_Core_Helper_Abstract {
 
-    public function getCheckout() {
+    public function getConfigValue($key) {
+        return \Mage::getStoreConfig('payment/easycredit/'.$key);
+    }
 
-        $logger = new \Netzkollektiv\EasyCredit\Api\Logger();
-        $config = new \Netzkollektiv\EasyCredit\Api\Config();
-        $clientFactory = new \Netzkollektiv\EasyCreditApi\Client\HttpClientFactory();
-
-        $client = new \Netzkollektiv\EasyCreditApi\Client(
-            $config,
-            $clientFactory,
-            $logger
-        );
-        $storage = new \Netzkollektiv\EasyCredit\Api\Storage();
-
-        return new \Netzkollektiv\EasyCreditApi\Checkout(
-            $client,
-            $storage
+    protected function getClient () {
+        return new ApiV3\Client(
+            new Api\Logger()
         );
     }
 
-    public function getMerchant() {
-        $logger = new \Netzkollektiv\EasyCredit\Api\Logger();
-        $config = new \Netzkollektiv\EasyCredit\Api\Config();
+    public function getConfig() {
+        return ApiV3\Configuration::getDefaultConfiguration()
+            ->setHost('https://ratenkauf.easycredit.de')
+            ->setUsername($this->getConfigValue('api_key'))
+            ->setPassword($this->getConfigValue('api_token'))
+            ->setAccessToken($this->getConfigValue('api_signature'));
+    }
 
-        $clientFactory = new \Netzkollektiv\EasyCreditApi\Client\HttpClientFactory();
+    public function getCheckout() {
 
-        return new \Netzkollektiv\EasyCreditApi\Merchant(
-            $config,
-            $clientFactory,
-            $logger
+        $client = $this->getClient();
+        $config = $this->getConfig();
+
+        $webshopApi = new ApiV3\Service\WebshopApi(
+            $client,
+            $config
+        );
+        $transactionApi = new ApiV3\Service\TransactionApi(
+            $client,
+            $config
+        );
+        $installmentplanApi = new ApiV3\Service\InstallmentplanApi(
+            $client,
+            $config
+        );
+
+        return new ApiV3\Integration\Checkout(
+            $webshopApi,
+            $transactionApi,
+            $installmentplanApi,
+            new Api\Storage(),
+            new ApiV3\Integration\Util\AddressValidator(),
+            new ApiV3\Integration\Util\PrefixConverter(),
+            new Api\Logger()
+        );
+    }
+
+    public function getTransactionApi(): ApiV3\Service\TransactionApi
+    {
+        $client = $this->getClient();
+        $config = clone $this->getConfig();
+        $config->setHost('https://partner.easycredit-ratenkauf.de');
+
+        return new ApiV3\Service\TransactionApi(
+            $client,
+            $config
         );
     }
 }

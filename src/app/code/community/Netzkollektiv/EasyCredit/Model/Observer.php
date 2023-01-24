@@ -47,7 +47,6 @@ class Netzkollektiv_EasyCredit_Model_Observer {
      */
     public function removeInterest(Varien_Event_Observer $observer)
     {
-        $address = $observer->getEvent()->getAddress();
         $order = $observer->getEvent()->getOrder();
 
         $removeInterest = Mage::getStoreConfig('payment/easycredit/remove_interest');
@@ -75,21 +74,19 @@ class Netzkollektiv_EasyCredit_Model_Observer {
         if (!$quote->getId()
             || Netzkollektiv_EasyCredit_Model_Payment::CODE != $quote->getPayment()->getMethod()
         ) {
-            return;
+            return $this;
         }
 
         $storage = new \Netzkollektiv\EasyCredit\Api\Storage();
         if ($storage->get('interest_amount') === null) {
-            return;
+            return $this;
         }
 
         $checkout = Mage::helper('easycredit')->getCheckout();
-        $ecQuote = new \Netzkollektiv\EasyCredit\Api\Quote(); 
+        $quoteBuilder = new \Netzkollektiv\EasyCredit\Api\QuoteBuilder();
+        $ecQuote = $quoteBuilder->build();
 
-        if (!$checkout->isAmountValid($ecQuote)
-            || !$checkout->verifyAddressNotChanged($ecQuote)
-            || !$checkout->sameAddresses($ecQuote)
-        ) {
+        if (!$checkout->isValid($ecQuote)) {
             $checkout->clear();
         }
 
@@ -125,57 +122,6 @@ class Netzkollektiv_EasyCredit_Model_Observer {
 
         if ($payment == Netzkollektiv_EasyCredit_Model_Payment::CODE && !empty($newOrderState)) {
             $order->setState($newOrderState);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Varien_Event_Observer $observer
-     * @return $this
-     */
-    public function importCustomerPrefix(Varien_Event_Observer $observer)
-    {
-        $prefix = Mage::app()->getRequest()->getParam('easycredit-customer-prefix');
-
-        if (!Mage::helper('easycredit')->getCheckout()->isPrefixValid($prefix)) {
-            return $this;
-        }
-
-        Mage::getSingleton('checkout/session')
-            ->setCustomerPrefix($prefix);
-
-        return $this;
-    }
-
-    public function saveCustomerPrefix(Varien_Event_Observer $observer) {
-        /**
-         * @var Mage_Checkout_Model_Session $checkoutSession
-         */
-        $checkoutSession = Mage::getSingleton('checkout/session');
-
-        $event = $observer->getEvent();
-
-        /**
-         * @var Mage_Sales_Model_Order $order
-         */
-        $order = $event->getOrder();
-        $payment = $order->getPayment();
-        $paymentCode = $payment->getMethodInstance()->getCode();
-        $customerId = $order->getCustomerId();
-
-        $prefix = $checkoutSession->getData('customer_prefix');
-
-        if (
-            $order->getCustomerId()
-            && $paymentCode == Netzkollektiv_EasyCredit_Model_Payment::CODE
-            && Mage::getStoreConfig('payment/easycredit/save_customer_prefix')
-            && !empty($prefix)
-        ) {
-            Mage::getModel('customer/customer')
-                ->load($customerId)
-                ->setPrefix($prefix)
-                ->save();
         }
 
         return $this;

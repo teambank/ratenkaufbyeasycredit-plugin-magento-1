@@ -31,7 +31,8 @@
             var baseUrl = '<?php echo $this->getButtonUrl()?>',
                 apiKey = $('payment_easycredit_api_key').value,
                 apiToken = $('payment_easycredit_api_token').value,
-                url = baseUrl + "?apiKey=" + encodeURIComponent(apiKey) + "&apiToken=" + encodeURIComponent(apiToken);
+                apiSignature = $('payment_easycredit_api_signature').value,
+                url = baseUrl + "?apiKey=" + encodeURIComponent(apiKey) + "&apiToken=" + encodeURIComponent(apiToken)+ "&apiSignature=" + encodeURIComponent(apiSignature);
 
             if (apiKey.length < 1 || apiToken.length < 1) {
                 alert('<?php echo $this->escapeHtml($this->getInputIncompleteMessage()); ?>');

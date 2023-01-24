@@ -2,16 +2,74 @@
     <script>
     window.ratenkaufbyeasycreditOrderManagementConfig = <?php echo json_encode(array(
         'endpoints' => array(
-            'get' => Mage::helper('adminhtml')->getUrl('*/easycredit_merchant/transaction'),
-            'list' => Mage::helper('adminhtml')->getUrl('*/easycredit_merchant/transactions'),
-            'post' => Mage::helper('adminhtml')->getUrl('*/easycredit_merchant/postTransaction')
+            'list' => Mage::helper('adminhtml')->getUrl('*/easycredit_merchant/transactions',['ids'=>'{transactionId}']),
+            'get' => Mage::helper('adminhtml')->getUrl('*/easycredit_merchant/transaction',['id'=>'{transactionId}']),
+            'capture' => Mage::helper('adminhtml')->getUrl('*/easycredit_merchant/capture',['id'=>'{transactionId}']),
+            'refund' => Mage::helper('adminhtml')->getUrl('*/easycredit_merchant/refund',['id'=>'{transactionId}'])
         )
     ));
     ?>;
-    window.ratenkaufbyeasycreditOrderManagementConfig.endpoints.post += '?form_key='+FORM_KEY;
+    window.ratenkaufbyeasycreditOrderManagementConfig.endpoints.capture += '?form_key='+FORM_KEY;
+    window.ratenkaufbyeasycreditOrderManagementConfig.endpoints.refund += '?form_key='+FORM_KEY;
+
+    /* 
+      prototypejs < 1.7.3 breaks Array.protype.map 
+      => apply fix from prototypejs 1.7.3 only in backend
+    */
+    (function (){
+        if (Prototype.Version.localeCompare('1.7.3', undefined, { numeric: true, sensitivity: 'base' }) >= 0) {
+          return;
+        }
+
+        function getMapNativeFunc() {
+            var a = document.createElement("iframe");
+            a.src = "about:blank";
+            document.body.appendChild(a);
+            var func = a.contentWindow.Array.prototype.map;
+            document.body.removeChild(a);
+            return func;
+        }
+
+        /* the following code is copied from prototypejs 1.7.3 */
+        function wrapNative(method) {
+            return function() {
+                if (arguments.length === 0) {
+                    return method.call(this, Prototype.K);
+                } else if (arguments[0] === undefined) {
+                    var args = slice.call(arguments, 1);
+                    args.unshift(Prototype.K);
+                    return method.apply(this, args);
+                } else {
+                    return method.apply(this, arguments);
+                }
+            };
+        }
+
+        function map(iterator) {
+            if (this == null) throw new TypeError();
+            iterator = iterator || Prototype.K;
+
+            var object = Object(this);
+            var results = [], context = arguments[1], n = 0;
+
+            for (var i = 0, length = object.length >>> 0; i < length; i++) {
+            if (i in object) {
+                results[n] = iterator.call(context, object[i], i, object);
+            }
+            n++;
+            }
+            results.length = n;
+            return results;
+        }
+
+        if (Array.prototype.map) {
+            var mapNative = getMapNativeFunc();
+            Array.prototype.map = wrapNative(mapNative);
+        }
+    })();
     </script>
-    <easycredit-tx-manager 
-        id="<?php echo $this->getInfoAdditionalData('transaction_id'); ?>"
+    <easycredit-merchant-manager
+        tx-id="<?php echo $this->getInfoAdditionalData('transaction_id'); ?>"
         date="<?php echo Mage::getModel('core/date')->date('Y-m-d', $this->getInfo()->getOrder()->getCreatedAt()); ?>"    
     />
 </p>

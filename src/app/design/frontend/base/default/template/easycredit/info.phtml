@@ -1,9 +1,10 @@
 <p>
-    <div class="easycredit-method-title">
-        <span><?php echo $this->getMethod()->getTitle() ?></span>
-    </div>
-    <strong>Einfach. Fair. In Raten zahlen.</strong><br />
-    <?php echo $this->getPaymentPlan(); ?>
+    <easycredit-checkout-label>
+        <?php echo $this->getMethod()->getTitle() ?>
+    </easycredit-checkout-label>
+    <easycredit-checkout payment-plan="<?php echo $this->escapeHtml($this->getPaymentPlan()); ?>">
+        <p><strong>Transaktions-Nr:</strong> <?php echo $this->escapeHtml($this->getInfoAdditionalData('transaction_id')); ?></p>
+    </easycredit-checkout>
 
     <?php if ($this->getInfoAdditionalData('is_captured')) : ?>
     <p><strong>Transaktions-Nr:</strong> <?php echo $this->escapeHtml($this->getInfoAdditionalData('transaction_id')); ?></p>

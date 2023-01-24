@@ -1,10 +1,9 @@
 <?php
 namespace Netzkollektiv\EasyCredit\Api;
 
-class Logger implements \Netzkollektiv\EasyCreditApi\LoggerInterface {
+class Logger {
 
-    protected $_logger;
-
+    protected $filename = 'easycredit.log';
     protected $debug = false;
 
     public function __construct() {
@@ -13,43 +12,114 @@ class Logger implements \Netzkollektiv\EasyCreditApi\LoggerInterface {
         }
     }
 
-    public function log($msg) {
-        if (!$this->debug) {
-            return;
-        }
-
-        return $this->logInfo($msg);
+    /**
+     * System is unusable.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    public function emergency($message, array $context = array()) {
+        \Mage::log($message, \Zend_Log::EMERG, $this->filename, true);
     }
 
-    public function logDebug($msg) {
-        if (!$this->debug) {
-            return;
-        }
-
-        \Mage::log($msg, \Zend_Log::DEBUG);
-        return $this;
+    /**
+     * Action must be taken immediately.
+     *
+     * Example: Entire website down, database unavailable, etc. This should
+     * trigger the SMS alerts and wake you up.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    public function alert($message, array $context = array()) {
+        \Mage::log($message, \Zend_Log::ALERT, $this->filename, true);
     }
 
-    public function logInfo($msg) {
-        if (!$this->debug) {
-            return;
-        }
-
-        \Mage::log($msg, \Zend_Log::INFO);
-        return $this;
+    /**
+     * Critical conditions.
+     *
+     * Example: Application component unavailable, unexpected exception.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    public function critical($message, array $context = array()) {
+        \Mage::log($message, \Zend_Log::CRIT, $this->filename, true);
     }
 
-    public function logWarn($msg) {
-        if (!$this->debug) {
-            return;
-        }
-
-        \Mage::log($msg, \Zend_Log::WARN);
-        return $this;
+    /**
+     * Runtime errors that do not require immediate action but should typically
+     * be logged and monitored.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    public function error($message, array $context = array()) {
+        \Mage::log($message, \Zend_Log::ERR, $this->filename, true);
     }
 
-    public function logError($msg) {
-        \Mage::log($msg, \Zend_Log::ERR);
-        return $this;
+    /**
+     * Exceptional occurrences that are not errors.
+     *
+     * Example: Use of deprecated APIs, poor use of an API, undesirable things
+     * that are not necessarily wrong.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    public function warning($message, array $context = array()) {
+        \Mage::log($message, \Zend_Log::WARN, $this->filename, true);
+    }
+
+    /**
+     * Normal but significant events.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    public function notice($message, array $context = array()) {
+        \Mage::log($message, \Zend_Log::NOTICE, $this->filename, $this->debug);
+    }
+
+    /**
+     * Interesting events.
+     *
+     * Example: User logs in, SQL logs.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    public function info($message, array $context = array()) {
+        \Mage::log($message, \Zend_Log::INFO, $this->filename, $this->debug);
+    }
+
+    /**
+     * Detailed debug information.
+     *
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    public function debug($message, array $context = array()) {
+        \Mage::log($message, \Zend_Log::DEBUG, $this->filename, $this->debug);
+    }
+
+    /**
+     * Logs with an arbitrary level.
+     *
+     * @param mixed $level
+     * @param string $message
+     * @param array $context
+     * @return void
+     */
+    public function log($level, $message, array $context = array()) {
+        \Mage::log($message, null, $this->filename);
     }
 }

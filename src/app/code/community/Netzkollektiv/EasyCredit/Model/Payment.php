@@ -1,4 +1,7 @@
 <?php
+use Teambank\RatenkaufByEasyCreditApiV3\Model\CaptureRequest;
+use Teambank\RatenkaufByEasyCreditApiV3\Model\RefundRequest;
+use Teambank\RatenkaufByEasyCreditApiV3\ApiException;
 
 class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_Abstract
 {
@@ -20,7 +23,7 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
     protected $_formBlockType = 'easycredit/form';
     protected $_infoBlockType = 'easycredit/info';
 
-    protected $_canOrder = false;
+    protected $_canOrder = true;
 
     protected $_canAuthorize = true;
 
@@ -35,7 +38,23 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
      */
     public function getInstructions()
     {
-        return trim($this->getConfigData('instructions'));
+        return trim((string)$this->getConfigData('instructions'));
+    }
+
+    /**
+     * Validate payment method information object
+     *
+     * @return $this
+     */
+    public function validate()
+    {
+        $data = Mage::app()->getRequest()->getParam('easycredit');
+        if (isset($data['number-of-installments'])) {
+            $this->getInfoInstance()->setAdditionalInformation('duration', $data['number-of-installments']);
+        }
+
+        parent::validate();
+        return $this;
     }
 
     /**
@@ -54,8 +73,9 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
         $active = parent::isAvailable($quote);
         if ($active && !$this->getConfigData('active_when_unavailable')) {
             try {
+                $ecQuote = new \Netzkollektiv\EasyCredit\Api\QuoteBuilder();
                 Mage::helper('easycredit')->getCheckout()->isAvailable(
-                    new \Netzkollektiv\EasyCredit\Api\Quote()
+                    $ecQuote->build()
                 );
             } catch (Exception $e) {
                 $active = false;
@@ -65,29 +85,42 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
     }
 
     /**
-     * Authorize easyCredit payment
+     * Order easyCredit payment
      *
-     * @param Varien_Object $payment
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @param float $amount
      *
-     * @return Netzkollektiv_EasyCredit_Model_Payment
+     * @return $this
      */
-    public function authorize(Varien_Object $payment, $amount)
+    public function order(Varien_Object $payment, $amount)
     {
-        if (!$this->canAuthorize()) {
-            Mage::throwException(Mage::helper('payment')->__('Authorize action is not available.'));
+        if (!$this->canOrder()) {
+            Mage::throwException(Mage::helper('payment')->__('Order action is not available.'));
         }
-        
-    
-        Mage::helper('easycredit')->getCheckout()
-            ->capture(null, $payment->getOrder()->getIncrementId());
 
-        $payment->setTransactionId($payment->getAdditionalInformation('transaction_id'));
-        $payment->setIsTransactionClosed(false);
+        try {
+            if (!Mage::helper('easycredit')->getCheckout()->authorize($payment->getOrder()->getIncrementId())) {
+                Mage::throwException(Mage::helper('payment')->__('Transaction could not be authorized'));
+            }
 
+            $payment->setTransactionId(
+                $payment->getAdditionalInformation('transaction_id')
+            )->setIsTransactionClosed(false)
+                ->setIsTransactionPending(true);
+        } catch (\Exception $e) {
+            Mage::throwException(Mage::helper('payment')->__($e->getMessage()));
+        }
         return $this;
     }
 
+    /**
+     * Capture payment abstract method
+     *
+     * @param Mage_Sales_Model_Order_Payment $payment
+     * @param float $amount
+     *
+     * @return $this
+     */
     public function capture(Varien_Object $payment, $amount)
     {
         if (!$this->canCapture()) {
@@ -99,8 +132,12 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
 
             $this->_getTransaction($txId);
 
-            Mage::helper('easycredit')->getMerchant()
-                ->confirmShipment($txId);
+            Mage::helper('easycredit')
+                ->getTransactionApi()
+                ->apiMerchantV3TransactionTransactionIdCapturePost(
+                    $txId,
+                    new CaptureRequest([])
+                );
 
             $payment->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE, null, false, 'easyCredit Transaction captured');
 
@@ -110,6 +147,14 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
         return $this;
     }
 
+    /**
+     * Refund specified amount for payment
+     *
+     * @param Varien_Object $payment
+     * @param float $amount
+     *
+     * @return $this
+     */
     public function refund(Varien_Object $payment, $amount)
     {
         if (!$this->canRefund()) {
@@ -121,12 +166,12 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
 
             $this->_getTransaction($txId);
 
-            Mage::helper('easycredit')->getMerchant()->cancelOrder(
-                $txId,
-                $payment->getAmountAuthorized() > $amount ? 'WIDERRUF_TEILWEISE' : 'WIDERRUF_VOLLSTAENDIG',
-                new DateTime(),
-                $amount
-            );
+            Mage::helper('easycredit')
+                ->getTransactionApi()
+                ->apiMerchantV3TransactionTransactionIdRefundPost(
+                    $txId,
+                    new RefundRequest(['value' => $amount])
+                );
         } catch (Exception $e) {
             Mage::throwException(Mage::helper('payment')->__($e->getMessage()));
         }
@@ -135,13 +180,20 @@ class Netzkollektiv_EasyCredit_Model_Payment extends Mage_Payment_Model_Method_A
 
     protected function _getTransaction($txId)
     {
-        $transaction = Mage::helper('easycredit')->getMerchant()
-            ->getTransaction($txId);
-
-        if (count($transaction) !== 1) {
-            throw new Exception('Payment transaction not found. 
-            It can take up to 24 hours until the transaction is available in the merchant portal. 
-            If you still want to create the invoice immediately, please use "Capture Offline".');
+        try {
+            $transaction = Mage::helper('easycredit')
+                ->getTransactionApi()
+                ->apiMerchantV3TransactionTransactionIdGet($txId);
+        } catch (ApiException $e) {
+            throw new \Exception(
+                'Payment transaction not found.
+                It can take up to 24 hours until the transaction is available in the merchant portal.
+                If you still want to create the invoice immediately, please use "Capture Offline".'
+            );
+        } catch (\Exception $e) {
+            throw new \Exception(
+                'An error occured when searching the transaction.'
+            );
         }
         return $transaction;
     }

@@ -1,14 +1,20 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <easycredit_tx_manager>
-        <reference name="head">
-            <action method="addItem"><type>skin_css</type><name>easycredit/css/app.css</name></action>
-            <action method="addItem"><type>skin_js</type><name>easycredit/js/app.js</name></action>
+    <easycredit_components>
+        <reference name="before_body_end">
+            <block type="core/text" name="easycredit_script" as="easycredit_script">
+                <action method="setText">
+                    <text><![CDATA[
+                        <script type="module" src="https://ratenkauf.easycredit.de/api/resource/webcomponents/v3/easycredit-components/easycredit-components.esm.js"></script>
+                        <script nomodule src="https://ratenkauf.easycredit.de/api/resource/webcomponents/v3/easycredit-components/easycredit-components.js"></script>
+                    ]]></text>
+                </action>
+            </block>
         </reference>
-    </easycredit_tx_manager>
+    </easycredit_components>
 
     <adminhtml_sales_order_view>
-        <update handle="easycredit_tx_manager" />
+        <update handle="easycredit_components" />
 
         <reference name="order_totals">
             <block type="adminhtml/sales_order_totals_item" name="easycredit" template="easycredit/sales/order/total.phtml" />
@@ -16,42 +22,42 @@
     </adminhtml_sales_order_view>
     
     <adminhtml_sales_order_invoice_new>
-        <update handle="easycredit_tx_manager" />
+        <update handle="easycredit_components" />
         <reference name="invoice_totals">
             <block type="adminhtml/sales_order_totals_item" name="easycredit" template="easycredit/sales/order/total.phtml" />
         </reference>
     </adminhtml_sales_order_invoice_new>
 
     <adminhtml_sales_order_invoice_updateqty>
-        <update handle="easycredit_tx_manager" />
+        <update handle="easycredit_components" />
         <reference name="invoice_totals">
             <block type="adminhtml/sales_order_totals_item" name="easycredit" template="easycredit/sales/order/total.phtml" />
         </reference>
     </adminhtml_sales_order_invoice_updateqty>
 
     <adminhtml_sales_order_invoice_view>
-        <update handle="easycredit_tx_manager" />
+        <update handle="easycredit_components" />
         <reference name="invoice_totals">
             <block type="adminhtml/sales_order_totals_item" name="easycredit" template="easycredit/sales/order/total.phtml" />
         </reference>
     </adminhtml_sales_order_invoice_view>
 
     <adminhtml_sales_order_creditmemo_new>
-        <update handle="easycredit_tx_manager" />
+        <update handle="easycredit_components" />
         <reference name="creditmemo_totals">
             <block type="adminhtml/sales_order_totals_item" name="easycredit" template="easycredit/sales/order/total.phtml" />
         </reference>
     </adminhtml_sales_order_creditmemo_new>
      
     <adminhtml_sales_order_creditmemo_updateqty>
-        <update handle="easycredit_tx_manager" />
+        <update handle="easycredit_components" />
         <reference name="creditmemo_totals">
             <block type="adminhtml/sales_order_totals_item" name="easycredit" template="easycredit/sales/order/total.phtml" />
         </reference>
     </adminhtml_sales_order_creditmemo_updateqty>
 
     <adminhtml_sales_order_creditmemo_view>
-        <update handle="easycredit_tx_manager" />
+        <update handle="easycredit_components" />
         <reference name="creditmemo_totals">
             <block type="adminhtml/sales_order_totals_item" name="easycredit.refunded" template="easycredit/sales/order/refunded.phtml">
                 <action method="setDisplayArea"><area>footer</area></action>

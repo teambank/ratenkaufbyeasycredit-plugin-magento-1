@@ -1,0 +1,8 @@
+<?php
+$amount = Mage::getModel('checkout/session')->getQuote()->getGrandTotal();
+if ($amount > 0) : ?>
+<easycredit-widget
+    webshop-id="<?php echo Mage::getStoreConfig('payment/easycredit/api_key'); ?>"
+    amount="<?php echo $amount; ?>"
+/>
+<?php endif; ?>

@@ -1,7 +1,9 @@
 <?php
 namespace Netzkollektiv\EasyCredit\Api;
 
-class Storage implements \Netzkollektiv\EasyCreditApi\StorageInterface {
+use Teambank\RatenkaufByEasyCreditApiV3\Integration\StorageInterface;
+
+class Storage implements StorageInterface {
 
     protected $_payment;
 

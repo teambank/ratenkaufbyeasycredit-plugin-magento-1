@@ -10,8 +10,6 @@
 
 class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
 
-    protected $_customerPrefixes = array('Herr','Frau');
-
     public function __construct() {
         parent::__construct();
         $this->setTemplate('easycredit/form.phtml');
@@ -25,10 +23,20 @@ class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
             ->setMethodLabelAfterHtml($methodTitle->toHtml());
     }
 
+    public function getWebshopId() {
+        return Mage::getStoreConfig('payment/easycredit/api_key');
+    }
+
+    public function getGrandTotal() {
+        return Mage::getModel('checkout/session')->getQuote()->getGrandTotal();
+    }
+
     public function checkAvailability() {
 
-        $quote = new \Netzkollektiv\EasyCredit\Api\Quote();
         $checkout = Mage::helper('easycredit')->getCheckout();
+
+        $ecQuote = new \Netzkollektiv\EasyCredit\Api\QuoteBuilder();
+        $quote = $ecQuote->build();
 
         try {
             $checkout->isAvailable($quote);
@@ -36,30 +44,5 @@ class Netzkollektiv_EasyCredit_Block_Form extends Mage_Payment_Block_Form {
             return $e->getMessage();
         }
         return false;
-    }
-
-    public function getAgreement() {
-        $error = false;
-
-        try {
-            $text = Mage::helper('easycredit')->getCheckout()
-                ->getAgreement();
-        } catch (Exception $e) {
-            $text = $this->__($e->getMessage());
-            $error = true;
-        }
-
-        return array("text" => $text, "error" => $error);
-    }
-
-    public function hasCustomerPrefix() {
-        return Mage::helper('easycredit')->getCheckout()->isPrefixValid(
-            Mage::getSingleton('checkout/session')->getQuote()
-                ->getCustomerPrefix()
-        ); 
-    }
-
-    public function getAllowedCustomerPrefixes() {
-        return $this->_customerPrefixes;
     }
 }

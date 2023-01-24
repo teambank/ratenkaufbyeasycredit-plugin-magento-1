@@ -1,4 +1,9 @@
 <?php
+use Teambank\RatenkaufByEasyCreditApiV3\Model\TransactionInformation;
+use Teambank\RatenkaufByEasyCreditApiV3\ApiException;
+
+use Netzkollektiv\EasyCredit\Api as Api;
+
 class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_Front_Action {
 
     protected function _validateQuote() {
@@ -36,12 +41,10 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
 
             $this->_validateQuote();
 
+            $ecQuote = new \Netzkollektiv\EasyCredit\Api\QuoteBuilder();
             $checkout = Mage::helper('easycredit')->getCheckout();
             $checkout->start(
-                new \Netzkollektiv\EasyCredit\Api\Quote(),
-                Mage::getUrl('*/*/cancel'),
-                Mage::getUrl('*/*/return'),
-                Mage::getUrl('*/*/reject')
+                $ecQuote->build()
             );
 
             $this->_getQuote()->collectTotals()->save();
@@ -50,6 +53,19 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
                 $this->getResponse()->setRedirect($url);
                 return;
             }
+        } catch (ApiException $e) {
+            $response = json_decode((string) $e->getResponseBody());
+            if ($response === null || !isset($response->violations)) {
+                throw new \Exception('violations could not be parsed');
+            }
+            $messages = [];
+            foreach ($response->violations as $violation) {
+                $messages[] = $violation->field . ': ' . $violation->message;
+            }
+
+            $logger = new Api\Logger();
+            $logger->notice('easyCredit-Ratenkauf could not be initalized: '.implode(', ',$messages));
+            $this->_getCheckoutSession()->addError($this->__('Unable to initialize easyCredit Payment.'));
         } catch (Mage_Core_Exception $e) {
             $this->_getCheckoutSession()->addError($this->__($e->getMessage()));
         } catch (Exception $e) {
@@ -64,13 +80,9 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
         try {
             $this->_validateQuote();
 
-            $checkout = Mage::helper('easycredit')->getCheckout();
-
-            if (!$checkout->isApproved()) {
-                throw new Exception('transaction not approved'); 
-            }
-
-            $checkout->loadFinancingInformation();
+            Mage::helper('easycredit')
+                ->getCheckout()
+                ->loadTransaction();
 
             $quote = $this->_getQuote();
             $quote->getPayment()
@@ -134,33 +146,68 @@ class Netzkollektiv_EasyCredit_CheckoutController extends Mage_Core_Controller_F
         $this->_redirect('checkout/cart');
     }
 
-    /**
-     * JSON controller, returns consent text for shop
-     */
-/*    public function consentAction() {
-        $checkout = Mage::getSingleton('easycredit/checkout');
+    public function authorizeAction()
+    {
+        $secToken = $this->getRequest()->getParam('secToken');
+        $txId = $this->getRequest()->getParam('transactionId');
+        $incrementId = $this->getRequest()->getParam('orderId');
 
-        $status = false;
-        $errorMessage = "";
-        $text = '';
-
-
-
-        try {
-            $text = $easyCreditApi->getTextConsent();
-            $status = true;
-        } catch (Exception $e) {
-            $errorMessage = $e->getMessage();
+        if (!$txId) {
+            throw new \Exception('no transaction ID provided');
         }
 
-        $result = [
-            'status' => $status,
-            'text' => $text,
-            'errorMessage' => $errorMessage
-        ];
+        $order = Mage::getModel('sales/order')->loadByIncrementId($incrementId);
+        if ($order->getState() != Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW) {
+            throw new \Exception('order status not valid for authorization');
+        }
 
-        $this->getResponse()->setHeader('Content-type', 'application/json');
-        $this->getResponse()->setBody(json_encode($result));
+        $payment = $order->getPayment();
+        if (!isset($payment->getAdditionalInformation()['sec_token'])
+            && $secToken !== $payment->getAdditionalInformation()['sec_token']
+        ) {
+            throw new \Exception('secToken not valid');
+        }
+
+        $token = $payment->getAdditionalInformation()['token'] ?? null;
+        $tx =  Mage::helper('easycredit')
+            ->getCheckout()
+            ->loadTransaction($token);
+
+        if ($tx->getStatus() !== TransactionInformation::STATUS_AUTHORIZED) {
+            throw new \Exception('payment status of transaction not updated as transaction status is not AUTHORIZED');
+        }
+
+        $payment->setParentTransactionId($txId)
+            ->setTransactionId($txId.'-authorize')
+            ->setIsTransactionClosed(false)
+            ->authorize(
+                true,
+                $payment->getBaseAmountOrdered()
+            );
+
+        $this->setNewOrderState($order);
+
+        $order->save();
     }
-*/
+
+    private function setNewOrderState($order)
+    {
+        if (! $order instanceof Mage_Sales_Model_Order) {
+            return;
+        }
+
+        $paymentMethod = $order->getPayment()->getMethod();
+        if ($paymentMethod !== Netzkollektiv_EasyCredit_Model_Payment::CODE) {
+            return;
+        }
+
+        $newOrderState = Mage::getStoreConfig('payment/easycredit/order_status', $order->getStoreId());
+
+        if (empty($newOrderState)) {
+            $newOrderState = Mage_Sales_Model_Order::STATE_PROCESSING;
+        }
+        $order->setState($newOrderState)
+            ->setStatus($newOrderState);
+    }
+
 }

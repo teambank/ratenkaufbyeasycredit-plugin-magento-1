@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Netzkollektiv_EasyCredit>
-            <version>1.4.3</version>
+            <version>2.0.0</version>
         </Netzkollektiv_EasyCredit>
     </modules>
     <global>
@@ -61,15 +61,6 @@
             </order_creditmemo>
         </sales>
         <events>
-            <sales_quote_payment_import_data_before>
-                <observers>
-                    <easycredit_sales_quote_payment_import_data_before>
-                        <type>singleton</type>
-                        <class>easycredit/observer</class>
-                        <method>importCustomerPrefix</method>
-                    </easycredit_sales_quote_payment_import_data_before>
-                </observers>
-            </sales_quote_payment_import_data_before>
             <sales_order_invoice_save_after>
                 <observers>
                     <sales_order_invoice_save_after>
@@ -92,10 +83,6 @@
                         <class>easycredit/observer</class>
                         <method>setNewOrderState</method>
                     </sales_order_place_before>
-                    <sales_order_place_before_save_customer_prefix>
-                        <class>easycredit/observer</class>
-                        <method>saveCustomerPrefix</method>
-                    </sales_order_place_before_save_customer_prefix>
                 </observers>
             </sales_order_place_before>
             <sales_order_shipment_save_after>
@@ -251,14 +238,13 @@
                 <order_status>pending</order_status>
                 <allowspecific>1</allowspecific>
                 <specificcountry>DE</specificcountry>
-                <payment_action>authorize_capture</payment_action>
                 <debug_logging>0</debug_logging>
                 <remove_interest>1</remove_interest>
                 <order_status>pending</order_status>
-                <report_shipment>0</report_shipment>
                 <widget_enabled>1</widget_enabled>
+                <widget_cart_enabled>1</widget_cart_enabled>
                 <save_customer_prefix>0</save_customer_prefix>
-                <payment_action>authorize</payment_action>
+                <payment_action>order</payment_action>
             </easycredit>
         </payment>
         <sales>

@@ -1,29 +1,3 @@
-#dt_method_easycredit label {
- background-color:#fff;
-}
-div.easycredit-method-title span {
- background-image:url(../../images/easycredit/ratenkauf-logo.svg);
- display:inline-block;
- overflow:hidden;
- text-indent:-1000px;
- width:52px;
- height:24px;
- background-position-x:center;
- background-repeat:no-repeat;
- background-size:contain;
-}
-.easycredit-disabled {
- -webkit-filter:grayscale(100%);
- filter:grayscale(100%);
-}
-
-#easycredit-agreement-block label {
- display:table;
-}
-#easycredit-agreement-block label > input,
-#easycredit-agreement-block label > span {
- display:table-cell;
-}
-#easycredit-agreement-block label > input {
- margin-right:10px;
+.price-box easycredit-widget {
+    margin-top: 8px;
 }

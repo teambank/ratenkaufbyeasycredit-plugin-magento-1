@@ -6,7 +6,7 @@ Traditional financing solutions are often connected with complicated application
 
 # Getting started
 Are you interested in using easyCredit-Ratenkauf? Contact us now:
-* [sales.ratenkauf@easycredit.de](https://store.shopware.com/en/easyc36021249341f/ratenkauf-by-easycredit.html#)
+* [sales.ratenkauf@easycredit.de](mailto:sales.ratenkauf@easycredit.de)
 * +49 (0)911 5390 2726
   
 or register at [easycredit-ratenkauf.de](https://www.easycredit-ratenkauf.de/registrierung.htm) and we will contact you.
@@ -21,7 +21,7 @@ The **easyCredit-Ratenkauf plugin for Magento 1** can be installed by copying th
 
 # Compatibility
 
-This plugin aims to be as compatible as possible with current and earlier versions of Magento 1. If you still have any problems, please open a ticket or contact [ratenkauf@easycredit.de](mailto:ratenkauf@easycredit.de).
+This plugin aims to be as compatible as possible with current and earlier versions of Magento 1 and OpenMage. If you still have any problems, please open a ticket or contact [ratenkauf@easycredit.de](mailto:ratenkauf@easycredit.de).
 
 # License
 
